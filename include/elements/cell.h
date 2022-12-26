@@ -1,5 +1,5 @@
-#ifndef UTILITIES_H
-#define UTILITIES_H
+#ifndef CELL_H
+#define CELL_H
 
 #include <iostream>
 #include <vector>
@@ -8,7 +8,7 @@
 
 namespace game_elements{
 
-class coordinates{
+class cell{
 
 };
 

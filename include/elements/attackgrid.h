@@ -15,7 +15,6 @@ SHORT DEFINITION:
 
 namespace game_elements{
 
-    
 
 }
 

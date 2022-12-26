@@ -27,4 +27,20 @@
 9 --> notiamo che l'utilizzo di una matrice (rispetto all'alternativa vector) rende il codice molto piu leggibile
     e le operazioni sulla griglia più intuitive.  
 
+10 --> per creare una grid, dobbiamo passare come minimo le posizioni delle boat nella tabella se abbiamo una 
+    griglia di difesa
+
+11 --> visto che le navi su una griglia difensiva sono le medesime di quella di attacco dell'altro giocatore 
+    potremo usare dei puntatori che vengono condivisi
+
+12 --> PROBLEMA --> come identifichiamo diversi pezzi di una nave con la nave stessa? come salviamo le navi nelle
+    griglie se le salviamo già in una matrice
+       SOLUZIONE --> creaiamo una nuova classe "cell" la quale rappresenta il contenuto di una cella della matrice 
+    questo ci porta rappresentare internamente le boat come vettori di celle 
+
+13 --> notiamo che pero nel nostro caso non avendo tutte le navi di dimensione 1 non possiamo implementare delle 
+    navi che ereditino da cell
+
+14 --> dalla scorsa osservazione deriviamo che il vero unique_ptr non è solo la griglia bensi le istanze di boat 
+    che sono condivise tra alcune istanze di grid (a due a due, difesa di un giocatore con attacco di un altro)
 

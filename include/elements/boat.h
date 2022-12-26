@@ -14,7 +14,7 @@ SHORT DEFINITION:
 #include <utilities.h>
 
 namespace game_elements{
-
+    constexpr  int BOAT_NUMBER = 8;
     class boat{
     public:
         //deleted copy assignment, copy constructor and no argument constructor
@@ -25,7 +25,7 @@ namespace game_elements{
     protected:
 
     private:
-
+        std::vector<boat> boats_; 
     };
 
 }

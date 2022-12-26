@@ -1,6 +1,5 @@
 /*
-@author: Mattia Scantamburloame_elements
-@date 26/11/2022
+@author:
 
 SHORT DEFINITION:
 --> This is a derived class which inherit from the base class grid, it also as members to describe 
@@ -11,9 +10,16 @@ SHORT DEFINITION:
 
 #include <iostream>
 
-//#include "" 
+#include "grid.h" 
 
 namespace game_elements{
+
+    class attack_grid : public grid{
+    public:
+    
+    private:
+    
+    };
 
 
 }

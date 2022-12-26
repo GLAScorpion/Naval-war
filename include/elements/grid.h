@@ -1,5 +1,5 @@
 /*
-@author: Mattia Scantamburlo
+@author: 
 
 SHORT DEFINITION:
 --> This abstract class describes the general behavior of a grid
@@ -18,7 +18,6 @@ SHORT DEFINITION:
 #include "supporto.h"
 #include "esplorazione.h"
 #include "utilities.h"
-#include "cell.h"
 
 namespace game_elements{
     
@@ -34,21 +33,23 @@ namespace game_elements{
         grid() = delete;
         grid(const grid& g) = delete;
         grid& operator=(const grid& g) = delete;  
+                
+    //FUNCTION MEMBERS
+
+    //OPERATORS
+
     protected:
     //CONSTRUCTORS
         //constructor accepting boats const reference
         grid(const std::vector<boat>& b);
         //constructor accepting coordinates for begin and end of boats
         grid(std::initializer_list<coordinates> lst);
-        
-    //FUNCTION MEMBERS
-
-    //OPERATORS
 
     private:
     //DATA MEMBERS
-        std::unique_ptr<cell> map_[COLUMNS][ROWS];
-        std::unique_ptr<boat> b [BOAT_NUMBER];
+        int map_[COLUMNS][ROWS]; // the number BOAT_NUMBER is equivalent to an empty position in the grid, 
+                                 // everything lower than that is the index of the unique_ptr boat array
+        std::unique_ptr<boat> boats_[BOAT_NUMBER];
     };
 
 }

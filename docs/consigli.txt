@@ -4,3 +4,6 @@
 2 --> per il momento conserviamo il nome utilities, nonostante si rifaccia molto all'implementazione della 
     scacchiera, ma se rimanesse solo la classe coordinates e altre informazioni relative alla posizione 
     nella griglia, potremo rinominarla coordinates.h (e coordinates.cpp)
+
+3 --> prestare attenzione al fatto che se includo un header che include altri header non ho necessità di
+    reincludere questi secondi header

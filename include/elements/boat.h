@@ -1,5 +1,5 @@
 /*
-@author: Mattia Scantamburlo
+@author: 
 
 
 SHORT DEFINITION:
@@ -25,7 +25,6 @@ namespace game_elements{
     protected:
 
     private:
-        std::vector<boat> boats_; 
     };
 
 }

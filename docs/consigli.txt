@@ -1,0 +1,6 @@
+1 --> quando abbiamo finito di scrivere il codice è bene notare quali elementi dello specifico file che abbiamo 
+    prodotto sono costanti (es: la dimensione di alcune barche, etc...) e creare delle variabili costanti
+
+2 --> per il momento conserviamo il nome utilities, nonostante si rifaccia molto all'implementazione della 
+    scacchiera, ma se rimanesse solo la classe coordinates e altre informazioni relative alla posizione 
+    nella griglia, potremo rinominarla coordinates.h (e coordinates.cpp)

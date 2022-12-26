@@ -1,0 +1,12 @@
+Per evitare scontro nel naming degli elementi delle varie classi, funzioni, variabili che abbiamo creato
+abbiamo deciso di creare differenti nemespace (es: naval_game o game_elements).
+
+Abbiamo deciso di non fornire alla classe boat la possibilita di muoversi bensi di rendere disponibile il 
+movimento delle barche attraverso la griglia, mentre le speciali abilita di ciascuna boat vengono definite
+nel corpo della corrispettiva classe.
+
+Abbiamo deciso di creare una classe base "grid" che definisce il comportamento generico di una griglia, e due 
+classi derivate per descrivere il lato difensivo(defense_grid) e quello di attacco(attack_grid).
+
+
+

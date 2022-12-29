@@ -1,7 +1,7 @@
 /*
 @author 
 SHORT DEFINITION:
-    derived class (from boat) which define all the operation that a "corazzata" boat is capable to doing and 
+    derived class (from boat) which define all the operation that a "corazzata" boat is capable of doing and 
     receiving (attack, being attacked,...etc)
 */
 

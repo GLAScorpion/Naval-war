@@ -1,7 +1,7 @@
 /*
 @author 
 SHORT DEFINITION:
-    derived class (from boat) which define all the operation that a "supporto" boat is capable to doing and 
+    derived class (from boat) which define all the operation that a "supporto" boat is capable of doing and 
     receiving (heal, being attacked, move,...etc)
 */
 

@@ -1,12 +1,24 @@
+/*
+@author 
+SHORT DEFINITION:
+    derived class (from boat) which define all the operation that a "corazzata" boat is capable to doing and 
+    receiving (attack, being attacked,...etc)
+*/
+
 #ifndef CORAZZATA_H
 #define CORAZZATA_H
 
 #include <iostream>
 
-//#include ""
+#include "boat.h"
 
-namespace naval_elements{
-
+namespace game_elements{
+    class corazzata : public boat{
+    public:
+    
+    private:
+    
+    };
 }
 
 #endif 

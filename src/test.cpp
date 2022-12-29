@@ -4,7 +4,7 @@
 class hello{
 public:
 private:
-    std::vector<std::string> st(2);
+    //std::vector<std::string> st(2);
 };
 
 int main(void){

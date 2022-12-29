@@ -2,8 +2,8 @@
 @author:
 
 SHORT DEFINITION:
---> This is a derived class which inherit from the base class grid, it also as members to describe 
-    the defense side of the naval battle.
+--> Contain a derived class(and some elements related to it) which inherit from the base class grid and 
+    gives a representatin the defense side of the naval battle.
 */
 
 #ifndef DEFENSEGRID_H

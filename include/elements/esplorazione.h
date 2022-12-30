@@ -11,16 +11,21 @@ SHORT DEFINITION:
 #include <iostream>
 
 #include "boat.h"
+#include "attackgrid.h"
 
 namespace game_elements{
 
     class esplorazione : public boat{
     public:
-    
-    private:
-
+    //CONSTRUCTORS
+        //deleted no argument constructor (there are none default properties for a esplorazione boat)
+        esplorazione() = delete;
+        //call the base class constructor with coordinates vector
+        esplorazione(const coordinates& begin, const coordinates& end) : boat(begin,end){}
+    //FUNCTION MEMBERS
+        //move the boat to the given coordinates and find all the boats in a radius of 5 
+        void sonar(attack_grid& dg, const coordinates& coord);
     };
-
 }
 
 #endif 

@@ -11,7 +11,6 @@ SHORT DEFINITION:
 
 #include <iostream>
 #include <vector>
-#include <memory>
 
 #include "boat.h"
 #include "corazzata.h"
@@ -30,27 +29,26 @@ namespace game_elements{
 
     class grid{
     public:
-        grid() = delete;
+    //PUBLIC CONSTRUCTORS
+        //deletes copy constructors
         grid(const grid& g) = delete;
-        grid& operator=(const grid& g) = delete;  
                 
     //FUNCTION MEMBERS
+        //return a vector with all the boat pointers that have a distance from the given coordinates smaller than radius 
+        virtual std::vector<boat*> boat_in_radius(const coordinates& c, int radius) const = 0;
+        //return boat pointer to allow operations on the boat 
+        virtual boat* get_boat(const coordinates& c) const = 0;
 
     //OPERATORS
-
+        //deleted copy assignment operator
+        grid& operator=(const grid& g) = delete;  
+        
     protected:
-    //CONSTRUCTORS
-        //constructor accepting boats const reference
-        grid(const std::vector<boat>& b);
-        //constructor accepting coordinates for begin and end of boats
-        grid(std::initializer_list<coordinates> lst);
-
-    private:
-    //DATA MEMBERS
-        int map_[COLUMNS][ROWS]; // the number BOAT_NUMBER is equivalent to an empty position in the grid, 
-                                 // everything lower than that is the index of the unique_ptr boat array
-        std::unique_ptr<boat> boats_[BOAT_NUMBER];
+        //no arguments constructor
+        grid() {};
     };
+
+
 
 }
 #endif 

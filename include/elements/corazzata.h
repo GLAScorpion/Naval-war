@@ -11,13 +11,19 @@ SHORT DEFINITION:
 #include <iostream>
 
 #include "boat.h"
+#include "attackgrid.h"
 
 namespace game_elements{
     class corazzata : public boat{
     public:
-    
-    private:
-    
+    //CONSTRUCTORS
+        //deleted no argument constructor (there are none default properties for a corazzata)
+        corazzata() = delete;
+        //call the base class constructor with coordinates vector
+        corazzata(const coordinates& begin, const coordinates& end) : boat(begin,end){}
+    //FUNCTION MEMBERS
+        //return true if it attacked a boat
+        bool attack(attack_grid& ag, const coordinates& coord);
     };
 }
 

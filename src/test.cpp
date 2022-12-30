@@ -1,13 +1,14 @@
 #include <iostream>
 #include <vector>
 
-class hello{
-public:
-private:
-    //std::vector<std::string> st(2);
+struct B{
+
+};
+struct A : public B{
+
 };
 
 int main(void){
-    std::vector<std::string> (2);
+    std::vector<B*> v();
     return 0;
 }

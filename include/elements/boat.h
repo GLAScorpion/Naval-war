@@ -14,17 +14,34 @@ SHORT DEFINITION:
 #include <utilities.h>
 
 namespace game_elements{
-    constexpr  int BOAT_NUMBER = 8;
+
     class boat{
     public:
-        //deleted copy assignment, copy constructor and no argument constructor
+    //CONSTRUCTORS
+        //deleted copy constructor 
         boat(const boat& b) = delete;
+        //deleted no argument constructor (there are none default properties for a boat)
+        boat() = delete; 
+
+    //FUNCTION MEMBERS 
+        int get_dimension(){return dimension_;}
+        int get_corazzata(){return corazza_;}
+
+    //OPERATORS
+        //deleted copy assignment
         boat& operator=(const boat& b) = delete;
-        boat() = delete; //it doesn't makes sense to create a boat with default properties 
-        
+
     protected:
+    //CONSTRUTORS
+        //construtor accepting coordinates for begin and end of boat
+        boat(const coordinates& begin, const coordinates& end);
 
     private:
+    //DATA MEMBERS
+        coordinates coord_begin_;
+        coordinates coord_end_;
+        int dimension_; //this number allow user of this class to understand what kind of boat they're using 
+        int corazza_;
     };
 
 }

@@ -15,13 +15,44 @@ SHORT DEFINITION:
 
 namespace game_elements{
 
+    constexpr char HIT = 'X';
+    constexpr char ABSENT = 'O';
+
     class defense_grid : public grid{
     public:
+    //CONSTRUCTOR
+        //deleted no arguments constructor (there are none default properties)
         defense_grid() = delete;
-    private:
-    
-    };
+        //constructor accepting vector of coordinates for begin and end of boats
+        defense_grid(const std::vector<coordinates>& c);
+        //deleted copy 
+        defense_grid(const defense_grid& ag) = delete;
 
+    //FUNCTION MEMBERS
+        //allow boat movements in the grid, throw exception if the move is not possible 
+        void set_boat(boat* b, const coordinates& c);
+        //return a vector with all the boats that have a distance from the given coordinates smaller than radius 
+        std::vector<boat*> boat_in_radius(const coordinates& c, int radius) const override;
+        //return boat pointer to allow operations on the boat 
+        boat* get_boat(const coordinates& c) const override;
+        //check if coordinates match the dimension of the grid
+        bool check_coordinates(const coordinates& c) const;
+        //print the grid
+        std::ostream& write(std::ostream& os) const;
+
+    //OPERATORS
+        //deleted copy assignment
+        defense_grid& operator=(const defense_grid& ag) = delete;
+
+    private:
+    //DATA MEMBERS
+        char map_[COLUMNS][ROWS]; 
+        std::vector<boat*> boats_ = std::vector<boat*> (8); 
+    };
+    //OPERATORS
+        //insertion operator
+        std::ostream& operator<<(std::ostream& os, const defense_grid& dg);
+    
 }
 
 #endif 

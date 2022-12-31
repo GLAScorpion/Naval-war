@@ -29,8 +29,10 @@ class coordinates{
         int x_;
         int y_;
 };
-    //return distance from 2 boats
-    int boat_size(const coordinates& coord1, const coordinates& coord2);
+    //return vertical distance
+    int vertical_distance(const coordinates& coord1, const coordinates& coord2);
+    //return horizontal distance
+    int horizontal_distance(const coordinates& coord1, const coordinates& coord2);
 }
 
 #endif 

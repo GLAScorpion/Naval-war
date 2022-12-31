@@ -24,8 +24,12 @@ namespace game_elements{
         boat() = delete; 
 
     //FUNCTION MEMBERS 
+        //return the dimension of the boat
         int get_dimension(){return dimension_;}
+        //return the value of corazzata
         int get_corazzata(){return corazza_;}
+        //return true if the boat is vertical else it returln false 
+        bool is_vertical();
 
     //OPERATORS
         //deleted copy assignment
@@ -43,7 +47,11 @@ namespace game_elements{
         int dimension_; //this number allow user of this class to understand what kind of boat they're using 
         int corazza_;
     };
-
+    //HELPER FUNCTIONS
+        //return the size of the possible boat given the coordinates for its begin and end
+        int boat_size(const coordinates& coord1, const coordinates& coord2);
+        //check if coordinates are compatible with begin and end of a boat
+        bool check_coordinates(const coordinates& coord1, const coordinates& coord2);
 }
 
 #endif 

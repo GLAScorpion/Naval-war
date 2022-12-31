@@ -15,9 +15,8 @@ SHORT DEFINITION:
 
 namespace game_elements{
 
-    constexpr char CORAZZATA = 'C';
-    constexpr char SUPPORTO = 'S';
-    constexpr char ESPLORAZIONE = 'E';
+    constexpr char HIT = 'X';
+    constexpr char ABSENT = 'O';
 
     class attack_grid : public grid{
     public:
@@ -31,7 +30,7 @@ namespace game_elements{
 
     //FUNCTION MEMBERS
         //return a vector with all the boats that have a distance from the given coordinates smaller than radius 
-        std::vector<boat*> boat_in_radius(const coordinates& c, int radius) const override;
+        std::vector<boat*> boats_in_radius(const coordinates& c, int radius) const override;
         //return boat pointer to allow operations on the boat 
         boat* get_boat(const coordinates& c) const override;
 
@@ -40,6 +39,8 @@ namespace game_elements{
         attack_grid& operator=(const attack_grid& ag) = delete;
         //insertion operator overloading
         std::ostream& operator<<(std::ostream& os);
+        //set map cell, throw exception if coord is invalid
+        void set_cell(const coordinates& coord, char boat_symbol);
 
     private:
     //DATA MEMBERS

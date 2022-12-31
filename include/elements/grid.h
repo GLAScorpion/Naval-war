@@ -35,7 +35,7 @@ namespace game_elements{
                 
     //FUNCTION MEMBERS
         //return a vector with all the boat pointers that have a distance from the given coordinates smaller than radius 
-        virtual std::vector<boat*> boat_in_radius(const coordinates& c, int radius) const = 0;
+        virtual std::vector<boat*> boats_in_radius(const coordinates& c, int radius) const = 0;
         //return boat pointer to allow operations on the boat 
         virtual boat* get_boat(const coordinates& c) const = 0;
 

@@ -12,8 +12,11 @@ SHORT DEFINITION:
 #include <iostream>
 
 #include "boat.h"
+#include "defensegrid.h"
 
 namespace game_elements{
+
+    constexpr int RADIUS = 5;
 
     class supporto : public boat{
     public:

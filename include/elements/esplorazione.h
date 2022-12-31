@@ -15,6 +15,8 @@ SHORT DEFINITION:
 
 namespace game_elements{
 
+    constexpr int RADIUS = 5;
+
     class esplorazione : public boat{
     public:
     //CONSTRUCTORS

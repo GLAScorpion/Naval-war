@@ -20,19 +20,24 @@ class coordinates{
     public:
     //CONSTRUCTORS
         //constructor accepting two integers
-        coordinates(int x, int y): x_{x}, y_{y}{}
+        coordinates(int x = 0, int y = 0): x_{x}, y_{y}{}
+
+    //FUNCTION MEMEBERS
         //return x coordinate
         int get_x() const {return x_;}
         //return y coordinate
         int get_y() const {return y_;}
+
     private:
+    //DATA MEMBERS
         int x_;
         int y_;
 };
-    //return vertical distance
-    int vertical_distance(const coordinates& coord1, const coordinates& coord2);
-    //return horizontal distance
-    int horizontal_distance(const coordinates& coord1, const coordinates& coord2);
+    //HELPER FUNCTIONS
+        //return vertical distance
+        int vertical_distance(const coordinates& coord1, const coordinates& coord2);
+        //return horizontal distance
+        int horizontal_distance(const coordinates& coord1, const coordinates& coord2);
 }
 
 #endif 

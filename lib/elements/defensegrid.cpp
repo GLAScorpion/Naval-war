@@ -48,7 +48,7 @@
     void game_elements::defense_grid::set_boat(boat* b, const coordinates& coord){
 
     }
-    std::vector<game_elements::boat*> game_elements::defense_grid::boat_in_radius(const coordinates& coord, int radius) const{
+    std::vector<game_elements::boat*> game_elements::defense_grid::boats_in_radius(const coordinates& coord, int radius) const{
 
     } 
     game_elements::boat* game_elements::defense_grid::get_boat(const coordinates& coord) const{

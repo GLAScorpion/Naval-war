@@ -25,19 +25,23 @@ namespace game_elements{
 
     //FUNCTION MEMBERS 
         //return the dimension of the boat
-        int get_dimension(){return dimension_;}
+        int get_dimension() const {return dimension_;}
         //return the value of corazzata
-        int get_corazzata(){return corazza_;}
+        int get_corazzata() const {return corazza_;}
         //return boat begin
-        coordinates get_begin(){return coord_begin_;}
+        coordinates get_begin() const {return coord_begin_;}
         //return boat end
-        coordinates get_end(){return coord_end_;}
+        coordinates get_end() const {return coord_end_;}
+        //move the boat in the given position (made by begin coordinate and orientation)
+        void move(const coordinates& begin);
         //set corazza value to max
         void restore_corazza();
         //return true if the boat is vertical else it returln false 
-        bool is_vertical();
+        bool is_vertical() const;
         //reduce boat corazza of one unit if possible, throw exception if it's not
         void hit();
+        //return true the coordinates entered match the come of the coordinates of this boat
+        bool valid_coordinates(const coordinates& coord) const;
 
     //OPERATORS
         //deleted copy assignment
@@ -54,6 +58,7 @@ namespace game_elements{
         coordinates coord_end_;
         int dimension_; //this number allow user of this class to understand what kind of boat they're using 
         int corazza_;
+        bool vertical_;
     };
     
     //HELPER FUNCTIONS

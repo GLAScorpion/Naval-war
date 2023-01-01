@@ -18,6 +18,7 @@ namespace game_elements{
     constexpr char CORAZZATA = 'C';
     constexpr char SUPPORTO = 'S';
     constexpr char ESPLORAZIONE = 'E';
+    constexpr char VOID = ' ';
 
     class defense_grid : public grid{
     public:
@@ -31,7 +32,7 @@ namespace game_elements{
 
     //FUNCTION MEMBERS
         //allow boat operations in the grid, throw exception if it is not possible 
-        void set_boat(boat* b, const coordinates& c);
+        void set_boat(boat* b, const coordinates& begin);
         //return a vector with all the boats that have a distance from the given coordinates smaller than radius 
         std::vector<boat*> boats_in_radius(const coordinates& c, int radius) const override;
         //return boat pointer to allow operations on the boat 
@@ -46,7 +47,7 @@ namespace game_elements{
     //OPERATORS
         //deleted copy assignment
         defense_grid& operator=(const defense_grid& ag) = delete;
-
+        
     private:
     //DATA MEMBERS
         char map_[COLUMNS][ROWS]; 

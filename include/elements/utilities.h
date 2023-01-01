@@ -27,6 +27,16 @@ class coordinates{
         int get_x() const {return x_;}
         //return y coordinate
         int get_y() const {return y_;}
+        //set value of x
+        void set_x(int x) {x_ = x;}
+        //set value of y
+        void set_y(int y) {y_ = y;}
+
+    //OPERATORS
+        //equality operator
+        bool operator==(const coordinates& coord);
+        //assignment operator
+        coordinates& operator=(const coordinates& coord);
 
     private:
     //DATA MEMBERS

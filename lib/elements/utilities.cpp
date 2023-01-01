@@ -1,5 +1,14 @@
 #include "../../include/elements/utilities.h"
 
+//OPERATORS
+    bool game_elements::coordinates::operator==(const coordinates& coord){
+        return (x_ == coord.get_x() && y_ == coord.get_y());
+    }
+    game_elements::coordinates& game_elements::coordinates::operator=(const coordinates& coord){
+        x_ = coord.get_x();
+        y_ = coord.get_y();
+    }
+
 //HELPER FUNCTIONS
     //return vertical distance
     int game_elements::vertical_distance(const coordinates& coord1, const coordinates& coord2){

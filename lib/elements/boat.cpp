@@ -8,11 +8,12 @@
         coord_end_ = end;
         dimension_ = boat_size(coord_begin_, coord_end_);
         corazza_ = dimension_; 
+        vertical_ == ((coord_begin_.get_x() - coord_end_.get_x()) == 0);
     }
 
 //FUNCTION MEMBER
-    bool game_elements::boat::is_vertical(){
-        return ((coord_begin_.get_x() - coord_end_.get_x()) == 0);
+    bool game_elements::boat::is_vertical() const{
+        return vertical_;
     }
     void game_elements::boat::restore_corazza(){
         corazza_ = dimension_;
@@ -22,6 +23,32 @@
             throw std::logic_error("The boat does not exist anymore");
         corazza_--;
     }
+    void game_elements::boat::move(const game_elements::coordinates& begin){
+        coord_begin_ = begin;
+            if(vertical_){
+                coord_end_.set_x(begin.get_x());    
+                coord_end_.set_y(begin.get_y() + dimension_);
+            }else{
+                coord_end_.set_y(begin.get_y());    
+                coord_end_.set_x(begin.get_x() + dimension_);
+            }
+    }
+    bool game_elements::boat::valid_coordinates(const coordinates& coord) const {
+        if(vertical_){
+            if(coord.get_x() == coord_begin_.get_x()){
+                if(vertical_distance(coord,coord_begin_) <= dimension_){
+                    return true;
+                }
+            }
+        }else{
+            if(coord.get_y() == coord_begin_.get_y()){
+                if(horizontal_distance(coord,coord_begin_) <= dimension_){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }   
 
 //HELPER FUNCTIONS
     int game_elements::boat_size(const coordinates& begin, const coordinates& end) {

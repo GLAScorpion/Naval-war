@@ -7,3 +7,5 @@
 
 3 --> prestare attenzione al fatto che se includo un header che include altri header non ho necessità di
     reincludere questi secondi header
+
+4 --> quando è particolarmente vantaggioso si possono adottare algoritmi stl

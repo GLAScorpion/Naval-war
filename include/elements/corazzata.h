@@ -11,9 +11,12 @@ SHORT DEFINITION:
 #include <iostream>
 
 #include "boat.h"
-#include "attackgrid.h"
 
 namespace game_elements{
+    constexpr int CORAZZATA_SIZE = 5;
+
+    class attack_grid;
+
     class corazzata : public boat{
     public:
     //CONSTRUCTORS

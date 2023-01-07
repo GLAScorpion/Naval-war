@@ -7,6 +7,7 @@
     game_elements::coordinates& game_elements::coordinates::operator=(const coordinates& coord){
         x_ = coord.get_x();
         y_ = coord.get_y();
+        return *this;
     }
 
 //HELPER FUNCTIONS

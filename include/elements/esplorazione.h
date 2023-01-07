@@ -11,11 +11,12 @@ SHORT DEFINITION:
 #include <iostream>
 
 #include "boat.h"
-#include "attackgrid.h"
 
 namespace game_elements{
+    constexpr int ESPLORAZIONE_SIZE = 1;
+    constexpr int ESPLORAZIONE_RADIUS = 5;
 
-    constexpr int RADIUS = 5;
+    class attack_grid;
 
     class esplorazione : public boat{
     public:

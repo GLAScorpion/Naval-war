@@ -12,20 +12,15 @@ SHORT DEFINITION:
 #include <iostream>
 #include <vector>
 
-#include "boat.h"
-#include "corazzata.h"
-#include "supporto.h"
-#include "esplorazione.h"
-#include "utilities.h"
-
 namespace game_elements{
     
     constexpr int COLUMNS = 12;
     constexpr int ROWS = 12; 
-    constexpr int CORAZZATA_SIZE = 5;
-    constexpr int SUPPORTO_SIZE = 3;
-    constexpr int ESPLORAZIONE_SIZE = 1;
     constexpr int BOAT_NUMBER = 8;
+    constexpr char VOID = ' ';
+
+    class coordinates;
+    class boat;
 
     class grid{
     public:

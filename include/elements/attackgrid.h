@@ -11,13 +11,14 @@ SHORT DEFINITION:
 #include <iostream>
 
 #include "grid.h" 
-#include "defensegrid.h"
 
 namespace game_elements{
-
     constexpr char HIT = 'X';
     constexpr char ABSENT = 'O';
-    constexpr char VOID = ' ';
+
+    class coordinates;
+    class defense_grid;
+    class boat;
 
     class attack_grid : public grid{
     public:
@@ -36,6 +37,8 @@ namespace game_elements{
         boat* get_boat(const coordinates& coord) const override;
         //set map cell, throw exception if coord is invalid
         void set_cell(const coordinates& coord, char symbol);
+        //return the value of the cell in the given coordinates, throw exception if coord is invalid
+        char get_cell(const coordinates& coord);
         //check if coordinates match the dimension of the grid
         bool check_coordinates(const coordinates& c) const;
         //print the grid
@@ -47,12 +50,12 @@ namespace game_elements{
 
     private:
     //DATA MEMBERS
-        defense_grid* others_grid_ = nullptr;
+        game_elements::defense_grid* others_grid_ = nullptr;
         char map_[COLUMNS][ROWS]; 
-        std::vector<boat*> boats_[BOAT_NUMBER]; 
+        //std::vector<boat*> boats_[BOAT_NUMBER]; 
     };
 
-//HELPER FUNCTION
+//OPERATORS
         //insertion operator overloading
         std::ostream& operator<<(std::ostream& os, const attack_grid& ag);
 

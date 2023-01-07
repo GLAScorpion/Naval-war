@@ -11,14 +11,16 @@ SHORT DEFINITION:
 
 #include <iostream>
 
-#include "grid.h" 
+#include "grid.h"
 
 namespace game_elements{
 
     constexpr char CORAZZATA = 'C';
     constexpr char SUPPORTO = 'S';
     constexpr char ESPLORAZIONE = 'E';
-    constexpr char VOID = ' ';
+
+    class boat;
+    class coordinates;
 
     class defense_grid : public grid{
     public:
@@ -43,6 +45,8 @@ namespace game_elements{
         std::ostream& write(std::ostream& os) const;
         //set map cell, throw exception if coord is invalid
         void set_cell(const coordinates& coord, char boat_symbol);
+        //return the value of the cell in the given coordinates, throw exception if coord is invalid
+        char get_cell(const coordinates& coord);
 
     //OPERATORS
         //deleted copy assignment

@@ -33,6 +33,7 @@ namespace game_elements{
         virtual std::vector<boat*> boats_in_radius(const coordinates& c, int radius) const = 0;
         //return boat pointer to allow operations on the boat 
         virtual boat* get_boat(const coordinates& c) const = 0;
+        virtual std::vector<boat*> get_boats() const = 0;
 
     //OPERATORS
         //deleted copy assignment operator

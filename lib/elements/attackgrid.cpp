@@ -9,7 +9,16 @@
 
 //CONSTRUCTORS
     game_elements::attack_grid::attack_grid(defense_grid* dg){
-        if(!dg) others_grid_ = dg;
+        if(dg) {
+            others_grid_ = dg;
+            for(int i = 0; i < ROWS; i++){
+                for(int j = 0; j < COLUMNS; j++){
+                    map_[i][j] = VOID;
+                }
+            }
+        }else{
+            throw std::invalid_argument("Argument of constructor cannot be a nullptr!");
+        }
     }
 
 //FUNCTION MEMBERS
@@ -23,10 +32,11 @@
         map_[coord.get_y()][coord.get_x()] = boat_symbol;
     }
     std::vector<game_elements::boat*> game_elements::attack_grid::boats_in_radius(const coordinates& coord, int radius) const {
-        return others_grid_->boats_in_radius(coord,radius);
+        return (others_grid_->boats_in_radius(coord,radius));
     }
-    game_elements::boat* game_elements::attack_grid::get_boat(const coordinates& coord) const{
-        return others_grid_->get_boat(coord);
+    game_elements::boat* game_elements::attack_grid::get_boat(const coordinates& coord) const{  
+        if(others_grid_ == nullptr) std::cout <<"ahhh";
+        return (others_grid_->get_boat(coord));
     }
     bool game_elements::attack_grid::check_coordinates(const coordinates& coord) const{
         if(coord.get_x() >= COLUMNS || coord.get_x() < 0 || coord.get_y() >= ROWS || coord.get_y() < 0){
@@ -35,21 +45,30 @@
         return true;
     }
     std::ostream& game_elements::attack_grid::write(std::ostream& os) const{
+        os << "##############";
+        os <<'\n';
         for(int i = 0; i < COLUMNS; i++){
+            os << "#";
             for(int j = 0; j < ROWS; j++){
                 os << map_[i][j];
             }
-            os << '\n';
+            os << "#";
+            os <<'\n';
         }
+        os << "##############";
         return os;
     }
     char game_elements::attack_grid::get_cell(const coordinates& coord){
         check_coordinates(coord);
         return map_[coord.get_y()][coord.get_x()];
     }
+    
+    std::vector<game_elements::boat*> game_elements::attack_grid::get_boats() const{
+        return others_grid_->get_boats();
+    }
 
 //OPERATORS
 
-    std::ostream& operator<<(std::ostream& os, const game_elements::attack_grid& ag){
+    std::ostream& game_elements::operator<<(std::ostream& os, const game_elements::attack_grid& ag){
         return ag.write(os);
     }

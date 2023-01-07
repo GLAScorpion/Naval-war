@@ -32,15 +32,15 @@ namespace game_elements{
         coordinates get_begin() const {return coord_begin_;}
         //return boat end
         coordinates get_end() const {return coord_end_;}
-        //move the boat in the given position (made by begin coordinate and orientation)
-        void move(const coordinates& begin);
+        //move the boat in the given position (made by begin coordinate and orientation), return true in standard version
+        virtual bool move(const coordinates& begin);
         //set corazza value to max
         void restore_corazza();
         //return true if the boat is vertical else it returln false 
         bool is_vertical() const;
         //reduce boat corazza of one unit if possible, throw exception if it's not
         void hit();
-        //return true the coordinates entered match the come of the coordinates of this boat
+        //return true the coordinates entered match the coordinates of this boat
         bool valid_coordinates(const coordinates& coord) const;
 
     //OPERATORS

@@ -26,7 +26,9 @@ namespace game_elements{
         corazzata(const coordinates& begin, const coordinates& end) : boat(begin,end){}
     //FUNCTION MEMBERS
         //return true if it attacked a boat
-        bool attack(attack_grid& ag, const coordinates& coord);
+        bool attack(attack_grid* ag, const coordinates& coord);
+        //version of move which tell the caller this boat does not move
+        bool move(const coordinates& begin) {return false;}
     };
 }
 

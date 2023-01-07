@@ -30,68 +30,57 @@
             check_coordinates(coords[i+1]); // check end
             tmp_x = coords[i].get_x();
             tmp_y = coords[i].get_y();
-            //std::cout<<"BEGIN: x_coord: "<<tmp_x<<" y_coord: "<<tmp_y;
-            //std::cout<<"  END: x_coord: "<<coords[i+1].get_x()<< " y_coord: "<<coords[i+1].get_y() <<std::endl;
+
             //set the vector boats_ and the boat_symbol
             int size = boat_size(coords[i], coords[i+1]);
             if(size == ESPLORAZIONE_SIZE){
-                boats_[i/2] = new esplorazione(coords[i],coords[i+1]);
+                //boats_[i/2] = new esplorazione(coords[i],coords[i+1]);
                 boat_symbol = ESPLORAZIONE;
                 esplorazione_counter++;
             }else if(size == SUPPORTO_SIZE){
-                boats_[i/2] = new supporto(coords[i],coords[i+1]);
+                //boats_[i/2] = new supporto(coords[i],coords[i+1]);
                 boat_symbol = SUPPORTO;
                 supporto_counter++;
             }else if(size == CORAZZATA_SIZE){
-                boats_[i/2] = new corazzata(coords[i],coords[i+1]);
+                //boats_[i/2] = new corazzata(coords[i],coords[i+1]);
                 boat_symbol = CORAZZATA;
                 corazzata_counter++;
             }
+            std::cout<<"hello";
             //sets the map_ symbols
-            for(int k = 0; k < size; k++){
-                //std::cout<<k<<std::endl;
-                if(map_[tmp_y][tmp_x] == VOID){
+            for(int k = 0; k < size; i++){
+                if(map_[tmp_y][tmp_x] != VOID){
                     map_[tmp_y][tmp_x] = boat_symbol;
                 }else{
-                    //std::cout<<*this;
-                    std::cout<<std::endl<<"In coordinates x_coord: "<<tmp_x<<" y_coord: "<<tmp_y<<std::endl;
-                    std::cout<<"With symbol: "<<map_[tmp_y][tmp_x]<<std::endl;
                     throw std::invalid_argument("Error some boat cross!");
                 }
                 if((*boats_[i/2]).is_vertical()){
-                    //std::cout<<"yes"<<std::endl;
                     tmp_y++;
                 }else{
-                    //std::cout<<"no"<<std::endl;
                     tmp_x++;
                 }
             }
-
         }
         //check if the boats types quantity are regular
-        if(esplorazione_counter != 2 || corazzata_counter != 3 || supporto_counter != 3){
-            //std::cout<<esplorazione_counter<<" "<<corazzata_counter<<" "<<supporto_counter<<std::endl;
+        if(esplorazione_counter != 3 || corazzata_counter != 3 || supporto_counter != 2){
             throw std::invalid_argument("Invalid begin and end coordinates for boats!");
         }
     }
 
 //FUNCTION MEMBER
     void game_elements::defense_grid::set_boat(boat* b, const coordinates& begin){
+        coordinates boat_begin = b->get_begin();
+        coordinates boat_end = b->get_end();
         //controls if the moves is possible
-        if(!check_move(b,begin)){
-            throw std::invalid_argument("The move is not possible for the selected boat ad begin coordinate!");
-        }
+        
+        b->move(begin);
+        
         int size = b->get_dimension();
-        int tmp_x = b->get_begin().get_x();
-        int tmp_y = b->get_begin().get_y();
-        
-        if(!b->move(begin)){
-            throw std::invalid_argument("The selected boat cannot move!");
-        } 
-        int x_offset = b->get_begin().get_x() - tmp_x;
-        int y_offset = b->get_begin().get_y() - tmp_y;
-        
+        int tmp_x = boat_begin.get_x();
+        int tmp_y = boat_begin.get_y();
         char boat_symbol = map_[tmp_y][tmp_x];
+        int x_offset = begin.get_x() - tmp_x;
+        int y_offset = begin.get_y() - tmp_y;
         bool vertical = b->is_vertical();
         
         for(int i = 0; i < size; i++){
@@ -132,7 +121,6 @@
     game_elements::boat* game_elements::defense_grid::get_boat(const coordinates& coord) const{
         for(int i = 0; i < BOAT_NUMBER; i++){
             if(boats_[i]->valid_coordinates(coord)){
-                //std::cout<<boats_[i]->get_dimension();
                 return boats_[i];
             }
         }
@@ -146,17 +134,12 @@
     }
 
     std::ostream& game_elements::defense_grid::write(std::ostream& os) const {
-        os << "##############";
-        os <<'\n';
         for(int i = 0; i < COLUMNS; i++){
-            os << "#";
             for(int j = 0; j < ROWS; j++){
                 os << map_[i][j];
             }
-            os << "#";
-            os <<'\n';
+            os << '\n';
         }
-        os << "##############";
         return os;
     }
     void game_elements::defense_grid::set_cell(const coordinates& coord, char boat_symbol){
@@ -172,28 +155,9 @@
         check_coordinates(coord);
         return map_[coord.get_y()][coord.get_x()];
     }
-    std::vector<game_elements::boat*> game_elements::defense_grid::get_boats() const{
-        return boats_;
-    }
 
 //OPERATORS
     std::ostream& game_elements::operator<<(std::ostream& os, const defense_grid& dg ){
         return dg.write(os);
     }
-//HELPER FUNCTIONS
-    bool game_elements::defense_grid::check_move(boat* b, const coordinates& begin){
-        int size = b->get_dimension();
-        int tmp_x = begin.get_x();
-        int tmp_y = begin.get_y();
-        for(int i = 0; i < size; i++){
-            if(map_[tmp_y][tmp_x] != VOID){
-                return false;
-            }
-            if(b->is_vertical()){
-                tmp_y++;
-            }else{
-                tmp_x++;
-            }
-        }
-        return true;
-    }
+

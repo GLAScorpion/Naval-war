@@ -47,6 +47,10 @@ namespace game_elements{
         void set_cell(const coordinates& coord, char boat_symbol);
         //return the value of the cell in the given coordinates, throw exception if coord is invalid
         char get_cell(const coordinates& coord);
+        //return true if the move is possible
+        bool check_move(boat* b, const coordinates& begin);
+        //return all boats
+        std::vector<boat*> get_boats() const override;
 
     //OPERATORS
         //deleted copy assignment

@@ -31,11 +31,42 @@
         }
         map_[coord.get_y()][coord.get_x()] = boat_symbol;
     }
-    std::vector<game_elements::boat*> game_elements::attack_grid::boats_in_radius(const coordinates& coord, int radius) const {
-        return (others_grid_->boats_in_radius(coord,radius));
+    std::vector<game_elements::boat*> game_elements::attack_grid::boats_in_radius(const coordinates& coord, int radius) {
+        int begin_x = (coord.get_x() - radius);
+        int begin_y = (coord.get_y() - radius);
+        int end_x = (coord.get_x() + radius);
+        int end_y = (coord.get_y() + radius);
+        if(begin_x < 0){
+            begin_x = 0;
+        }
+        if(begin_y < 0){
+            begin_y = 0;
+        }
+        if(end_x > ROWS){
+            end_x = ROWS -1;
+        }
+        if(end_y > COLUMNS){
+            end_y = COLUMNS - 1;
+        }
+        game_elements::coordinates tmp (begin_x,begin_y);
+        char symbol;
+        for(int i = begin_y; i < end_y; i++){
+            for(int j = begin_x; j < end_x; j++){
+                symbol = others_grid_->get_cell(tmp);
+                if(symbol != VOID){
+                    symbol = HIT;
+                }else{
+                    symbol = ABSENT;
+                }
+                set_cell(tmp,symbol);
+                tmp.set_x(tmp.get_x()+1);
+            }
+            tmp.set_y(tmp.get_y()+1);
+            tmp.set_x(begin_x);
+        }
+        return others_grid_->boats_in_radius(coord,radius);
     }
     game_elements::boat* game_elements::attack_grid::get_boat(const coordinates& coord) const{  
-        if(others_grid_ == nullptr) std::cout <<"ahhh";
         return (others_grid_->get_boat(coord));
     }
     bool game_elements::attack_grid::check_coordinates(const coordinates& coord) const{

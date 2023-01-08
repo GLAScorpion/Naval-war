@@ -32,7 +32,7 @@ namespace game_elements{
 
     //FUNCTION MEMBERS
         //return a vector with all the boats that have a distance from the given coordinates smaller than radius 
-        std::vector<boat*> boats_in_radius(const coordinates& coord, int radius) const override;
+        std::vector<boat*> boats_in_radius(const coordinates& coord, int radius) override;
         //return boat pointer to allow operations on the boat 
         boat* get_boat(const coordinates& coord) const override;
         //set map cell, throw exception if coord is invalid

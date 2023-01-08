@@ -5,6 +5,7 @@
 #include "../include/elements/defensegrid.h"
 #include "../include/elements/boat.h"
 #include "../include/elements/corazzata.h"
+#include "../include/elements/esplorazione.h"
 
 int main(void){
         std::vector<game_elements::coordinates> v;
@@ -34,8 +35,13 @@ int main(void){
 
     //Testing boat_in_radius of attacking_grid
     std::cout<<std::endl<<"Testing boat_in_radius:"<<std::endl;
-    std::vector<game_elements::boat*> b1 = ag2.boats_in_radius(game_elements::coordinates(1,0),5);
-    std::cout<<"Printing all the begin coordinates of boats in a radius of 5 from point (1,0):"<<std::endl;
+    std::vector<game_elements::boat*> b1;
+
+    std::cout<<std::endl<<"printing ag2 after boats_in_radius on coordinates (1,0)  with radius 5:"<<std::endl;
+    b1 = ag2.boats_in_radius(game_elements::coordinates(1,0),5);
+    std::cout<<ag2<<std::endl;
+
+    std::cout<<std::endl<<"Printing all the begin coordinates of boats in a radius of 5 from point (1,0):"<<std::endl;
     for(int i = 0; i < b1.size(); i++){
         std::cout<<"boat number: "<<i<<" coordinates: ("<<b1[i]->get_begin().get_x()<<", "<<b1[i]->get_begin().get_y()<<")"<<std::endl;
     }
@@ -66,6 +72,18 @@ int main(void){
     }
     std::cout<<"Attacking map after attacking all possible coordinates:"<<std::endl<<ag1<<std::endl;
 
+    std::cout<<std::endl<<"Testing esplorazione sonar:"<<std::endl;
+    
+    game_elements::esplorazione* explorer;
+    
+    //selecting casual explorer
+    for(int i = 0; i < b.size(); i++){
+        if(b[i]->get_dimension() == 3){
+            explorer = dynamic_cast<game_elements::esplorazione*> (b[i]);
+            std::cout<<"Found exploring boat!"<<std::endl;
+            break;
+        }
+    }
 }
 
 /*

@@ -36,7 +36,7 @@ namespace game_elements{
         //allow boat operations in the grid, throw exception if it is not possible 
         void set_boat(boat* b, const coordinates& begin);
         //return a vector with all the boats that have a distance from the given coordinates smaller than radius 
-        std::vector<boat*> boats_in_radius(const coordinates& c, int radius) const override;
+        std::vector<boat*> boats_in_radius(const coordinates& c, int radius)  override;
         //return boat pointer to allow operations on the boat 
         boat* get_boat(const coordinates& c) const override;
         //check if coordinates match the dimension of the grid

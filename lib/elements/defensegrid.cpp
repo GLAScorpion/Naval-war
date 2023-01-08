@@ -105,7 +105,7 @@
         }
 
     }
-    std::vector<game_elements::boat*> game_elements::defense_grid::boats_in_radius(const coordinates& coord, int radius) const{
+    std::vector<game_elements::boat*> game_elements::defense_grid::boats_in_radius(const coordinates& coord, int radius) {
         std::vector<game_elements::boat*> boats;
         
         bool valid = false;
@@ -132,7 +132,6 @@
     game_elements::boat* game_elements::defense_grid::get_boat(const coordinates& coord) const{
         for(int i = 0; i < BOAT_NUMBER; i++){
             if(boats_[i]->valid_coordinates(coord)){
-                //std::cout<<boats_[i]->get_dimension();
                 return boats_[i];
             }
         }
@@ -169,7 +168,9 @@
         map_[coord.get_y()][coord.get_x()] = boat_symbol;
     }
     char game_elements::defense_grid::get_cell(const game_elements::coordinates& coord){
-        check_coordinates(coord);
+        if(!check_coordinates(coord)){
+            throw std::invalid_argument("Coordinates does not match the grid!");
+        }
         return map_[coord.get_y()][coord.get_x()];
     }
     std::vector<game_elements::boat*> game_elements::defense_grid::get_boats() const{

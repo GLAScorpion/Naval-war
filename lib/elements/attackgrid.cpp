@@ -8,6 +8,7 @@
 #include <iostream>
 
 //CONSTRUCTORS
+
     game_elements::attack_grid::attack_grid(defense_grid* dg){
         if(dg) {
             others_grid_ = dg;
@@ -22,6 +23,7 @@
     }
 
 //FUNCTION MEMBERS
+
     void game_elements::attack_grid::set_cell(const coordinates& coord, char boat_symbol){
         if(boat_symbol != VOID && boat_symbol != HIT && boat_symbol != ABSENT){
             throw std::invalid_argument("The symobol is not valid for this grid!");
@@ -31,6 +33,7 @@
         }
         map_[coord.get_y()][coord.get_x()] = boat_symbol;
     }
+
     std::vector<game_elements::boat*> game_elements::attack_grid::boats_in_radius(const coordinates& coord, int radius) {
         int begin_x = (coord.get_x() - radius);
         int begin_y = (coord.get_y() - radius);
@@ -66,15 +69,18 @@
         }
         return others_grid_->boats_in_radius(coord,radius);
     }
+
     game_elements::boat* game_elements::attack_grid::get_boat(const coordinates& coord) const{  
         return (others_grid_->get_boat(coord));
     }
+
     bool game_elements::attack_grid::check_coordinates(const coordinates& coord) const{
         if(coord.get_x() >= COLUMNS || coord.get_x() < 0 || coord.get_y() >= ROWS || coord.get_y() < 0){
             return false;
         }
         return true;
     }
+
     std::ostream& game_elements::attack_grid::write(std::ostream& os) const{
         os << "##############";
         os <<'\n';
@@ -89,6 +95,7 @@
         os << "##############";
         return os;
     }
+    
     char game_elements::attack_grid::get_cell(const coordinates& coord){
         check_coordinates(coord);
         return map_[coord.get_y()][coord.get_x()];

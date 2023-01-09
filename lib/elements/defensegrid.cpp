@@ -5,11 +5,10 @@
 #include "../../include/elements/esplorazione.h"
 #include "../../include/elements/utilities.h"
 
-
-
 //CONSTRUCTORS
+
     game_elements::defense_grid::defense_grid(const std::vector<coordinates>& coords){
-        if(coords.size() != 16)
+        if(coords.size() != COORD_NUMBER)
             throw std::invalid_argument("The number of boats for a defense grid is 8!");
 
         for(int i = 0; i < ROWS; i++){
@@ -25,6 +24,7 @@
         int tmp_x = 0;
         int tmp_y = 0;
         char boat_symbol;
+
         for(int i = 0; i < coords.size() ; i+=2){
             check_coordinates(coords[i]); // check begin 
             check_coordinates(coords[i+1]); // check end
@@ -56,7 +56,7 @@
                     //std::cout<<*this;
                     std::cout<<std::endl<<"In coordinates x_coord: "<<tmp_x<<" y_coord: "<<tmp_y<<std::endl;
                     std::cout<<"With symbol: "<<map_[tmp_y][tmp_x]<<std::endl;
-                    throw std::invalid_argument("Error some boat cross!");
+                    throw std::invalid_argument("Error: some boat cross!");
                 }
                 if((*boats_[i/2]).is_vertical()){
                     //std::cout<<"yes"<<std::endl;
@@ -76,6 +76,7 @@
     }
 
 //FUNCTION MEMBER
+
     void game_elements::defense_grid::set_boat(boat* b, const coordinates& begin){
         //controls if the moves is possible
         if(!check_move(b,begin)){
@@ -105,6 +106,7 @@
         }
 
     }
+
     std::vector<game_elements::boat*> game_elements::defense_grid::boats_in_radius(const coordinates& coord, int radius) {
         std::vector<game_elements::boat*> boats;
         
@@ -129,6 +131,7 @@
         }
         return boats;
     } 
+
     game_elements::boat* game_elements::defense_grid::get_boat(const coordinates& coord) const{
         for(int i = 0; i < BOAT_NUMBER; i++){
             if(boats_[i]->valid_coordinates(coord)){
@@ -137,6 +140,7 @@
         }
         return nullptr;
     }
+
     bool game_elements::defense_grid::check_coordinates(const coordinates& coord) const{
         if(coord.get_x() >= COLUMNS || coord.get_x() < 0 || coord.get_y() >= ROWS || coord.get_y() < 0){
             return false;
@@ -158,6 +162,7 @@
         os << "##############";
         return os;
     }
+
     void game_elements::defense_grid::set_cell(const coordinates& coord, char boat_symbol){
         if(boat_symbol != VOID && boat_symbol != CORAZZATA && boat_symbol != ESPLORAZIONE && boat_symbol != SUPPORTO){
             throw std::invalid_argument("The symobol is not valid for this grid!");
@@ -167,21 +172,26 @@
         }
         map_[coord.get_y()][coord.get_x()] = boat_symbol;
     }
+
     char game_elements::defense_grid::get_cell(const game_elements::coordinates& coord){
         if(!check_coordinates(coord)){
             throw std::invalid_argument("Coordinates does not match the grid!");
         }
         return map_[coord.get_y()][coord.get_x()];
     }
+
     std::vector<game_elements::boat*> game_elements::defense_grid::get_boats() const{
         return boats_;
     }
 
 //OPERATORS
+
     std::ostream& game_elements::operator<<(std::ostream& os, const defense_grid& dg ){
         return dg.write(os);
     }
+
 //HELPER FUNCTIONS
+
     bool game_elements::defense_grid::check_move(boat* b, const coordinates& begin){
         int size = b->get_dimension();
         int tmp_x = begin.get_x();

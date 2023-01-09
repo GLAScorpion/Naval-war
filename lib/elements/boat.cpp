@@ -1,6 +1,7 @@
 #include "../../include/elements/boat.h"
 
 //CONSTRUCTORS
+
     game_elements::boat::boat(const coordinates& begin, const coordinates& end){
         if(!check_coordinates(begin, end))
             throw std::logic_error("Invalid boat positions!");
@@ -14,17 +15,21 @@
     }
 
 //FUNCTION MEMBER
+
     bool game_elements::boat::is_vertical() const{
         return vertical_;
     }
+
     void game_elements::boat::restore_corazza(){
         corazza_ = dimension_;
     }
+
     void game_elements::boat::hit(){
         if(corazza_ < 0)
             throw std::logic_error("The boat does not exist anymore");
         corazza_--;
     }
+
     bool game_elements::boat::move(const game_elements::coordinates& begin){
         coord_begin_ = begin;
             if(vertical_){
@@ -36,6 +41,7 @@
             }
         return true;
     }
+    
     bool game_elements::boat::valid_coordinates(const coordinates& coord) const {
         if(vertical_){
             if(coord.get_x() == coord_begin_.get_x()){
@@ -54,6 +60,7 @@
     }   
 
 //HELPER FUNCTIONS
+
     int game_elements::boat_size(const coordinates& begin, const coordinates& end) {
         if(!check_coordinates){
             throw std::logic_error("Invalid boat positions!");
@@ -62,6 +69,7 @@
         int dy = vertical_distance(begin,end);
         return dx+dy+1;
     }
+    
     bool game_elements::check_coordinates(const coordinates& begin, const coordinates& end){
         if(begin.get_x() > end.get_x() || begin.get_y() > end.get_y()){
             return false;

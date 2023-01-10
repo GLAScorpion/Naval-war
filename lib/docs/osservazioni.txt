@@ -1,0 +1,46 @@
+1 --> notiamo che diversamente dal gioco degli scacchi abbiamo una griglia di attacco e una di difesa
+
+2 --> notiamo che diversamente dagli scacchi abbiamo una griglia un cui diverse posizioni possono coincidere 
+    con il medesimo elemento
+
+3 --> notiamo che possiamo definire il movimento all'interno della griglia di difesa allinterno della classe 
+    "griglia di difesa" stessa, mentre dobbiamo fornire all'interno di ciascuna classe barca le sue speciali
+    abilità (sonar, attack, heal)
+
+4 --> notiamo che possiamo definire i comandi speciali come esempi degeneri di coordinate (come "AA AA") e 
+    quindi passare da terminale dati per creare una nuova istanza di coordinates 
+
+5 --> notiamo che non abbiamo una singola tabella che viene condivisa dai giocatori, sulla quale vengono fatti 
+    cambiamenti visibili a tutti i giocatori, ne abbiamo infatti quattro che permettono a ciascuno dei due 
+    giocatori di definire come la battaglia si sta svolgendo sul fronte di attacco e su quello difensivo
+
+6 --> visto che non esiste una posizione standard iniziale disabilitamo il costruttore senza argomenti(generato 
+    dal compilatore) delle classi grid che pero diversamente da chessboard avranno
+
+7 --> notiamo che l'utilizzo di unique_ptr in scacchi era dovuto al fatto che (come scritto sopra, nota 5) 
+    abbiamo una sola istanza di chessboard che viene condivisa da tutti i giocatori, pezzi, etc...
+    Il suo utilizzo puo essere discutibile nel nostro caso, visto che avendo meno utilizzatori della specifica
+    grid ci sono meno possibili rischi (es: eccezione dentro a una funzione senza liberare risorse)
+
+8 --> notiamo che puo nel nostro caso non essere necessario adottare una matrice di unique_ptr
+
+9 --> notiamo anche che l'utilizzo di una matrice (rispetto all'alternativa vector) rende il codice molto piu leggibile
+    e le operazioni sulla griglia più intuitive.  
+
+10 --> per creare una grid, dobbiamo passare come minimo le posizioni delle boat nella tabella se abbiamo una 
+    griglia di difesa
+
+11 --> notiamo che pero nel nostro caso non avendo tutte le navi di dimensione 1 non possiamo implementare delle 
+    navi che ereditino da cell
+
+12 --> dalla scorsa osservazione deriviamo che il vero unique_ptr non è solo la griglia bensi le istanze di boat 
+    che sono condivise tra alcune istanze di grid (a due a due, difesa di un giocatore con attacco di un altro)
+
+13 --> notiamo che non usando una matrice di puntatori come rappresentazione interna della griglia di grid 
+    non perdiamo vantaggi considerevoli
+
+14 --> notiamo che le griglie devono essere variabili di stato della classe player 
+
+15 --> notiamo che, rimanendo sulla scelta di adottare una matrice e non un vettore di vettori, possiamo mettere
+    come tipo contenuto nelle celle della matrice un intero che rappresenta l'indice del vettore di boat nella 
+    classe grid in modo tale da sapere su quale nave bisigna eseguire dei check dopo un colpo.

@@ -25,7 +25,7 @@
             throw std::logic_error("The boat does not exist anymore");
         corazza_--;
     }
-    bool game_elements::boat::move(const game_elements::coordinates& begin){
+    bool game_elements::boat::set_coordinates(const game_elements::coordinates& begin){
         coord_begin_ = begin;
             if(vertical_){
                 coord_end_.set_x(begin.get_x());    
@@ -34,7 +34,7 @@
                 coord_end_.set_y(begin.get_y());    
                 coord_end_.set_x(begin.get_x() + dimension_ - 1);
             }
-        return true;
+            return true;
     }
     bool game_elements::boat::valid_coordinates(const coordinates& coord) const {
         if(vertical_){

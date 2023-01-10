@@ -28,7 +28,7 @@ namespace game_elements{
         supporto(const coordinates& begin, const coordinates& end) : boat(begin,end){}
     //FUNCTION MEMBERS
         //move the boat to the given coordinates and heals all the boats in a radius of 5 
-        void move_and_heal(defense_grid& dg, const coordinates& coord);
+        bool action(grid* g, const coordinates& coord) override;
     };
 
 }

@@ -14,7 +14,7 @@ SHORT DEFINITION:
 #include "utilities.h"
 
 namespace game_elements{
-
+    class grid;
     class boat{
     public:
     //CONSTRUCTORS
@@ -33,7 +33,7 @@ namespace game_elements{
         //return boat end
         coordinates get_end() const {return coord_end_;}
         //move the boat in the given position (made by begin coordinate and orientation), return true in standard version
-        virtual bool move(const coordinates& begin);
+        virtual bool set_coordinates(const coordinates& begin);
         //set corazza value to max
         void restore_corazza();
         //return true if the boat is vertical else it returln false 
@@ -42,7 +42,8 @@ namespace game_elements{
         void hit();
         //return true the coordinates entered match the coordinates of this boat
         bool valid_coordinates(const coordinates& coord) const;
-
+        //operate
+        virtual bool action(grid* g, const coordinates& coord) = 0; 
     //OPERATORS
         //deleted copy assignment
         boat& operator=(const boat& b) = delete;

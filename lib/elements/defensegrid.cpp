@@ -85,7 +85,7 @@
         int tmp_x = b->get_begin().get_x();
         int tmp_y = b->get_begin().get_y();
         
-        if(!b->move(begin)){
+        if(!b->set_coordinates(begin)){
             throw std::invalid_argument("The selected boat cannot move!");
         } 
         int x_offset = b->get_begin().get_x() - tmp_x;

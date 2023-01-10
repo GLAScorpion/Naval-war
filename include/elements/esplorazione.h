@@ -27,7 +27,7 @@ namespace game_elements{
         esplorazione(const coordinates& begin, const coordinates& end) : boat(begin,end){}
     //FUNCTION MEMBERS
         //move the boat to the given coordinates and find all the boats in a radius of 5 
-        void sonar(attack_grid& dg, const coordinates& coord);
+        bool action(grid* g, const coordinates& coord) override;
     };
 }
 

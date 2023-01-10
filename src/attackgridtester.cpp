@@ -63,7 +63,7 @@ int main(void){
     std::cout<<"Defender map"<<std::endl<<dg2<<std::endl<<std::endl;
     for(int i = 0; i < 12; i++){
         for(int j = 0; j < 12; j++){
-            if(attacker != nullptr && attacker->attack(&ag1,game_elements::coordinates(j,i))){
+            if(attacker != nullptr && attacker->action(&ag1,game_elements::coordinates(j,i))){
                 //std::cout<<"Hey, you caught a boat!"<<std::endl;
             }else{
                 //std::cout<<"Nothing special in the attacking coordinates!"<<std::endl;

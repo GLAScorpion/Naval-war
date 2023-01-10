@@ -16,8 +16,25 @@ SHORT DEFINITION:
 namespace game_elements{
 
     class boat{
-    public:
+    private:
 
+    //DATA MEMBERS
+        coordinates coord_begin_;
+        coordinates coord_end_;
+        int dimension_; //this number allow user of this class to understand what kind of boat they're using 
+        int corazza_;
+        
+        bool vertical_;
+    
+    protected:
+
+    //CONSTRUCTORS
+
+        //constructor accepting coordinates for begin and end of boat
+        boat(const coordinates& begin, const coordinates& end);
+
+    public:
+    
     //CONSTRUCTORS
 
         //deleted copy constructor 
@@ -59,22 +76,7 @@ namespace game_elements{
 
         //deleted copy assignment
         boat& operator=(const boat& b) = delete;
-
-    protected:
-
-    //CONSTRUCTORS
-
-        //constructor accepting coordinates for begin and end of boat
-        boat(const coordinates& begin, const coordinates& end);
-
-    private:
-
-    //DATA MEMBERS
-        coordinates coord_begin_;
-        coordinates coord_end_;
-        int dimension_; //this number allow user of this class to understand what kind of boat they're using 
-        int corazza_;
-        bool vertical_;
+    
     };
     
     //HELPER FUNCTIONS

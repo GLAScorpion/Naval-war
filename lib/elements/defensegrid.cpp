@@ -11,72 +11,14 @@
 
 //CONSTRUCTORS
 
-    game_elements::defense_grid::defense_grid(const std::vector<coordinates>& coords){
-        if(coords.size() != COORD_NUMBER)
-            throw std::invalid_argument("The number of boats for a defense grid is 8!");
-
+    game_elements::defense_grid::defense_grid(){
+        
         for(int i = 0; i < ROWS; i++){
             for(int j = 0; j < COLUMNS; j++){
                 map_[i][j] = ' ';
             }
         }
 
-        int esplorazione_counter = 0;
-        int supporto_counter = 0;
-        int corazzata_counter = 0;
-        int size = 0;
-        int tmp_x = 0;
-        int tmp_y = 0;
-        char boat_symbol;
-
-        for(int i = 0; i < coords.size() ; i+=2){
-            check_coordinates(coords[i]); // check begin 
-            check_coordinates(coords[i+1]); // check end
-            tmp_x = coords[i].get_x();
-            tmp_y = coords[i].get_y();
-            //std::cout<<"BEGIN: x_coord: "<<tmp_x<<" y_coord: "<<tmp_y;
-            //std::cout<<"  END: x_coord: "<<coords[i+1].get_x()<< " y_coord: "<<coords[i+1].get_y() <<std::endl;
-            //set the vector boats_ and the boat_symbol
-            int size = boat_size(coords[i], coords[i+1]);
-            if(size == ESPLORAZIONE_SIZE){
-                boats_[i/2] = new esplorazione(coords[i],coords[i+1]);
-                boat_symbol = ESPLORAZIONE;
-                esplorazione_counter++;
-            }else if(size == SUPPORTO_SIZE){
-                boats_[i/2] = new supporto(coords[i],coords[i+1]);
-                boat_symbol = SUPPORTO;
-                supporto_counter++;
-            }else if(size == CORAZZATA_SIZE){
-                boats_[i/2] = new corazzata(coords[i],coords[i+1]);
-                boat_symbol = CORAZZATA;
-                corazzata_counter++;
-            }
-            //sets the map_ symbols
-            for(int k = 0; k < size; k++){
-                //std::cout<<k<<std::endl;
-                if(map_[tmp_y][tmp_x] == VOID){
-                    map_[tmp_y][tmp_x] = boat_symbol;
-                }else{
-                    //std::cout<<*this;
-                    std::cout<<std::endl<<"In coordinates x_coord: "<<tmp_x<<" y_coord: "<<tmp_y<<std::endl;
-                    std::cout<<"With symbol: "<<map_[tmp_y][tmp_x]<<std::endl;
-                    throw std::invalid_argument("Error: some boat cross!");
-                }
-                if((*boats_[i/2]).is_vertical()){
-                    //std::cout<<"yes"<<std::endl;
-                    tmp_y++;
-                }else{
-                    //std::cout<<"no"<<std::endl;
-                    tmp_x++;
-                }
-            }
-
-        }
-        //check if the boats types quantity are regular
-        if(esplorazione_counter != 2 || corazzata_counter != 3 || supporto_counter != 3){
-            //std::cout<<esplorazione_counter<<" "<<corazzata_counter<<" "<<supporto_counter<<std::endl;
-            throw std::invalid_argument("Invalid begin and end coordinates for boats!");
-        }
     }
 
 //FUNCTION MEMBER

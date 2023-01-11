@@ -27,11 +27,8 @@ namespace game_elements{
 
     //CONSTRUCTOR
 
-        //deleted no arguments constructor (there are none default properties)
-        defense_grid() = delete;
+        defense_grid();
 
-        //constructor accepting vector of coordinates for begin and end of boats
-        defense_grid(const std::vector<coordinates>& c);
 
         //deleted copy constructor
         defense_grid(const defense_grid& ag) = delete;
@@ -40,6 +37,9 @@ namespace game_elements{
 
         //allow boat operations in the grid, throw exception if it is not possible 
         bool move(boat* b, const coordinates& begin);
+
+        //add boat to boats_
+        void push_boat(boat* b) {   boats_.push_back(b);}
 
         //return a vector with all the boats that have a distance from the given coordinates smaller than radius 
         std::vector<boat*> boats_in_radius(const coordinates& c, int radius)  override;
@@ -74,7 +74,7 @@ namespace game_elements{
 
     //DATA MEMBERS
         char map_[ROWS][COLUMNS]; 
-        std::vector<boat*> boats_ = std::vector<boat*> (8); 
+        std::vector<boat*> boats_; 
     };
 
     //OPERATORS

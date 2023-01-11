@@ -9,11 +9,11 @@ SHORT DEFINITION:
 #define PLAYER_H
 
 #include <iostream>
-
+#include "defensegrid.h"
 //#include "" 
 
 namespace game_elements{
-    
+    class attack_grid;
     class player{
 
     public:
@@ -21,12 +21,15 @@ namespace game_elements{
         //copy constructor (deleted)
         player(const player& p) = delete;
         //no argument constructor
-        //player() = delete;
+        player():dg{new defense_grid()}{}
+    //MEMBER FUNCTIONS
+        void link(const player* other);
     //OPERATORS
         //copy assignment (deleted)
         player& operator=(const player& p) = delete;
     protected:
-
+        attack_grid* ag = nullptr;
+        defense_grid* dg;
     private:
 
     };

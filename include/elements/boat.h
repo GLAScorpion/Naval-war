@@ -41,6 +41,9 @@ namespace game_elements{
         //return boat end
         coordinates get_end() const {return coord_end_;}
 
+        //return tracker vector
+        const std::vector<bool>& get_tracker() { return corazza_tracker_;}
+
         //return boat centre
         coordinates get_centre() const;
 
@@ -59,8 +62,8 @@ namespace game_elements{
         //reduce boat corazza of one unit if possible, throw exception if it's not
         void got_hit(const coordinates& coord);
 
-        //move the boat in the given position (made by begin coordinate and orientation), return true in standard version
-        virtual bool set_coordinates(const coordinates& begin);
+        //set the new coordinates of the boat , return true in standard version
+        bool set_coordinates(const coordinates& begin);
 
         //return true the coordinates entered match the coordinates of this boat
         bool valid_coordinates(const coordinates& coord) const;

@@ -39,7 +39,7 @@ namespace game_elements{
     //FUNCTION MEMBERS
 
         //allow boat operations in the grid, throw exception if it is not possible 
-        void set_boat(boat* b, const coordinates& begin);
+        bool move(boat* b, const coordinates& begin);
 
         //return a vector with all the boats that have a distance from the given coordinates smaller than radius 
         std::vector<boat*> boats_in_radius(const coordinates& c, int radius)  override;

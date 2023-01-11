@@ -81,28 +81,30 @@
 
 //FUNCTION MEMBER
 
-    void game_elements::defense_grid::set_boat(boat* b, const coordinates& begin){
+    bool game_elements::defense_grid::move(boat* b, const coordinates& coord){
         //controls if the moves is possible
-        if(!check_move(b,begin)){
-            throw std::invalid_argument("The move is not possible for the selected boat ad begin coordinate!");
+        if(!check_move(b,coord)){
+            return false;
         }
         int size = b->get_dimension();
         int tmp_x = b->get_begin().get_x();
         int tmp_y = b->get_begin().get_y();
         
-        if(!b->set_coordinates(begin)){
-            throw std::invalid_argument("The selected boat cannot move!");
-        } 
-        int x_offset = b->get_begin().get_x() - tmp_x;
-        int y_offset = b->get_begin().get_y() - tmp_y;
-        
-        char boat_symbol = map_[tmp_y][tmp_x];
-        bool vertical = b->is_vertical();
-        
+        b->set_coordinates(coord);
+
+        int x_offset = coord.get_x() - tmp_x;
+        int y_offset = coord.get_y() - tmp_y;
+        std::vector<bool> tracker=b->get_tracker();
+
         for(int i = 0; i < size; i++){
             map_[tmp_y][tmp_x] = VOID;
-            map_[tmp_y + y_offset][tmp_x + x_offset] = boat_symbol;
-            if(vertical){
+            if(tracker[i]){
+                map_[tmp_y + y_offset][tmp_x + x_offset] = b->get_symbol();
+            }else{
+                map_[tmp_y + y_offset][tmp_x + x_offset] = tolower(b->get_symbol());
+            }
+
+            if(b->is_vertical()){
                 tmp_y++;
             }else{
                 tmp_x++;

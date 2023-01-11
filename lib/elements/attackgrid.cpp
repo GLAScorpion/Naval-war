@@ -5,9 +5,12 @@
 #include "../../include/elements/supporto.h"
 #include "../../include/elements/esplorazione.h"
 #include "../../include/elements/utilities.h"
+#include <algorithm>
+#include <vector>
 #include <iostream>
 
 //CONSTRUCTORS
+
     game_elements::attack_grid::attack_grid(defense_grid* dg){
         if(dg) {
             others_grid_ = dg;
@@ -22,65 +25,57 @@
     }
 
 //FUNCTION MEMBERS
+
     void game_elements::attack_grid::set_cell(const coordinates& coord, char boat_symbol){
-        if(boat_symbol != VOID && boat_symbol != HIT && boat_symbol != ABSENT){
-            throw std::invalid_argument("The symobol is not valid for this grid!");
-        }
         if(!check_coordinates(coord)){
             throw std::invalid_argument("The coordinates are not valid fir this grid");
         }
         map_[coord.get_y()][coord.get_x()] = boat_symbol;
     }
+
     std::vector<game_elements::boat*> game_elements::attack_grid::boats_in_radius(const coordinates& coord, int radius) {
-        int begin_x = (coord.get_x() - radius);
-        int begin_y = (coord.get_y() - radius);
-        int end_x = (coord.get_x() + radius);
-        int end_y = (coord.get_y() + radius);
-        if(begin_x < 0){
-            begin_x = 0;
-        }
-        if(begin_y < 0){
-            begin_y = 0;
-        }
-        if(end_x > ROWS){
-            end_x = ROWS -1;
-        }
-        if(end_y > COLUMNS){
-            end_y = COLUMNS - 1;
-        }
-        game_elements::coordinates tmp (begin_x,begin_y);
-        char symbol;
-        for(int i = begin_y; i < end_y; i++){
-            for(int j = begin_x; j < end_x; j++){
-                symbol = others_grid_->get_cell(tmp);
-                if(symbol != VOID){
-                    symbol = HIT;
+        boat* temp=nullptr;
+        coordinates coord_temp;
+        int i=coord.get_y()-radius;
+        int j=coord.get_x()-radius;
+        if(i<0) i=0;
+        if(j<0) j=0;
+
+        for(; i<coord.get_y()+radius && i<ROWS; i++){
+            for(; j<coord.get_x()+radius && j<COLUMNS; j++){
+                coord_temp = coordinates(i,j);
+                temp= get_boat(coord_temp);
+                if(temp){
+                    if(temp->is_broken(coord_temp)){
+                        map_[i][j]=HIT;
+                    }else{
+                        map_[i][j]=SONAR;
+                    }
                 }else{
-                    symbol = ABSENT;
+                    map_[i][j]=ABSENT;
                 }
-                set_cell(tmp,symbol);
-                tmp.set_x(tmp.get_x()+1);
             }
-            tmp.set_y(tmp.get_y()+1);
-            tmp.set_x(begin_x);
         }
-        return others_grid_->boats_in_radius(coord,radius);
+            
     }
+
     game_elements::boat* game_elements::attack_grid::get_boat(const coordinates& coord) const{  
         return (others_grid_->get_boat(coord));
     }
+
     bool game_elements::attack_grid::check_coordinates(const coordinates& coord) const{
         if(coord.get_x() >= COLUMNS || coord.get_x() < 0 || coord.get_y() >= ROWS || coord.get_y() < 0){
             return false;
         }
         return true;
     }
+
     std::ostream& game_elements::attack_grid::write(std::ostream& os) const{
         os << "##############";
         os <<'\n';
-        for(int i = 0; i < COLUMNS; i++){
+        for(int i = 0; i < ROWS; i++){
             os << "#";
-            for(int j = 0; j < ROWS; j++){
+            for(int j = 0; j < COLUMNS; j++){
                 os << map_[i][j];
             }
             os << "#";
@@ -89,6 +84,7 @@
         os << "##############";
         return os;
     }
+    
     char game_elements::attack_grid::get_cell(const coordinates& coord){
         check_coordinates(coord);
         return map_[coord.get_y()][coord.get_x()];

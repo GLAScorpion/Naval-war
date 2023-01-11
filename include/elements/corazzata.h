@@ -14,21 +14,27 @@ SHORT DEFINITION:
 
 namespace game_elements{
     constexpr int CORAZZATA_SIZE = 5;
+    constexpr char CORAZZATA_SYM = 'C';
 
     class attack_grid;
 
     class corazzata : public boat{
     public:
+
     //CONSTRUCTORS
+
         //deleted no argument constructor (there are none default properties for a corazzata)
         corazzata() = delete;
+
         //call the base class constructor with coordinates vector
         corazzata(const coordinates& begin, const coordinates& end) : boat(begin,end){}
+    
     //FUNCTION MEMBERS
-        //return false, action not possible
-        bool set_coordinates(const coordinates& begin) override {return false;};
-        //return true if it attacked a boat
-        bool action(grid* g, const coordinates& coord) override;
+            
+        //return true if it shoot
+        bool action(defense_grid* dg, attack_grid* ag, const coordinates& coord) override;
+
+        char get_symbol() override {  return CORAZZATA_SYM;}
     };
 }
 

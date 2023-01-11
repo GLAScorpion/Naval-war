@@ -13,22 +13,32 @@ SHORT DEFINITION:
 
 #include "boat.h"
 
-namespace game_elements{
-    constexpr int SUPPORTO_RADIUS = 5;
+namespace game_elements{    
+    
     constexpr int SUPPORTO_SIZE = 3;
+    constexpr int SUPPORTO_RADIUS = 1;
+    constexpr char SUPPORTO_SYM = 'S';
 
     class defense_grid;
 
     class supporto : public boat{
     public:
+
     //CONSTRUCTORS
+
         //deleted no argument constructor (there are none default properties for a esplorazione boat)
         supporto() = delete;
+
         //call the base class constructor with coordinates vector
         supporto(const coordinates& begin, const coordinates& end) : boat(begin,end){}
+
     //FUNCTION MEMBERS
+    
         //move the boat to the given coordinates and heals all the boats in a radius of 5 
-        bool action(grid* g, const coordinates& coord) override;
+        bool action(defense_grid* dg, attack_grid* ag, const coordinates& coord) override;
+
+        char get_symbol() override {  return SUPPORTO_SYM;}
+
     };
 
 }

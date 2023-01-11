@@ -14,7 +14,8 @@ SHORT DEFINITION:
 
 namespace game_elements{
     constexpr int ESPLORAZIONE_SIZE = 1;
-    constexpr int ESPLORAZIONE_RADIUS = 5;
+    constexpr int ESPLORAZIONE_RADIUS =2;
+    constexpr char ESPLORAZIONE_SYM = 'E';
 
     class attack_grid;
 
@@ -32,7 +33,10 @@ namespace game_elements{
     //FUNCTION MEMBERS
 
         //move the boat to the given coordinates and find all the boats in a radius of 5 
-        bool action(grid* g, const coordinates& coord) override;
+        bool action(defense_grid* dg, attack_grid* ag, const coordinates& coord) override;
+
+        char get_symbol() override {  return ESPLORAZIONE_SYM;}
+
     };
 }
 

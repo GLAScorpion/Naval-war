@@ -73,7 +73,7 @@ namespace game_elements{
     private:
 
     //DATA MEMBERS
-        char map_[COLUMNS][ROWS]; 
+        char map_[ROWS][COLUMNS]; 
         std::vector<boat*> boats_ = std::vector<boat*> (8); 
     };
 

@@ -16,7 +16,8 @@ SHORT DEFINITION:
 namespace game_elements{    
     
     constexpr int SUPPORTO_SIZE = 3;
-    constexpr int SUPPORTO_RADIUS = 5;
+    constexpr int SUPPORTO_RADIUS = 1;
+    constexpr char SUPPORTO_SYM = 'S';
 
     class defense_grid;
 
@@ -34,7 +35,10 @@ namespace game_elements{
     //FUNCTION MEMBERS
     
         //move the boat to the given coordinates and heals all the boats in a radius of 5 
-        bool action(grid* g, const coordinates& coord) override;
+        bool action(defense_grid* dg, attack_grid* ag, const coordinates& coord) override;
+
+        char get_symbol() override {  return SUPPORTO_SYM;}
+
     };
 
 }

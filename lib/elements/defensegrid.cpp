@@ -4,6 +4,10 @@
 #include "../../include/elements/supporto.h"
 #include "../../include/elements/esplorazione.h"
 #include "../../include/elements/utilities.h"
+#include <algorithm>
+#include <vector>
+#include <iostream>
+
 
 //CONSTRUCTORS
 
@@ -107,29 +111,25 @@
 
     }
 
+    //this function will be used only by supporto boat
     std::vector<game_elements::boat*> game_elements::defense_grid::boats_in_radius(const coordinates& coord, int radius) {
-        std::vector<game_elements::boat*> boats;
-        
-        bool valid = false;
-        for(int i = 0; i < BOAT_NUMBER; i++){
-            //test for begin of the boat
-            if(horizontal_distance(boats_[i]->get_begin(),coord) <= radius){
-                if(vertical_distance(boats_[i]->get_begin(),coord) <= radius){
-                    valid = true;
+        std::vector<game_elements::boat*> in_range_boats;
+        boat* temp=nullptr;
+        int i=coord.get_y()-radius;
+        int j=coord.get_x()-radius;
+        if(i<0) i=0;
+        if(j<0) j=0;
+
+        for(;  i<coord.get_y()+radius && i<ROWS; i++){
+            for(; j<coord.get_x()+radius && j<COLUMNS; j++){
+                temp= get_boat(coordinates(i,j));
+                if(temp && find(in_range_boats.begin(), in_range_boats.end(), temp)==in_range_boats.end()){
+                    in_range_boats.push_back(temp);
                 }
-            }
-            //test for the end of the boat
-            if(horizontal_distance(boats_[i]->get_end(),coord) <= radius){
-                if(vertical_distance(boats_[i]->get_end(),coord) <= radius){
-                    valid = true;
-                }
-            }
-            if(valid){
-                boats.push_back(boats_[i]);           
-                valid = false;
             }
         }
-        return boats;
+            
+        return in_range_boats;        
     } 
 
     game_elements::boat* game_elements::defense_grid::get_boat(const coordinates& coord) const{
@@ -151,9 +151,9 @@
     std::ostream& game_elements::defense_grid::write(std::ostream& os) const {
         os << "##############";
         os <<'\n';
-        for(int i = 0; i < COLUMNS; i++){
+        for(int i = 0; i < ROWS; i++){
             os << "#";
-            for(int j = 0; j < ROWS; j++){
+            for(int j = 0; j < COLUMNS; j++){
                 os << map_[i][j];
             }
             os << "#";
@@ -202,8 +202,11 @@
             }
             if(b->is_vertical()){
                 tmp_y++;
+                if(tmp_y>=ROWS) return false;
             }else{
                 tmp_x++;
+                if(tmp_x>=COLUMNS) return false;
+
             }
         }
         return true;

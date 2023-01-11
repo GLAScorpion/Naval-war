@@ -15,6 +15,7 @@ SHORT DEFINITION:
 namespace game_elements{
     constexpr char HIT = 'X';
     constexpr char ABSENT = 'O';
+    constexpr char SONAR = 'Y';
 
     class coordinates;
     class defense_grid;
@@ -69,7 +70,7 @@ namespace game_elements{
 
         game_elements::defense_grid* others_grid_ = nullptr;
         
-        char map_[COLUMNS][ROWS]; 
+        char map_[ROWS][COLUMNS]; 
         //std::vector<boat*> boats_[BOAT_NUMBER]; 
     };
 

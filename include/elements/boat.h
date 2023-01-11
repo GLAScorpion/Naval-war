@@ -40,7 +40,7 @@ namespace game_elements{
         bool is_vertical() const;
         //reduce boat corazza of one unit if possible, throw exception if it's not
         void hit();
-        //return true the coordinates entered match the coordinates of this boat
+        //return true if the entered coordinates match the coordinates of this boat
         bool valid_coordinates(const coordinates& coord) const;
         //operate
         virtual bool action(grid* g, const coordinates& coord) = 0; 

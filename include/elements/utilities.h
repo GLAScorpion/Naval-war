@@ -61,7 +61,10 @@ class coordinates{
         //return horizontal distance
         int horizontal_distance(const coordinates& coord1, const coordinates& coord2);
 
-        //converts to valid a valid char
+        //converts to valid a valid string
+        std::string coord_to_str(int c);
+
+        //converts to valid a valid string
         char coord_to_char(int c);
 
         //converts to valid coord

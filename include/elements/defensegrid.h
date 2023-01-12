@@ -39,7 +39,7 @@ namespace game_elements{
         bool move(boat* b, const coordinates& begin);
 
         //add boat to boats_
-        void push_boat(boat* b) {   boats_.push_back(b);}
+        void push_boat(boat* b) {boats_.push_back(b);}
 
         //return a vector with all the boats that have a distance from the given coordinates smaller than radius 
         std::vector<boat*> boats_in_radius(const coordinates& c, int radius)  override;
@@ -64,9 +64,6 @@ namespace game_elements{
 
         //return all boats
         std::vector<boat*> get_boats() const override;
-
-        //return true if the player has no working boats
-        bool has_lost();
 
 
     //OPERATORS

@@ -37,6 +37,8 @@ namespace game_elements{
         virtual bool command_exec(const std::string& cmd) = 0;
         //checks if the boat choice is correct
         virtual bool boat_choice(const coordinates& coord) = 0;
+        //prints to console the given string if needed
+        virtual void print(const std::string& str) = 0;
         //changes the grid to print
         void switch_grid() {print_dg_ = !print_dg_;}
         //returns id_
@@ -46,7 +48,7 @@ namespace game_elements{
         //place a boat on the grid if possible
         bool place_boat(boat* b);
         //prints the active grid
-        const std::string print() const;
+        const std::string print_grid() const;
     //OPERATORS
         //copy assignment (deleted)
         player& operator=(const player& p) = delete;

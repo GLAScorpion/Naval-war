@@ -12,6 +12,9 @@ using std::vector;
 using std::endl;
 using game_elements::player;
 using game_elements::coordinates;
+constexpr int CORAZZATA_NUM = 3;
+constexpr int SUPPORTO_NUM = 3;
+constexpr int ESPLORAZIONE_NUM = 2;
 int main(int argc, char* argv[])
 {
     if(argc < 2) throw std::invalid_argument("Not enough arguments");
@@ -36,48 +39,40 @@ int main(int argc, char* argv[])
     players[0]->link(players[1]);
     for(int i=0; i < game_elements::BOAT_NUMBER * 2; i++){
         cout << "PLAYER: " << players[i/game_elements::BOAT_NUMBER]->get_id()+1<<endl;
-        cout<<players[i/game_elements::BOAT_NUMBER]->print()<<endl;
+        cout<<players[i/game_elements::BOAT_NUMBER]->print_grid()<<endl;
         vector<coordinates> tmp;
         bool pass = true;
+        if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM){
+            cout<<"Dispatch battleship ship\n"; 
+        }else if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM + SUPPORTO_NUM){
+            cout<<"Dispatch support ship\n";
+        }else{
+            cout<<"Dispatch radar ship\n";
+        }
         while(pass){
-            if(i%game_elements::BOAT_NUMBER < 3){
-                cout<<"Dispatch armored ship\n";
-                tmp = game_elements::str_to_coord(players[i/game_elements::BOAT_NUMBER]->command_picker());
-                if(tmp[1].get_x() != -1){
-                    if(players[i/game_elements::BOAT_NUMBER]->place_boat(new game_elements::corazzata(tmp[0],tmp[1]))) {
+            tmp = game_elements::str_to_coord(players[i/game_elements::BOAT_NUMBER]->command_picker());
+            if(tmp[1].get_x() != -1){
+                try{
+                    game_elements::boat* tmp_boat;
+                    if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM){
+                        tmp_boat = new game_elements::corazzata(tmp[0],tmp[1]); 
+                    }else if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM + SUPPORTO_NUM){
+                        tmp_boat = new game_elements::supporto(tmp[0],tmp[1]);
+                    }else{
+                        tmp_boat = new game_elements::esplorazione(tmp[0],tmp[1]);
+                    }
+                    if(players[i/game_elements::BOAT_NUMBER]->place_boat(tmp_boat)){
                         pass = false;
                     }else{
-                        cout<<"Invalid placement, retry\n";
+                        players[i/game_elements::BOAT_NUMBER]->print("Invalid placement, retry\n");
                     }
-                }else{
-                    cout<<"Can't use this now, retry\n";
                 }
-                
-            }else if(i%game_elements::BOAT_NUMBER < 6){
-                cout<<"Dispatch support ship\n";
-                tmp = game_elements::str_to_coord(players[i/game_elements::BOAT_NUMBER]->command_picker());
-                if(tmp[1].get_x() != -1){
-                    if(players[i/game_elements::BOAT_NUMBER]->place_boat(new game_elements::supporto(tmp[0],tmp[1]))) {
-                        pass = false;
-                    }else{
-                        cout<<"Invalid placement, retry\n";
-                    }
-                }else{
-                    cout<<"Can't use this now, retry\n";
+                catch(std::logic_error& e){
+                    players[i/game_elements::BOAT_NUMBER]->print("Invalid placement, retry\n");
                 }
             }else{
-                cout<<"Dispatch radar ship\n";
-                tmp = game_elements::str_to_coord(players[i/game_elements::BOAT_NUMBER]->command_picker());
-                if(tmp[1].get_x() != -1){
-                    if(players[i/game_elements::BOAT_NUMBER]->place_boat(new game_elements::esplorazione(tmp[0],tmp[1]))) {
-                        pass = false;
-                    }else{
-                        cout<<"Invalid placement, retry\n";
-                    }
-                }else{
-                    cout<<"Can't use this now, retry\n";
-                }
-            }
+                players[i/game_elements::BOAT_NUMBER]->print("Can't use this now, retry\n");
+            }    
         }
     }
     for(int i = 0; !players[0]->has_lost() and !players[1]->has_lost(); i++){

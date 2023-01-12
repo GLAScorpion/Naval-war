@@ -16,10 +16,16 @@ bool game_elements::player::has_lost(){
 
 bool game_elements::player::place_boat(boat* b){
     coordinates coord = b->get_begin();
-    return dg->move(b,coord);
+    bool res = false;
+    try{
+        res = dg->move(b,coord);
+        if(res) dg->push_boat(b);
+    }
+    catch(std::logic_error& e){}
+    return res;
 }
 
-const std::string game_elements::player::print() const{
+const std::string game_elements::player::print_grid() const{
     if(print_dg_) return dg->write();
     return ag->write();
 }

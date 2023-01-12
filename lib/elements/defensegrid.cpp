@@ -155,12 +155,11 @@
                 return false;
             }
             if(b->is_vertical()){
-                tmp_y++;
                 if(tmp_y>=ROWS) return false;
+                tmp_y++;
             }else{
-                tmp_x++;
                 if(tmp_x>=COLUMNS) return false;
-
+                tmp_x++;
             }
         }
         return true;

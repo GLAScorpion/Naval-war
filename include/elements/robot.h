@@ -30,6 +30,8 @@ namespace game_elements{
             bool command_exec(const std::string& cmd) override;
             //checks if the boat choice is correct
             bool boat_choice(const coordinates& coord) override;
+            //doesnt print anything
+            void print(const std::string& str) override {return;}
         //OPERATORS
             robot& operator=(const robot& b) = delete;
         private:

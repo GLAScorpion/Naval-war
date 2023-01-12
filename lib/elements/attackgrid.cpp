@@ -70,18 +70,23 @@
         return true;
     }
 
-    std::ostream& game_elements::attack_grid::write(std::ostream& os) const{
-        os << "##############";
-        os <<'\n';
+    const std::string game_elements::attack_grid::write() const {
+        std::string os;
+        os += "  +--+--+--+--+--+--+--+--+--+--+--+--+\n";
         for(int i = 0; i < ROWS; i++){
-            os << "#";
+            os +=coord_to_char(i + 1) + " ";
             for(int j = 0; j < COLUMNS; j++){
-                os << map_[i][j];
+                os += "|" + map_[i][j] + map_[i][j];
             }
-            os << "#";
-            os <<'\n';
+            os += "|\n";
+            os += "--+--+--+--+--+--+--+--+--+--+--+--+--+\n";
         }
-        os << "##############";
+        os += "  |";
+        for(int j = 0; j < COLUMNS; j++){
+            if(j/10 != 1) os += " ";
+            os += j + 1 + "|";
+        }
+        os+="\n";
         return os;
     }
     
@@ -94,8 +99,16 @@
         return others_grid_->get_boats();
     }
 
+    void game_elements::attack_grid::clear_symbol(char symbol){
+        for(int i = 0; i < ROWS; i++){
+            for(int j = 0; j < COLUMNS; j++){
+                if(map_[i][j] == symbol) map_[i][j] = VOID;
+            }
+        }
+    }
+
 //OPERATORS
 
     std::ostream& game_elements::operator<<(std::ostream& os, const game_elements::attack_grid& ag){
-        return ag.write(os);
+        return os << ag.write();
     }

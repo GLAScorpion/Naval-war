@@ -54,10 +54,13 @@ namespace game_elements{
         bool check_coordinates(const coordinates& c) const;
 
         //print the grid
-        std::ostream& write(std::ostream& os) const;
+        const std::string write() const;
 
         //return all boats
         std::vector<boat*> get_boats() const override;
+
+        //removes all symbols == symbol from grid
+        void clear_symbol(char symbol);
 
     //OPERATORS
 

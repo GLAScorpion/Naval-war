@@ -12,10 +12,9 @@
 //CONSTRUCTORS
 
     game_elements::defense_grid::defense_grid(){
-        
         for(int i = 0; i < ROWS; i++){
             for(int j = 0; j < COLUMNS; j++){
-                map_[i][j] = ' ';
+                map_[i][j] = VOID;
             }
         }
 
@@ -52,6 +51,7 @@
                 tmp_x++;
             }
         }
+        return true;
 
     }
 
@@ -92,18 +92,28 @@
         return true;
     }
 
-    std::ostream& game_elements::defense_grid::write(std::ostream& os) const {
-        os << "##############";
-        os <<'\n';
+    const std::string game_elements::defense_grid::write() const {
+        std::string os;
+        os += "  +--+--+--+--+--+--+--+--+--+--+--+--+\n";
         for(int i = 0; i < ROWS; i++){
-            os << "#";
+            os += coord_to_char(i + 1) ;
+            os+= " ";
             for(int j = 0; j < COLUMNS; j++){
-                os << map_[i][j];
+                os += "|";
+                os += map_[i][j];
+                os += map_[i][j];
             }
-            os << "#";
-            os <<'\n';
+            os += "|\n";
+            os += "--+--+--+--+--+--+--+--+--+--+--+--+--+\n";
         }
-        os << "##############";
+        os += "  |";
+        for(int j = 0; j < COLUMNS; j++){
+            if((j+1)/10 != 1) os += " ";
+            else os += '1';
+            os += '0' + (j + 1)%10; 
+            os += "|";
+        }
+        os+="\n";
         return os;
     }
 
@@ -131,7 +141,7 @@
 //OPERATORS
 
     std::ostream& game_elements::operator<<(std::ostream& os, const defense_grid& dg ){
-        return dg.write(os);
+        return os << dg.write();
     }
 
 //HELPER FUNCTIONS

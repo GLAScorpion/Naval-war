@@ -38,7 +38,7 @@
 
     game_elements::coordinates game_elements::boat::get_centre() const{
         game_elements::coordinates temp(0,0);
-        if(is_vertical){
+        if(is_vertical()){
             temp.set_x(get_begin().get_x());
             temp.set_y((get_begin().get_y()+get_end().get_y())/2);
         }else{

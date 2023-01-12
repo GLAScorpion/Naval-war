@@ -41,7 +41,7 @@ class coordinates{
     //OPERATORS
 
         //equality operator
-        bool operator==(const coordinates& coord);
+        bool operator==(const coordinates& coord) const;
 
         //assignment operator
         coordinates& operator=(const coordinates& coord);
@@ -60,6 +60,15 @@ class coordinates{
         
         //return horizontal distance
         int horizontal_distance(const coordinates& coord1, const coordinates& coord2);
+
+        //converts to valid a valid char
+        char coord_to_char(int c);
+
+        //converts to valid coord
+        int char_to_coord(char c);
+
+        //returns array of 2 coord and x = -1 of 2nd coord if invalid
+        std::vector<coordinates> str_to_coord(const std::string& str);
 }
 
 #endif 

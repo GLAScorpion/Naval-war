@@ -12,10 +12,9 @@
 //CONSTRUCTORS
 
     game_elements::defense_grid::defense_grid(){
-        
         for(int i = 0; i < ROWS; i++){
             for(int j = 0; j < COLUMNS; j++){
-                map_[i][j] = ' ';
+                map_[i][j] = VOID;
             }
         }
 
@@ -52,6 +51,7 @@
                 tmp_x++;
             }
         }
+        return true;
 
     }
 
@@ -77,7 +77,7 @@
     } 
 
     game_elements::boat* game_elements::defense_grid::get_boat(const coordinates& coord) const{
-        for(int i = 0; i < BOAT_NUMBER; i++){
+        for(int i = 0; i < boats_.size(); i++){
             if(boats_[i]->valid_coordinates(coord)){
                 return boats_[i];
             }
@@ -92,25 +92,32 @@
         return true;
     }
 
-    std::ostream& game_elements::defense_grid::write(std::ostream& os) const {
-        os << "##############";
-        os <<'\n';
+    const std::string game_elements::defense_grid::write() const {
+        std::string os;
+        os += "  +--+--+--+--+--+--+--+--+--+--+--+--+\n";
         for(int i = 0; i < ROWS; i++){
-            os << "#";
+            os += coord_to_char(i) ;
+            os+= " ";
             for(int j = 0; j < COLUMNS; j++){
-                os << map_[i][j];
+                os += "|";
+                os += map_[i][j];
+                os += map_[i][j];
             }
-            os << "#";
-            os <<'\n';
+            os += "|\n";
+            os += "--+--+--+--+--+--+--+--+--+--+--+--+--+\n";
         }
-        os << "##############";
+        os += "  |";
+        for(int j = 0; j < COLUMNS; j++){
+            if((j+1)/10 != 1) os += " ";
+            else os += '1';
+            os += '0' + (j + 1)%10; 
+            os += "|";
+        }
+        os+="\n";
         return os;
     }
 
     void game_elements::defense_grid::set_cell(const coordinates& coord, char boat_symbol){
-        if(boat_symbol != VOID && boat_symbol != CORAZZATA && boat_symbol != ESPLORAZIONE && boat_symbol != SUPPORTO){
-            throw std::invalid_argument("The symobol is not valid for this grid!");
-        }
         if(!check_coordinates(coord)){
             throw std::invalid_argument("The coordinates are not valid fir this grid");
         }
@@ -128,10 +135,29 @@
         return boats_;
     }
 
+    void game_elements::defense_grid::del_boat(boat* b){
+        int size = b->get_dimension();
+        int tmp_x = b->get_begin().get_x();
+        int tmp_y = b->get_begin().get_y();
+        for(int i = 0; i < size; i++){
+            map_[tmp_y][tmp_x] = VOID;
+            if(b->is_vertical()){
+                tmp_y++;
+            }else{
+                tmp_x++;
+            }
+        }
+        std::vector<boat*> tmp;
+        for(int i = 0; i < boats_.size();i++){
+            if(!(boats_[i]->get_centre() == b->get_centre())) tmp.push_back(boats_[i]);
+        }
+        boats_ = tmp;
+        delete b;
+    }
 //OPERATORS
 
     std::ostream& game_elements::operator<<(std::ostream& os, const defense_grid& dg ){
-        return dg.write(os);
+        return os << dg.write();
     }
 
 //HELPER FUNCTIONS
@@ -145,12 +171,11 @@
                 return false;
             }
             if(b->is_vertical()){
-                tmp_y++;
                 if(tmp_y>=ROWS) return false;
+                tmp_y++;
             }else{
-                tmp_x++;
                 if(tmp_x>=COLUMNS) return false;
-
+                tmp_x++;
             }
         }
         return true;

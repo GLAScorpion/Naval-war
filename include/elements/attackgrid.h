@@ -11,14 +11,13 @@ SHORT DEFINITION:
 #include <iostream>
 
 #include "grid.h" 
-
+#include "defensegrid.h"
 namespace game_elements{
     constexpr char HIT = 'X';
     constexpr char ABSENT = 'O';
     constexpr char SONAR = 'Y';
 
     class coordinates;
-    class defense_grid;
     class boat;
 
     class attack_grid : public grid{
@@ -54,11 +53,18 @@ namespace game_elements{
         bool check_coordinates(const coordinates& c) const;
 
         //print the grid
-        std::ostream& write(std::ostream& os) const;
+        const std::string write() const;
 
         //return all boats
         std::vector<boat*> get_boats() const override;
 
+        //removes all symbols == symbol from grid
+        void clear_symbol(char symbol);
+
+        //removes a boat
+        void del_boat(boat* b) override {others_grid_->del_boat(b);}
+
+        defense_grid* get_other_grid(){return others_grid_;}
     //OPERATORS
 
         //deleted copy assignment

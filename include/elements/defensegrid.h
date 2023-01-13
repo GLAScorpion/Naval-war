@@ -39,7 +39,7 @@ namespace game_elements{
         bool move(boat* b, const coordinates& begin);
 
         //add boat to boats_
-        void push_boat(boat* b) {   boats_.push_back(b);}
+        void push_boat(boat* b) {boats_.push_back(b);}
 
         //return a vector with all the boats that have a distance from the given coordinates smaller than radius 
         std::vector<boat*> boats_in_radius(const coordinates& c, int radius)  override;
@@ -51,7 +51,7 @@ namespace game_elements{
         bool check_coordinates(const coordinates& c) const;
 
         //print the grid
-        std::ostream& write(std::ostream& os) const;
+        const std::string write() const;
 
         //set map cell, throw exception if coord is invalid
         void set_cell(const coordinates& coord, char boat_symbol);
@@ -65,6 +65,8 @@ namespace game_elements{
         //return all boats
         std::vector<boat*> get_boats() const override;
 
+        //delete boat
+        void del_boat(boat* b) override;
     //OPERATORS
 
         //deleted copy assignment

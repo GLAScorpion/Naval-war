@@ -30,7 +30,7 @@ namespace game_elements{
         supporto() = delete;
 
         //call the base class constructor with coordinates vector
-        supporto(const coordinates& begin, const coordinates& end) : boat(begin,end){}
+        supporto(const coordinates& begin, const coordinates& end) : boat(begin,end){if(dimension_ != get_dimension()) throw std::logic_error("Size mismatch");}
 
     //FUNCTION MEMBERS
     
@@ -38,6 +38,8 @@ namespace game_elements{
         bool action(defense_grid* dg, attack_grid* ag, const coordinates& coord) override;
 
         char get_symbol() override {  return SUPPORTO_SYM;}
+
+        int get_dimension() const override {return SUPPORTO_SIZE;}
 
     };
 

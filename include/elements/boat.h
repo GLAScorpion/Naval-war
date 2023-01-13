@@ -30,7 +30,7 @@ namespace game_elements{
     //FUNCTION MEMBERS 
 
         //return the dimension of the boat
-        int get_dimension() const {return dimension_;}
+        virtual int get_dimension() const = 0;
 
         //return the value of corazza
         int get_corazza() const {return corazza_;}
@@ -83,13 +83,14 @@ namespace game_elements{
         //construtor accepting coordinates for begin and end of boat
         boat(const coordinates& begin, const coordinates& end);
 
+        int dimension_; //this number allow user of this class to understand what kind of boat they're using 
+
     private:
 
     //DATA MEMBERS
 
         coordinates coord_begin_;
         coordinates coord_end_;
-        int dimension_; //this number allow user of this class to understand what kind of boat they're using 
         std::vector<bool> corazza_tracker_;
         int corazza_;
         bool vertical_;

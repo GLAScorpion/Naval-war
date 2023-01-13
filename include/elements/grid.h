@@ -39,7 +39,8 @@ namespace game_elements{
         //return boat pointer to allow operations on the boat 
         virtual boat* get_boat(const coordinates& c) const = 0;
         virtual std::vector<boat*> get_boats() const = 0;
-
+        //delete boat
+        virtual void del_boat(boat* b) = 0;
     //OPERATORS
 
         //deleted copy assignment operator

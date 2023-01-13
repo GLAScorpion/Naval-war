@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
     }
     players[0]->link(players[1]);
     for(int i=0; i < game_elements::BOAT_NUMBER * 2; i++){
-        cout << "PLAYER: " << players[i/game_elements::BOAT_NUMBER]->get_id()+1<<endl;
+        cout << "PLAYER: " << players[i/game_elements::BOAT_NUMBER]->get_id()+1<<" "<<players[i/game_elements::BOAT_NUMBER]->char_id()<<endl;
         cout<<players[i/game_elements::BOAT_NUMBER]->print_grid()<<endl;
         vector<coordinates> tmp;
         bool pass = true;
@@ -50,32 +50,55 @@ int main(int argc, char* argv[])
             cout<<"Dispatch radar ship\n";
         }
         while(pass){
-            tmp = game_elements::str_to_coord(players[i/game_elements::BOAT_NUMBER]->command_picker());
-            if(tmp[1].get_x() != -1){
-                try{
-                    game_elements::boat* tmp_boat;
-                    if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM){
-                        tmp_boat = new game_elements::corazzata(tmp[0],tmp[1]); 
-                    }else if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM + SUPPORTO_NUM){
-                        tmp_boat = new game_elements::supporto(tmp[0],tmp[1]);
-                    }else{
-                        tmp_boat = new game_elements::esplorazione(tmp[0],tmp[1]);
-                    }
-                    if(players[i/game_elements::BOAT_NUMBER]->place_boat(tmp_boat)){
-                        pass = false;
-                    }else{
-                        players[i/game_elements::BOAT_NUMBER]->print("Invalid placement, retry\n");
-                    }
+            tmp = game_elements::str_to_coord(players[i/game_elements::BOAT_NUMBER]->coord_picker());
+            try{
+                game_elements::boat* tmp_boat;
+                if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM){
+                    tmp_boat = new game_elements::corazzata(tmp[0],tmp[1]); 
+                }else if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM + SUPPORTO_NUM){
+                    tmp_boat = new game_elements::supporto(tmp[0],tmp[1]);
+                }else{
+                    tmp_boat = new game_elements::esplorazione(tmp[0],tmp[1]);
                 }
-                catch(std::logic_error& e){
+                if(players[i/game_elements::BOAT_NUMBER]->place_boat(tmp_boat)){
+                    pass = false;
+                }else{
                     players[i/game_elements::BOAT_NUMBER]->print("Invalid placement, retry\n");
                 }
-            }else{
-                players[i/game_elements::BOAT_NUMBER]->print("Can't use this now, retry\n");
-            }    
+            }
+            catch(std::logic_error& e){
+                players[i/game_elements::BOAT_NUMBER]->print("Invalid placement, retry\n");
+            }           
         }
     }
+    cout << "GAME PHASE\n";
     for(int i = 0; !players[0]->has_lost() and !players[1]->has_lost(); i++){
-
+        cout << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl;
+        cout<<players[i%2]->print_grid()<<endl;
+        players[i%2]->print("Waiting for orders, captain!\n");
+        bool pass = true;
+        std::string tmp;
+        while(pass){
+            tmp = players[i%2]->command_picker();
+            if(players[i%2]->exec_special(tmp)){
+                cout << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl;
+                cout<<players[i%2]->print_grid()<<endl;
+                players[i%2]->print("Waiting for orders, captain!\n");
+            }else if(players[i%2]->command_exec(tmp)){
+                pass = false;
+            }else{
+                players[i%2]->print("Coordinates unreachable\n");
+            }
+        }
+        cout << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl;
+        cout<<players[i%2]->print_grid()<<endl;
+        players[i%2]->print("Enter to pass turn\n");
+        int pause = getchar();
+        if(!players[i%2]->which_grid()) players[i%2]->switch_grid();
+    }
+    if(players[0]->has_lost()){
+        cout << "PLAYER " << players[1]->get_id()+1<<" "<<players[1]->char_id()<<"has won"<<endl;
+    }else{
+        cout << "PLAYER " << players[0]->get_id()+1<<" "<<players[0]->char_id()<<"has won"<<endl;
     }
 }

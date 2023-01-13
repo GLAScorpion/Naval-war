@@ -65,7 +65,8 @@ namespace game_elements{
         //return all boats
         std::vector<boat*> get_boats() const override;
 
-
+        //delete boat
+        void del_boat(boat* b) override;
     //OPERATORS
 
         //deleted copy assignment

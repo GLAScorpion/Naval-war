@@ -138,6 +138,25 @@
         return boats_;
     }
 
+    void game_elements::defense_grid::del_boat(boat* b){
+        int size = b->get_dimension();
+        int tmp_x = b->get_begin().get_x();
+        int tmp_y = b->get_begin().get_y();
+        for(int i = 0; i < size; i++){
+            map_[tmp_y][tmp_x] = VOID;
+            if(b->is_vertical()){
+                tmp_y++;
+            }else{
+                tmp_x++;
+            }
+        }
+        std::vector<boat*> tmp;
+        for(int i = 0; i < boats_.size();i++){
+            if(boats_[i] != b) tmp.push_back(boats_[i]);
+        }
+        boats_ = tmp;
+        delete b;
+    }
 //OPERATORS
 
     std::ostream& game_elements::operator<<(std::ostream& os, const defense_grid& dg ){

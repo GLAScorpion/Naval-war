@@ -74,17 +74,22 @@
         std::string os;
         os += "  +--+--+--+--+--+--+--+--+--+--+--+--+\n";
         for(int i = 0; i < ROWS; i++){
-            os +=coord_to_char(i + 1) + " ";
+            os += coord_to_char(i + 1) ;
+            os+= " ";
             for(int j = 0; j < COLUMNS; j++){
-                os += "|" + map_[i][j] + map_[i][j];
+                os += "|";
+                os += map_[i][j];
+                os += map_[i][j];
             }
             os += "|\n";
             os += "--+--+--+--+--+--+--+--+--+--+--+--+--+\n";
         }
         os += "  |";
         for(int j = 0; j < COLUMNS; j++){
-            if(j/10 != 1) os += " ";
-            os += j + 1 + "|";
+            if((j+1)/10 != 1) os += " ";
+            else os += '1';
+            os += '0' + (j + 1)%10; 
+            os += "|";
         }
         os+="\n";
         return os;

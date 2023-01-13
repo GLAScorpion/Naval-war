@@ -13,7 +13,7 @@ SHORT DEFINITION:
 #include "player.h" 
 
 namespace game_elements{
-    
+    constexpr char ROBOT_CHAR = 'C';
     class robot : public player{
         public:
         //CONSTRUCTORS
@@ -26,12 +26,16 @@ namespace game_elements{
         //MEMBER FUNCTIONS
             //retuns a command choosen randomly
             std::string command_picker() override;
-            //executes the command if possible, else returns false
-            bool command_exec(const std::string& cmd) override;
             //checks if the boat choice is correct
             bool boat_choice(const coordinates& coord) override;
             //doesnt print anything
             void print(const std::string& str) override {return;}
+            //returns char identifier
+            char char_id() override {return ROBOT_CHAR;}
+            //returns false, robot can't execute special
+            bool exec_special(const std::string& cmd) override {return false;}
+            //returns coords in valid format
+            std::string coord_picker() override;
         //OPERATORS
             robot& operator=(const robot& b) = delete;
         private:

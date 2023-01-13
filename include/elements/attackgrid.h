@@ -11,14 +11,13 @@ SHORT DEFINITION:
 #include <iostream>
 
 #include "grid.h" 
-
+#include "defensegrid.h"
 namespace game_elements{
     constexpr char HIT = 'X';
     constexpr char ABSENT = 'O';
     constexpr char SONAR = 'Y';
 
     class coordinates;
-    class defense_grid;
     class boat;
 
     class attack_grid : public grid{
@@ -61,6 +60,9 @@ namespace game_elements{
 
         //removes all symbols == symbol from grid
         void clear_symbol(char symbol);
+
+        //removes a boat
+        void del_boat(boat* b) override {others_grid_->del_boat(b);}
 
     //OPERATORS
 

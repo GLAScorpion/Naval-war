@@ -6,12 +6,11 @@ void game_elements::player::link(player* other){
     other->ag = new attack_grid(dg);
 }
 
-bool game_elements::player::has_lost(){
-    std::vector<boat*> boat_ar = dg->get_boats();
-    for(int i = 0; i < boat_ar.size(); i++){
-        if(boat_ar[i]->get_corazza() != 0) return false;
-    }
-    return true;
+bool game_elements::player::command_exec(const std::string& cmd){
+    std::vector<coordinates> coord_cmd = str_to_coord(cmd);
+    boat* tmp = dg->get_boat(coord_cmd[0]);
+    if(!(coord_cmd[0] == tmp->get_centre())) return false;
+    return tmp->action(dg,ag,coord_cmd[1]);
 }
 
 bool game_elements::player::place_boat(boat* b){

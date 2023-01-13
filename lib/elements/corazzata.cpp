@@ -14,5 +14,6 @@
         boat->got_hit(coord);
         ag->set_cell(coord, tolower(boat->get_symbol()));
         ag->set_cell(coord,HIT); 
+        if(boat->get_corazza()==0)ag->del_boat(boat);
         return true;
     }

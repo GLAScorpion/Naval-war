@@ -24,14 +24,7 @@
         }
     }
 
-//FUNCTION MEMBERS
-
-    void game_elements::attack_grid::set_cell(const coordinates& coord, char boat_symbol){
-        if(!check_coordinates(coord)){
-            throw std::invalid_argument("The coordinates are not valid fir this grid");
-        }
-        map_[coord.get_y()][coord.get_x()] = boat_symbol;
-    }
+//MEMBER FUNCTIONS
 
     std::vector<game_elements::boat*> game_elements::attack_grid::boats_in_radius(const coordinates& coord, int radius) {
         std::vector<game_elements::boat*> res;
@@ -64,6 +57,18 @@
         return (others_grid_->get_boat(coord));
     }
 
+    void game_elements::attack_grid::set_cell(const coordinates& coord, char boat_symbol){
+        if(!check_coordinates(coord)){
+            throw std::invalid_argument("The coordinates are not valid fir this grid");
+        }
+        map_[coord.get_y()][coord.get_x()] = boat_symbol;
+    }
+
+    char game_elements::attack_grid::get_cell(const coordinates& coord){
+        check_coordinates(coord);
+        return map_[coord.get_y()][coord.get_x()];
+    }
+    
     bool game_elements::attack_grid::check_coordinates(const coordinates& coord) const{
         if(coord.get_x() >= COLUMNS || coord.get_x() < 0 || coord.get_y() >= ROWS || coord.get_y() < 0){
             return false;
@@ -94,11 +99,6 @@
         }
         os+="\n";
         return os;
-    }
-    
-    char game_elements::attack_grid::get_cell(const coordinates& coord){
-        check_coordinates(coord);
-        return map_[coord.get_y()][coord.get_x()];
     }
     
     std::vector<game_elements::boat*> game_elements::attack_grid::get_boats() const{

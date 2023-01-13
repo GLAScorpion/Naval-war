@@ -2,7 +2,8 @@
 #include "../../include/elements/attackgrid.h"
 #include "../../include/elements/defensegrid.h"
 
-//FUNCTION MEMBER
+//MEMBER FUNCTIONS
+
     bool game_elements::corazzata::action(defense_grid* dg, attack_grid* ag, const coordinates& coord){
 
         if(coord.get_x()<0 || coord.get_y()<0 || coord.get_x()>11 || coord.get_y()>11) return false;

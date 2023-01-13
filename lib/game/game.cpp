@@ -12,9 +12,11 @@ using std::vector;
 using std::endl;
 using game_elements::player;
 using game_elements::coordinates;
+
 constexpr int CORAZZATA_NUM = 3;
 constexpr int SUPPORTO_NUM = 3;
 constexpr int ESPLORAZIONE_NUM = 2;
+
 int main(int argc, char* argv[])
 {
     if(argc < 2) throw std::invalid_argument("Not enough arguments");

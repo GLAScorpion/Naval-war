@@ -34,7 +34,7 @@
         } 
     }
 
-//FUNCTION MEMBER
+//MEMBER FUNCTIONS
 
     game_elements::coordinates game_elements::boat::get_centre() const{
         game_elements::coordinates temp(0,0);
@@ -67,9 +67,6 @@
         int temp = coord.get_x() - coord_begin_.get_x();
         return !corazza_tracker_[temp];
     }
-
-    
-
 
     void game_elements::boat::got_hit(const coordinates& coord){
         if(corazza_ <= 0)
@@ -119,21 +116,6 @@
             }
         }   
         return false;
-
-        /*if(vertical_){
-            if(coord.get_x() == coord_begin_.get_x()){
-                if((vertical_distance(coord,coord_begin_) < dimension_) && ((coord.get_y()- coord_begin_.get_y()) >= 0) ){
-                    return true;
-                }
-            }
-        }else{
-            if(coord.get_y() == coord_begin_.get_y()){
-                if(horizontal_distance(coord,coord_begin_) < dimension_ && (coord.get_x() - coord_begin_.get_x()) >= 0 ){
-                    return true;
-                }
-            }
-        }
-        return false;*/
     }   
 
 //HELPER FUNCTIONS

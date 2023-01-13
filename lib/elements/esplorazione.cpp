@@ -2,6 +2,8 @@
 #include "../../include/elements/attackgrid.h"
 #include "../../include/elements/defensegrid.h"
 
+//MEMBER FUNCTIONS
+
 bool game_elements::esplorazione::action(defense_grid* dg, attack_grid* ag, const coordinates& coord){
     
     if(!dg->move(this, coord)) return false;

@@ -2,7 +2,8 @@
 #include "../../include/elements/defensegrid.h"
 #include "../../include/elements/attackgrid.h"
 
-//FUNCTION MEMBER 
+//MEMBER FUNCTIONS
+
     bool game_elements::supporto::action(defense_grid* dg, attack_grid* ag, const coordinates& coord){
 
         if(!dg->move(this, coord)) return false;

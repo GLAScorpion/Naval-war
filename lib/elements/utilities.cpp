@@ -36,7 +36,7 @@
     }
 
     char game_elements::coord_to_char(int c){
-        char res = 'A' + c - 1;
+        char res = 'A' + c ;
         if(res >= 'J' ) res += 2;
         return res;
     }

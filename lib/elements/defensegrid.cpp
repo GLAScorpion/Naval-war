@@ -77,7 +77,7 @@
     } 
 
     game_elements::boat* game_elements::defense_grid::get_boat(const coordinates& coord) const{
-        for(int i = 0; i < BOAT_NUMBER; i++){
+        for(int i = 0; i < boats_.size(); i++){
             if(boats_[i]->valid_coordinates(coord)){
                 return boats_[i];
             }
@@ -96,7 +96,7 @@
         std::string os;
         os += "  +--+--+--+--+--+--+--+--+--+--+--+--+\n";
         for(int i = 0; i < ROWS; i++){
-            os += coord_to_char(i + 1) ;
+            os += coord_to_char(i) ;
             os+= " ";
             for(int j = 0; j < COLUMNS; j++){
                 os += "|";
@@ -118,9 +118,6 @@
     }
 
     void game_elements::defense_grid::set_cell(const coordinates& coord, char boat_symbol){
-        if(boat_symbol != VOID && boat_symbol != CORAZZATA && boat_symbol != ESPLORAZIONE && boat_symbol != SUPPORTO){
-            throw std::invalid_argument("The symobol is not valid for this grid!");
-        }
         if(!check_coordinates(coord)){
             throw std::invalid_argument("The coordinates are not valid fir this grid");
         }
@@ -152,7 +149,7 @@
         }
         std::vector<boat*> tmp;
         for(int i = 0; i < boats_.size();i++){
-            if(boats_[i] != b) tmp.push_back(boats_[i]);
+            if(!(boats_[i]->get_centre() == b->get_centre())) tmp.push_back(boats_[i]);
         }
         boats_ = tmp;
         delete b;

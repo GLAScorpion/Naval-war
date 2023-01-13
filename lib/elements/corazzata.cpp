@@ -11,8 +11,9 @@
             ag->set_cell(coord,ABSENT);
             return true;
         }
+        std::cout<<ag->get_other_grid()->get_boats().size()<<std::endl;
         boat->got_hit(coord);
-        ag->set_cell(coord, tolower(boat->get_symbol()));
+        ag->get_other_grid()->set_cell(coord, tolower(boat->get_symbol()));
         ag->set_cell(coord,HIT); 
         if(boat->get_corazza()==0)ag->del_boat(boat);
         return true;

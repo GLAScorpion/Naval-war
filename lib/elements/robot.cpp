@@ -12,6 +12,7 @@ std::string game_elements::robot::command_picker(){
     std::vector<boat*> tmp_boat = dg->get_boats();   
     std::uniform_int_distribution<int> boat_dist(0,tmp_boat.size()-1);
     coordinates tmp_coord = tmp_boat[boat_dist(rand)]->get_centre();
+    //std::cout<<tmp_coord.get_y()<<" "<<tmp_coord.get_x()<<std::endl;
     res+= coord_to_char(tmp_coord.get_y()); 
     res+= coord_to_str(tmp_coord.get_x()); 
     res+= ' ' ; 

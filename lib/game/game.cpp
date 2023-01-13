@@ -80,6 +80,7 @@ int main(int argc, char* argv[])
         std::string tmp;
         while(pass){
             tmp = players[i%2]->command_picker();
+            cout<<tmp<<endl;
             if(players[i%2]->exec_special(tmp)){
                 cout << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl;
                 cout<<players[i%2]->print_grid()<<endl;
@@ -93,7 +94,7 @@ int main(int argc, char* argv[])
         cout << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl;
         cout<<players[i%2]->print_grid()<<endl;
         players[i%2]->print("Enter to pass turn\n");
-        int pause = getchar();
+        //int pause = getchar();
         if(!players[i%2]->which_grid()) players[i%2]->switch_grid();
     }
     if(players[0]->has_lost()){

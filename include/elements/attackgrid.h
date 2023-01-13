@@ -64,6 +64,7 @@ namespace game_elements{
         //removes a boat
         void del_boat(boat* b) override {others_grid_->del_boat(b);}
 
+        defense_grid* get_other_grid(){return others_grid_;}
     //OPERATORS
 
         //deleted copy assignment

@@ -34,16 +34,17 @@
     }
 
     std::vector<game_elements::boat*> game_elements::attack_grid::boats_in_radius(const coordinates& coord, int radius) {
+        std::vector<game_elements::boat*> res;
         boat* temp=nullptr;
         coordinates coord_temp;
         int i=coord.get_y()-radius;
-        int j=coord.get_x()-radius;
         if(i<0) i=0;
-        if(j<0) j=0;
 
         for(; i<coord.get_y()+radius && i<ROWS; i++){
+            int j=coord.get_x()-radius;
+            if(j<0) j=0;
             for(; j<coord.get_x()+radius && j<COLUMNS; j++){
-                coord_temp = coordinates(i,j);
+                coord_temp = coordinates(j,i);
                 temp= get_boat(coord_temp);
                 if(temp){
                     if(temp->is_broken(coord_temp)){
@@ -56,7 +57,7 @@
                 }
             }
         }
-            
+        return res;  
     }
 
     game_elements::boat* game_elements::attack_grid::get_boat(const coordinates& coord) const{  
@@ -74,7 +75,7 @@
         std::string os;
         os += "  +--+--+--+--+--+--+--+--+--+--+--+--+\n";
         for(int i = 0; i < ROWS; i++){
-            os += coord_to_char(i + 1) ;
+            os += coord_to_char(i) ;
             os+= " ";
             for(int j = 0; j < COLUMNS; j++){
                 os += "|";

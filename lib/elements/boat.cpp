@@ -62,10 +62,10 @@
     bool game_elements::boat::is_broken(const coordinates& coord){
         if(is_vertical()){
             int temp = coord.get_y() - coord_begin_.get_y();
-            return corazza_tracker_[temp];
+            return !corazza_tracker_[temp];
         }
         int temp = coord.get_x() - coord_begin_.get_x();
-        return corazza_tracker_[temp];
+        return !corazza_tracker_[temp];
     }
 
     

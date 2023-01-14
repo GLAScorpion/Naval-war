@@ -1,3 +1,7 @@
+/*
+@author:
+*/
+
 #include "../../include/elements/utilities.h"
 
 //OPERATORS
@@ -14,14 +18,12 @@
 
 //HELPER FUNCTIONS
 
-    //return vertical distance
     int game_elements::vertical_distance(const coordinates& coord1, const coordinates& coord2){
         int dy = coord1.get_y() - coord2.get_y();
         if(dy > 0) return dy;
         return (dy)*(-1);
     }
     
-    //return horizontal distance
     int game_elements::horizontal_distance(const coordinates& coord1, const coordinates& coord2){
         int dx = coord1.get_x() - coord2.get_x();
         if(dx > 0) return dx;
@@ -66,7 +68,6 @@
         if(second_half.length()!= 2 and second_half.length()!=3) return res;
         if(!isalpha(first_half[0]) or !isalpha(second_half[0])) return res;
         if(char_to_coord(first_half[0]) > 11 or char_to_coord(second_half[0]) > 11) return res;
-
         
         first_digit = first_half[1] - '1';
         second_digit = second_half[1] - '1';

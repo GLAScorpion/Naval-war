@@ -1,5 +1,5 @@
 /*
-@author
+@author:
 
 SHORT DEFINITION:
     header conataining the declaration of elements that represent simple concepts of the game 
@@ -12,53 +12,50 @@ SHORT DEFINITION:
 #include <iostream>
 #include <vector>
 
-//#include "" 
-
 namespace game_elements{
 
-class coordinates{
-    public:
+    class coordinates{
+        public:
+            //CONSTRUCTORS
 
-    //CONSTRUCTORS
+                //constructor accepting two integers
+                coordinates(int x = 0, int y = 0): x_{x}, y_{y}{}
 
-        //constructor accepting two integers
-        coordinates(int x = 0, int y = 0): x_{x}, y_{y}{}
+            //FUNCTION MEMBERS
 
-    //FUNCTION MEMEBERS
+                //returns x coordinate
+                int get_x() const {  return x_;}
 
-        //return x coordinate
-        int get_x() const {return x_;}
+                //returns y coordinate
+                int get_y() const {  return y_;}
 
-        //return y coordinate
-        int get_y() const {return y_;}
+                //sets value of x
+                void set_x(int x) {  x_ = x;}
 
-        //set value of x
-        void set_x(int x) {x_ = x;}
+                //sets value of y
+                void set_y(int y) {  y_ = y;}
 
-        //set value of y
-        void set_y(int y) {y_ = y;}
+            //OPERATORS
 
-    //OPERATORS
+                //equality operator
+                bool operator==(const coordinates& coord) const;
 
-        //equality operator
-        bool operator==(const coordinates& coord) const;
+                //assignment operator
+                coordinates& operator=(const coordinates& coord);
 
-        //assignment operator
-        coordinates& operator=(const coordinates& coord);
+        private:
+            //DATA MEMBERS
 
-    private:
-
-    //DATA MEMBERS
-        int x_;
-        int y_;
-};
+                int x_;
+                int y_;
+    };
 
     //HELPER FUNCTIONS
 
-        //return vertical distance
+        //returns vertical distance
         int vertical_distance(const coordinates& coord1, const coordinates& coord2);
         
-        //return horizontal distance
+        //returns horizontal distance
         int horizontal_distance(const coordinates& coord1, const coordinates& coord2);
 
         //converts to valid a valid string

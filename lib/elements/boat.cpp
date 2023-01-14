@@ -1,3 +1,7 @@
+/*
+@author:
+*/
+
 #include "../../include/elements/boat.h"
 
 //CONSTRUCTORS
@@ -34,7 +38,7 @@
         } 
     }
 
-//FUNCTION MEMBER
+//MEMBER FUNCTIONS
 
     game_elements::coordinates game_elements::boat::get_centre() const{
         game_elements::coordinates temp(0,0);
@@ -68,9 +72,6 @@
         return !corazza_tracker_[temp];
     }
 
-    
-
-
     void game_elements::boat::got_hit(const coordinates& coord){
         if(corazza_ <= 0)
             throw std::logic_error("The boat has already sunk.");
@@ -92,16 +93,15 @@
     }
 
     bool game_elements::boat::set_coordinates(const game_elements::coordinates& begin){
-        
         coord_begin_ = begin;
-            if(vertical_){
-                coord_end_.set_x(begin.get_x());    
-                coord_end_.set_y(begin.get_y() + dimension_ - 1);
-            }else{
-                coord_end_.set_y(begin.get_y());    
-                coord_end_.set_x(begin.get_x() + dimension_ - 1);
-            }
-            return true;
+        if(vertical_){
+            coord_end_.set_x(begin.get_x());    
+            coord_end_.set_y(begin.get_y() + dimension_ - 1);
+        }else{
+            coord_end_.set_y(begin.get_y());    
+            coord_end_.set_x(begin.get_x() + dimension_ - 1);
+        }
+        return true;
     }
 
     bool game_elements::boat::valid_coordinates(const coordinates& coord) const {
@@ -119,21 +119,6 @@
             }
         }   
         return false;
-
-        /*if(vertical_){
-            if(coord.get_x() == coord_begin_.get_x()){
-                if((vertical_distance(coord,coord_begin_) < dimension_) && ((coord.get_y()- coord_begin_.get_y()) >= 0) ){
-                    return true;
-                }
-            }
-        }else{
-            if(coord.get_y() == coord_begin_.get_y()){
-                if(horizontal_distance(coord,coord_begin_) < dimension_ && (coord.get_x() - coord_begin_.get_x()) >= 0 ){
-                    return true;
-                }
-            }
-        }
-        return false;*/
     }   
 
 //HELPER FUNCTIONS

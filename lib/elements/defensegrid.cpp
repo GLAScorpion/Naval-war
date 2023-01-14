@@ -1,3 +1,7 @@
+/*
+@author:
+*/
+
 #include "../../include/elements/defensegrid.h"
 #include "../../include/elements/boat.h"
 #include "../../include/elements/corazzata.h"
@@ -20,7 +24,7 @@
 
     }
 
-//FUNCTION MEMBER
+//MEMBER FUNCTIONS
 
     bool game_elements::defense_grid::move(boat* b, const coordinates& coord){
         //controls if the moves is possible
@@ -137,6 +141,25 @@
         return map_[coord.get_y()][coord.get_x()];
     }
 
+    bool game_elements::defense_grid::check_move(boat* b, const coordinates& begin){
+        int size = b->get_dimension();
+        int tmp_x = begin.get_x();
+        int tmp_y = begin.get_y();
+        for(int i = 0; i < size; i++){
+            if(map_[tmp_y][tmp_x] != VOID){
+                return false;
+            }
+            if(b->is_vertical()){
+                if(tmp_y>=ROWS) return false;
+                tmp_y++;
+            }else{
+                if(tmp_x>=COLUMNS) return false;
+                tmp_x++;
+            }
+        }
+        return true;
+    }
+
     std::vector<game_elements::boat*> game_elements::defense_grid::get_boats() const{
         return boats_;
     }
@@ -160,29 +183,9 @@
         boats_ = tmp;
         delete b;
     }
+
 //OPERATORS
 
     std::ostream& game_elements::operator<<(std::ostream& os, const defense_grid& dg ){
         return os << dg.write();
-    }
-
-//HELPER FUNCTIONS
-
-    bool game_elements::defense_grid::check_move(boat* b, const coordinates& begin){
-        int size = b->get_dimension();
-        int tmp_x = begin.get_x();
-        int tmp_y = begin.get_y();
-        for(int i = 0; i < size; i++){
-            if(map_[tmp_y][tmp_x] != VOID){
-                return false;
-            }
-            if(b->is_vertical()){
-                if(tmp_y>=ROWS) return false;
-                tmp_y++;
-            }else{
-                if(tmp_x>=COLUMNS) return false;
-                tmp_x++;
-            }
-        }
-        return true;
     }

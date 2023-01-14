@@ -1,5 +1,6 @@
 /*
-@author 
+@author:
+
 SHORT DEFINITION:
     derived class (from boat) which define all the operation that a "esplorazione" boat is capable of doing and 
     receiving (explore, being attacked, move,...etc)
@@ -13,6 +14,7 @@ SHORT DEFINITION:
 #include "boat.h"
 
 namespace game_elements{
+
     constexpr int ESPLORAZIONE_SIZE = 1;
     constexpr int ESPLORAZIONE_RADIUS =2;
     constexpr char ESPLORAZIONE_SYM = 'E';
@@ -20,25 +22,25 @@ namespace game_elements{
     class attack_grid;
 
     class esplorazione : public boat{
-    public:
-    
-    //CONSTRUCTORS
+        public:
+            //CONSTRUCTORS
 
-        //deleted no argument constructor (there are none default properties for a esplorazione boat)
-        esplorazione() = delete;
+                //deleted no argument constructor (there are none default properties for a esplorazione boat)
+                esplorazione() = delete;
 
-        //call the base class constructor with coordinates vector
-        esplorazione(const coordinates& begin, const coordinates& end) : boat(begin,end){if(dimension_ != get_dimension()) throw std::logic_error("Size mismatch");}
+                //callS the base class constructor with coordinates vector
+                esplorazione(const coordinates& begin, const coordinates& end) : boat(begin,end){   if(dimension_ != get_dimension()) throw std::logic_error("Size mismatch");}
 
-    //FUNCTION MEMBERS
+            //MEMBER FUNCTIONS
 
-        //move the boat to the given coordinates and find all the boats in a radius of 5 
-        bool action(defense_grid* dg, attack_grid* ag, const coordinates& coord) override;
+                //moves the boat to the given coordinates and finds all the boats in a radius of 2 (5x5 square) 
+                bool action(defense_grid* dg, attack_grid* ag, const coordinates& coord) override;
 
-        char get_symbol() override {  return ESPLORAZIONE_SYM;}
-
-        int get_dimension() const override {return ESPLORAZIONE_SIZE;}
-
+                //returns the symbol of esplorazione boat
+                char get_symbol() override {  return ESPLORAZIONE_SYM;}
+                
+                //returns the size of esplorazione boat
+                int get_dimension() const override {return ESPLORAZIONE_SIZE;}
     };
 }
 

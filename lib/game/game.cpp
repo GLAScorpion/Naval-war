@@ -117,7 +117,7 @@ int main(int argc, char* argv[])
 void print(vector<player*>& players, int turn){
     string print;
     print += "PLAYER: "; 
-    print += players[turn]->get_id()+1;
+    print += '0' + players[turn]->get_id()+1;
     print += " "; 
     print += players[turn]->char_id(); 
     print += "\n";

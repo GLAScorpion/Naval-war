@@ -8,6 +8,7 @@ void game_elements::player::link(player* other){
 
 bool game_elements::player::command_exec(const std::string& cmd){
     std::vector<coordinates> coord_cmd = str_to_coord(cmd);
+    if(coord_cmd[1].get_x() == -1) return false;
     boat* tmp = dg->get_boat(coord_cmd[0]);
     if(!(coord_cmd[0] == tmp->get_centre())) return false;
     return tmp->action(dg,ag,coord_cmd[1]);

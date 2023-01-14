@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <unistd.h>
+#include <time.h>
 #include "../../include/elements/player.h"
 #include "../../include/elements/grids.h"
 #include "../../include/elements/robot.h"
@@ -15,6 +17,7 @@ using game_elements::coordinates;
 constexpr int CORAZZATA_NUM = 3;
 constexpr int SUPPORTO_NUM = 3;
 constexpr int ESPLORAZIONE_NUM = 2;
+constexpr unsigned long long SLEEP = 1000000L;
 const string flag_val {"GAME_PHASE"};
 int main(int argc, char* argv[]){
     bool file_mode = false;
@@ -37,9 +40,9 @@ int main(int argc, char* argv[]){
     players[0]->link(players[1]);
     for(int i=0; i < game_elements::BOAT_NUMBER * 2; i++){
         vector<coordinates> tmp;
+        game_elements::boat* tmp_boat;
         string tmp_cmd;
         string cmd;
-        game_elements::boat* tmp_boat;
         log >> tmp_cmd;
         cmd += tmp_cmd;
         cmd += " ";
@@ -67,6 +70,14 @@ int main(int argc, char* argv[]){
         cout << players[0]->print_grid()<<endl;  
         cout << "PLAYER: " << players[1]->get_id()+1<<" "<<players[1]->char_id()<<endl<<endl;
         cout << players[1]->print_grid()<<endl<<endl;
+        /*
+        timespec wait;
+        wait.tv_sec = 1;
+        wait.tv_nsec = SLEEP;
+        timespec t_remain;
+        nanosleep(&wait,NULL);
+        */
+       usleep(SLEEP);
     }
     string flag;
     log >> flag;
@@ -77,17 +88,31 @@ int main(int argc, char* argv[]){
         cout << "GAME PHASE\n\n";
     }
     for(int i = 0; !log.eof();i++){
+        string tmp_cmd;
+        string cmd;
+        log >> tmp_cmd;
+        cmd += tmp_cmd;
+        cmd += " ";
+        log >> tmp_cmd;
+        cmd += tmp_cmd;
+        players[i%2]->command_exec(cmd);
         if(file_mode){
             file_out << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl; 
             file_out << "DEFENSEGRID\n\n"<<players[i%2]->print_grid()<<endl;
             players[i%2]->switch_grid();
             file_out << "ATTACKGRID\n\n"<<players[i%2]->print_grid()<<endl;
-
         }else{
             cout << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl;
             cout << "DEFENSEGRID\n\n"<<players[i%2]->print_grid()<<endl;
             players[i%2]->switch_grid();
-            file_out << "ATTACKGRID\n\n"<<players[i%2]->print_grid()<<endl;
+            cout << "ATTACKGRID\n\n"<<players[i%2]->print_grid()<<endl;
+            /*
+            timespec wait;
+            wait.tv_sec  = 1;
+            wait.tv_nsec = SLEEP;
+            nanosleep(&wait,NULL);
+            */
+           usleep(SLEEP);
         }
         players[i%2]->switch_grid();
     } 

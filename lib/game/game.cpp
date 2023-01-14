@@ -15,6 +15,7 @@ using game_elements::coordinates;
 constexpr int CORAZZATA_NUM = 3;
 constexpr int SUPPORTO_NUM = 3;
 constexpr int ESPLORAZIONE_NUM = 2;
+constexpr int GAME_LENGTH = 100;
 const std::string filename {"log.txt"};
 int main(int argc, char* argv[])
 {
@@ -77,8 +78,8 @@ int main(int argc, char* argv[])
         }
     }
     cout << "GAME PHASE\n";
-    file << "GAME_PHASE\n";
-    for(int i = 0; !players[0]->has_lost() and !players[1]->has_lost(); i++){
+    file << "GAME_PHASE";
+    for(int i = 0; !players[0]->has_lost() and !players[1]->has_lost() and i < GAME_LENGTH; i++){
         cout << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl;
         cout<<players[i%2]->print_grid()<<endl;
         players[i%2]->print("Waiting for orders, captain!\n");
@@ -92,7 +93,7 @@ int main(int argc, char* argv[])
                 players[i%2]->print("Waiting for orders, captain!\n");
             }else if(players[i%2]->command_exec(tmp)){
                 pass = false;
-                file << tmp << "\n";
+                file << "\n"<< tmp ;
             }else{
                 players[i%2]->print("Coordinates unreachable\n");
             }
@@ -104,8 +105,10 @@ int main(int argc, char* argv[])
         if(!players[i%2]->which_grid()) players[i%2]->switch_grid();
     }
     if(players[0]->has_lost()){
-        cout << "PLAYER " << players[1]->get_id()+1<<" "<<players[1]->char_id()<<"has won"<<endl;
+        cout << "PLAYER " << players[1]->get_id()+1<<" "<<players[1]->char_id()<<" has won"<<endl;
+    }else if(players[1]->has_lost()){
+        cout << "PLAYER " << players[0]->get_id()+1<<" "<<players[0]->char_id()<<" has won"<<endl;
     }else{
-        cout << "PLAYER " << players[0]->get_id()+1<<" "<<players[0]->char_id()<<"has won"<<endl;
+        cout << "Draw\n";
     }
 }

@@ -68,8 +68,8 @@
         if(i<0) i=0;
         if(j<0) j=0;
 
-        for(;  i<coord.get_y()+radius && i<ROWS; i++){
-            for(; j<coord.get_x()+radius && j<COLUMNS; j++){
+        for(;  i<=coord.get_y()+radius && i<ROWS; i++){
+            for(; j<=coord.get_x()+radius && j<COLUMNS; j++){
                 temp= get_boat(coordinates(i,j));
                 if(temp && find(in_range_boats.begin(), in_range_boats.end(), temp)==in_range_boats.end()){
                     in_range_boats.push_back(temp);
@@ -98,23 +98,29 @@
 
     const std::string game_elements::defense_grid::write() const {
         std::string os;
-        os += "  +--+--+--+--+--+--+--+--+--+--+--+--+\n";
+        os += "   +---+---+---+---+---+---+---+---+---+---+---+---+\n";
         for(int i = 0; i < ROWS; i++){
+            os += ' ';
             os += coord_to_char(i) ;
             os+= " ";
             for(int j = 0; j < COLUMNS; j++){
-                os += "|";
+                os += "| ";
                 os += map_[i][j];
-                os += map_[i][j];
+                os += " ";
             }
             os += "|\n";
-            os += "--+--+--+--+--+--+--+--+--+--+--+--+--+\n";
+            os += "---+---+---+---+---+---+---+---+---+---+---+---+---+\n";
         }
-        os += "  |";
+        os += "   |";
         for(int j = 0; j < COLUMNS; j++){
-            if((j+1)/10 != 1) os += " ";
-            else os += '1';
-            os += '0' + (j + 1)%10; 
+            os += ' ';
+            if((j+1)/10 != 1) {
+                os += '0' + (j + 1)%10;
+                os += " ";
+            }else{
+                os += '1';
+                os += '0' + (j + 1)%10;
+                }
             os += "|";
         }
         os+="\n";

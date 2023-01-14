@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <random>
 #include "../../include/elements/player.h"
 #include "../../include/elements/grids.h"
 #include "../../include/elements/robot.h"
@@ -17,6 +18,7 @@ constexpr int SUPPORTO_NUM = 3;
 constexpr int ESPLORAZIONE_NUM = 2;
 constexpr int GAME_LENGTH = 100;
 const std::string filename {"log.txt"};
+void print(vector<player*>& players, int turn);
 int main(int argc, char* argv[])
 {
     if(argc < 2) throw std::invalid_argument("Not enough arguments");
@@ -41,17 +43,16 @@ int main(int argc, char* argv[])
     std::fstream file {filename, std::fstream::out | std::fstream::trunc};
     players[0]->link(players[1]);
     for(int i=0; i < game_elements::BOAT_NUMBER * 2; i++){
-        cout << "PLAYER: " << players[i/game_elements::BOAT_NUMBER]->get_id()+1<<" "<<players[i/game_elements::BOAT_NUMBER]->char_id()<<endl;
-        cout<<players[i/game_elements::BOAT_NUMBER]->print_grid()<<endl;
+        print(players,i/game_elements::BOAT_NUMBER);
         vector<coordinates> tmp;
         string tmp_cmd;
         bool pass = true;
         if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM){
-            cout<<"Dispatch battleship ship\n"; 
+            players[i/game_elements::BOAT_NUMBER]->print("Dispatch battleship ship\n"); 
         }else if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM + SUPPORTO_NUM){
-            cout<<"Dispatch support ship\n";
+            players[i/game_elements::BOAT_NUMBER]->print("Dispatch support ship\n");
         }else{
-            cout<<"Dispatch radar ship\n";
+            players[i/game_elements::BOAT_NUMBER]->print("Dispatch radar ship\n");
         }
         while(pass){
             tmp_cmd = players[i/game_elements::BOAT_NUMBER]->coord_picker();
@@ -78,18 +79,20 @@ int main(int argc, char* argv[])
         }
     }
     cout << "GAME PHASE\n";
-    file << "GAME_PHASE";
-    for(int i = 0; !players[0]->has_lost() and !players[1]->has_lost() and i < GAME_LENGTH; i++){
-        cout << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl;
-        cout<<players[i%2]->print_grid()<<endl;
+    file << "GAME_PHASE\n";
+    std::random_device rand;
+    std::uniform_int_distribution<int> start(0,1);
+    int i = start(rand);
+    file<<"STARTING_PLAYER: " << i;
+    for(; !players[0]->has_lost() and !players[1]->has_lost() and i < GAME_LENGTH; i++){
+        print(players,i%2);
         players[i%2]->print("Waiting for orders, captain!\n");
         bool pass = true;
         std::string tmp;
         while(pass){
             tmp = players[i%2]->command_picker();
             if(players[i%2]->exec_special(tmp)){
-                cout << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl;
-                cout<<players[i%2]->print_grid()<<endl;
+                print(players,i%2);
                 players[i%2]->print("Waiting for orders, captain!\n");
             }else if(players[i%2]->command_exec(tmp)){
                 pass = false;
@@ -98,9 +101,8 @@ int main(int argc, char* argv[])
                 players[i%2]->print("Coordinates unreachable\n");
             }
         }
-        cout << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl;
-        cout<<players[i%2]->print_grid()<<endl;
-        players[i%2]->print("Enter to pass turn\n");
+        print(players,i%2);
+        //players[i%2]->print("Enter to pass turn\n");
         //int pause = getchar();
         if(!players[i%2]->which_grid()) players[i%2]->switch_grid();
     }
@@ -111,4 +113,15 @@ int main(int argc, char* argv[])
     }else{
         cout << "Draw\n";
     }
+}
+void print(vector<player*>& players, int turn){
+    string print;
+    print += "PLAYER: "; 
+    print += players[turn]->get_id()+1;
+    print += " "; 
+    print += players[turn]->char_id(); 
+    print += "\n";
+    print += players[turn]->print_grid();
+    print += "\n";
+    players[turn]->print(print);
 }

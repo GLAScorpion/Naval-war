@@ -40,10 +40,10 @@
         int i=coord.get_y()-radius;
         if(i<0) i=0;
 
-        for(; i<coord.get_y()+radius && i<ROWS; i++){
+        for(; i<=coord.get_y()+radius && i<ROWS; i++){
             int j=coord.get_x()-radius;
             if(j<0) j=0;
-            for(; j<coord.get_x()+radius && j<COLUMNS; j++){
+            for(; j<=coord.get_x()+radius && j<COLUMNS; j++){
                 coord_temp = coordinates(j,i);
                 temp= get_boat(coord_temp);
                 if(temp){
@@ -73,23 +73,29 @@
 
     const std::string game_elements::attack_grid::write() const {
         std::string os;
-        os += "  +--+--+--+--+--+--+--+--+--+--+--+--+\n";
+        os += "   +---+---+---+---+---+---+---+---+---+---+---+---+\n";
         for(int i = 0; i < ROWS; i++){
+            os += ' ';
             os += coord_to_char(i) ;
             os+= " ";
             for(int j = 0; j < COLUMNS; j++){
-                os += "|";
+                os += "| ";
                 os += map_[i][j];
-                os += map_[i][j];
+                os += " ";
             }
             os += "|\n";
-            os += "--+--+--+--+--+--+--+--+--+--+--+--+--+\n";
+            os += "---+---+---+---+---+---+---+---+---+---+---+---+---+\n";
         }
-        os += "  |";
+        os += "   |";
         for(int j = 0; j < COLUMNS; j++){
-            if((j+1)/10 != 1) os += " ";
-            else os += '1';
-            os += '0' + (j + 1)%10; 
+            os += ' ';
+            if((j+1)/10 != 1) {
+                os += '0' + (j + 1)%10;
+                os += " ";
+            }else{
+                os += '1';
+                os += '0' + (j + 1)%10;
+                }
             os += "|";
         }
         os+="\n";

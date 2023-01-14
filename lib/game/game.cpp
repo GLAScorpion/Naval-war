@@ -15,6 +15,8 @@ using game_elements::coordinates;
 constexpr int CORAZZATA_NUM = 3;
 constexpr int SUPPORTO_NUM = 3;
 constexpr int ESPLORAZIONE_NUM = 2;
+constexpr int GAME_LENGTH = 100;
+const std::string filename {"log.txt"};
 int main(int argc, char* argv[])
 {
     if(argc < 2) throw std::invalid_argument("Not enough arguments");
@@ -36,11 +38,13 @@ int main(int argc, char* argv[])
     }else{
         throw std::invalid_argument("Invalid arguments");
     }
+    std::fstream file {filename, std::fstream::out | std::fstream::trunc};
     players[0]->link(players[1]);
     for(int i=0; i < game_elements::BOAT_NUMBER * 2; i++){
         cout << "PLAYER: " << players[i/game_elements::BOAT_NUMBER]->get_id()+1<<" "<<players[i/game_elements::BOAT_NUMBER]->char_id()<<endl;
         cout<<players[i/game_elements::BOAT_NUMBER]->print_grid()<<endl;
         vector<coordinates> tmp;
+        string tmp_cmd;
         bool pass = true;
         if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM){
             cout<<"Dispatch battleship ship\n"; 
@@ -50,7 +54,8 @@ int main(int argc, char* argv[])
             cout<<"Dispatch radar ship\n";
         }
         while(pass){
-            tmp = game_elements::str_to_coord(players[i/game_elements::BOAT_NUMBER]->coord_picker());
+            tmp_cmd = players[i/game_elements::BOAT_NUMBER]->coord_picker();
+            tmp = game_elements::str_to_coord(tmp_cmd);
             try{
                 game_elements::boat* tmp_boat;
                 if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM){
@@ -62,6 +67,7 @@ int main(int argc, char* argv[])
                 }
                 if(players[i/game_elements::BOAT_NUMBER]->place_boat(tmp_boat)){
                     pass = false;
+                    file << tmp_cmd << "\n";
                 }else{
                     players[i/game_elements::BOAT_NUMBER]->print("Invalid placement, retry\n");
                 }
@@ -72,7 +78,8 @@ int main(int argc, char* argv[])
         }
     }
     cout << "GAME PHASE\n";
-    for(int i = 0; !players[0]->has_lost() and !players[1]->has_lost(); i++){
+    file << "GAME_PHASE";
+    for(int i = 0; !players[0]->has_lost() and !players[1]->has_lost() and i < GAME_LENGTH; i++){
         cout << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl;
         cout<<players[i%2]->print_grid()<<endl;
         players[i%2]->print("Waiting for orders, captain!\n");
@@ -80,13 +87,13 @@ int main(int argc, char* argv[])
         std::string tmp;
         while(pass){
             tmp = players[i%2]->command_picker();
-            cout<<tmp<<endl;
             if(players[i%2]->exec_special(tmp)){
                 cout << "PLAYER: " << players[i%2]->get_id()+1<<" "<<players[i%2]->char_id()<<endl;
                 cout<<players[i%2]->print_grid()<<endl;
                 players[i%2]->print("Waiting for orders, captain!\n");
             }else if(players[i%2]->command_exec(tmp)){
                 pass = false;
+                file << "\n"<< tmp ;
             }else{
                 players[i%2]->print("Coordinates unreachable\n");
             }
@@ -98,8 +105,10 @@ int main(int argc, char* argv[])
         if(!players[i%2]->which_grid()) players[i%2]->switch_grid();
     }
     if(players[0]->has_lost()){
-        cout << "PLAYER " << players[1]->get_id()+1<<" "<<players[1]->char_id()<<"has won"<<endl;
+        cout << "PLAYER " << players[1]->get_id()+1<<" "<<players[1]->char_id()<<" has won"<<endl;
+    }else if(players[1]->has_lost()){
+        cout << "PLAYER " << players[0]->get_id()+1<<" "<<players[0]->char_id()<<" has won"<<endl;
     }else{
-        cout << "PLAYER " << players[0]->get_id()+1<<" "<<players[0]->char_id()<<"has won"<<endl;
+        cout << "Draw\n";
     }
 }

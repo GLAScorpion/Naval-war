@@ -11,7 +11,6 @@
             ag->set_cell(coord,ABSENT);
             return true;
         }
-        std::cout<<ag->get_other_grid()->get_boats().size()<<std::endl;
         boat->got_hit(coord);
         ag->get_other_grid()->set_cell(coord, tolower(boat->get_symbol()));
         ag->set_cell(coord,HIT); 

@@ -102,11 +102,13 @@ int main(int argc, char* argv[]){
         if(!players[i%2]->command_exec(cmd)) throw std::invalid_argument("Invalid file format");
         if(file_mode){
             file_out << "PLAYER: " << players[i%2]->get_id()+1<<endl; 
+            file_out << "COMMAND: " << cmd<<endl;
             file_out << "DEFENSEGRID\n\n"<<players[i%2]->print_grid()<<endl;
             players[i%2]->switch_grid();
             file_out << "ATTACKGRID\n\n"<<players[i%2]->print_grid()<<endl;
         }else{
             cout << "PLAYER: " << players[i%2]->get_id()+1<<endl;
+            cout << "COMMAND: " << cmd<<endl;
             cout << "DEFENSEGRID\n\n"<<players[i%2]->print_grid()<<endl;
             players[i%2]->switch_grid();
             cout << "ATTACKGRID\n\n"<<players[i%2]->print_grid()<<endl;

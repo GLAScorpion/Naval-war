@@ -111,13 +111,13 @@ int main(int argc, char* argv[])
     }else if(players[1]->has_lost()){
         cout << "PLAYER " << players[0]->get_id()+1<<" "<<players[0]->char_id()<<" has won"<<endl;
     }else{
-        cout << "Draw\n";
+        cout << "Turn Limit reached. Draw\n";
     }
 }
 void print(vector<player*>& players, int turn){
     string print;
     print += "PLAYER: "; 
-    print += players[turn]->get_id()+1;
+    print += '0' + players[turn]->get_id()+1;
     print += " "; 
     print += players[turn]->char_id(); 
     print += "\n";

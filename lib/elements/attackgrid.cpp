@@ -1,3 +1,7 @@
+/*
+@author:
+*/
+
 #include "../../include/elements/attackgrid.h"
 #include "../../include/elements/defensegrid.h"
 #include "../../include/elements/boat.h"
@@ -59,13 +63,15 @@
 
     void game_elements::attack_grid::set_cell(const coordinates& coord, char boat_symbol){
         if(!check_coordinates(coord)){
-            throw std::invalid_argument("The coordinates are not valid fir this grid");
+            throw std::invalid_argument("The coordinates are not valid for this grid");
         }
         map_[coord.get_y()][coord.get_x()] = boat_symbol;
     }
 
     char game_elements::attack_grid::get_cell(const coordinates& coord){
-        check_coordinates(coord);
+        if(!check_coordinates(coord)){
+            throw std::invalid_argument("The coordinates are not valid for this grid");
+        }
         return map_[coord.get_y()][coord.get_x()];
     }
     

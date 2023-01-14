@@ -1,3 +1,9 @@
+/*
+@author:
+
+SHORT DEFINITION:...
+*/
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -8,17 +14,20 @@
 #include "../../include/elements/robot.h"
 #include "../../include/elements/boats.h"
 #include "../../include/elements/person.h"
+
 using std::cout;
 using std::string;
 using std::vector;
 using std::endl;
 using game_elements::player;
 using game_elements::coordinates;
+
 constexpr int CORAZZATA_NUM = 3;
 constexpr int SUPPORTO_NUM = 3;
 constexpr int ESPLORAZIONE_NUM = 2;
 constexpr unsigned long long SLEEP = 1000000L;
 const string flag_val {"GAME_PHASE"};
+
 int main(int argc, char* argv[]){
     bool file_mode = false;
     if(argc < 3) throw std::invalid_argument("Not enough arguments");

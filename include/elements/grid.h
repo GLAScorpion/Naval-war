@@ -22,34 +22,34 @@ namespace game_elements{
     class boat;
 
     class grid{
-    public:
+        public:
+            //PUBLIC CONSTRUCTORS
 
-    //PUBLIC CONSTRUCTORS
+                //deletes copy constructor
+                grid(const grid& g) = delete;
+                        
+            //MEMBER FUNCTIONS
 
-        //deletes copy constructor
-        grid(const grid& g) = delete;
+                //returns a vector with all the boat pointers that have a distance from the given coordinates smaller than radius 
+                virtual std::vector<boat*> boats_in_radius(const coordinates& c, int radius) = 0;
+
+                //returns boat pointer to allow operations on the boat 
+                virtual boat* get_boat(const coordinates& c) const = 0;
+                virtual std::vector<boat*> get_boats() const = 0;
+
+                //deletes boat
+                virtual void del_boat(boat* b) = 0;
+
+            //OPERATORS
+
+                //deleted copy assignment operator
+                grid& operator=(const grid& g) = delete;  
                 
-    //MEMBER FUNCTIONS
-
-        //returns a vector with all the boat pointers that have a distance from the given coordinates smaller than radius 
-        virtual std::vector<boat*> boats_in_radius(const coordinates& c, int radius) = 0;
-
-        //returns boat pointer to allow operations on the boat 
-        virtual boat* get_boat(const coordinates& c) const = 0;
-        virtual std::vector<boat*> get_boats() const = 0;
-
-        //deletes boat
-        virtual void del_boat(boat* b) = 0;
-
-    //OPERATORS
-
-        //deleted copy assignment operator
-        grid& operator=(const grid& g) = delete;  
-        
-    protected:
-
-        //no arguments constructor
-        grid() {};
+        protected:
+            //PROTECTED CONSTRUCTORS
+            
+                //no arguments constructor
+                grid() {};
 
     };
 

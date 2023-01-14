@@ -1,3 +1,7 @@
+/*
+@author:
+*/
+
 #include "../../include/elements/boat.h"
 
 //CONSTRUCTORS
@@ -89,16 +93,15 @@
     }
 
     bool game_elements::boat::set_coordinates(const game_elements::coordinates& begin){
-        
         coord_begin_ = begin;
-            if(vertical_){
-                coord_end_.set_x(begin.get_x());    
-                coord_end_.set_y(begin.get_y() + dimension_ - 1);
-            }else{
-                coord_end_.set_y(begin.get_y());    
-                coord_end_.set_x(begin.get_x() + dimension_ - 1);
-            }
-            return true;
+        if(vertical_){
+            coord_end_.set_x(begin.get_x());    
+            coord_end_.set_y(begin.get_y() + dimension_ - 1);
+        }else{
+            coord_end_.set_y(begin.get_y());    
+            coord_end_.set_x(begin.get_x() + dimension_ - 1);
+        }
+        return true;
     }
 
     bool game_elements::boat::valid_coordinates(const coordinates& coord) const {

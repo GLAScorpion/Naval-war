@@ -23,61 +23,60 @@ namespace game_elements{
     class coordinates;
 
     class defense_grid : public grid{
-    public:
+        public:
+            //CONSTRUCTORS
 
-        //CONSTRUCTORS
+                //no arguments constructor
+                defense_grid();
 
-            defense_grid();
+                //deleted copy constructor
+                defense_grid(const defense_grid& ag) = delete;
 
-            //deleted copy constructor
-            defense_grid(const defense_grid& ag) = delete;
+            //MEMBER FUNCTIONS
 
-        //MEMBER FUNCTIONS
+                //allows boat operations in the grid, throws exception if it is not possible 
+                bool move(boat* b, const coordinates& begin);
 
-            //allows boat operations in the grid, throws exception if it is not possible 
-            bool move(boat* b, const coordinates& begin);
+                //adds boat to boats_
+                void push_boat(boat* b) {   boats_.push_back(b);}
 
-            //adds boat to boats_
-            void push_boat(boat* b) {   boats_.push_back(b);}
+                //returns a vector with all the boats that have a distance from the given coordinates smaller than radius 
+                std::vector<boat*> boats_in_radius(const coordinates& c, int radius)  override;
 
-            //returns a vector with all the boats that have a distance from the given coordinates smaller than radius 
-            std::vector<boat*> boats_in_radius(const coordinates& c, int radius)  override;
+                //returns boat pointer to allow operations on the boat 
+                boat* get_boat(const coordinates& c) const override;
 
-            //returns boat pointer to allow operations on the boat 
-            boat* get_boat(const coordinates& c) const override;
+                //checks if coordinates match the dimension of the grid
+                bool check_coordinates(const coordinates& c) const;
 
-            //checks if coordinates match the dimension of the grid
-            bool check_coordinates(const coordinates& c) const;
+                //prints the grid
+                const std::string write() const;
 
-            //prints the grid
-            const std::string write() const;
+                //sets map cell, throws exception if coord is invalid
+                void set_cell(const coordinates& coord, char boat_symbol);
 
-            //sets map cell, throws exception if coord is invalid
-            void set_cell(const coordinates& coord, char boat_symbol);
+                //returns the value of the cell in the given coordinates, throws exception if coord is invalid
+                char get_cell(const coordinates& coord);
 
-            //returns the value of the cell in the given coordinates, throws exception if coord is invalid
-            char get_cell(const coordinates& coord);
+                //returns true if the move is possible
+                bool check_move(boat* b, const coordinates& begin);
 
-            //returns true if the move is possible
-            bool check_move(boat* b, const coordinates& begin);
+                //returns all boats
+                std::vector<boat*> get_boats() const override;
 
-            //returns all boats
-            std::vector<boat*> get_boats() const override;
+                //deletes boat
+                void del_boat(boat* b) override;
 
-            //deletes boat
-            void del_boat(boat* b) override;
+            //OPERATORS
 
-        //OPERATORS
+                //deleted copy assignment
+                defense_grid& operator=(const defense_grid& ag) = delete;
+                
+        private:
+            //DATA MEMBERS
 
-            //deleted copy assignment
-            defense_grid& operator=(const defense_grid& ag) = delete;
-            
-    private:
-
-        //DATA MEMBERS
-
-            char map_[ROWS][COLUMNS]; 
-            std::vector<boat*> boats_; 
+                char map_[ROWS][COLUMNS]; 
+                std::vector<boat*> boats_; 
     };
 
     //OPERATORS

@@ -1,7 +1,6 @@
 /*
 @author: 
 
-
 SHORT DEFINITION:
 -->An abstract class that describes the basic features of a boat
 */
@@ -19,84 +18,83 @@ namespace game_elements{
     class attack_grid;
 
     class boat{
-    public:
+        public:
+            //PUBLIC CONSTRUCTORS
 
-        //CONSTRUCTORS
+                //deleted copy constructor 
+                boat(const boat& b) = delete;
 
-            //deleted copy constructor 
-            boat(const boat& b) = delete;
+                //deleted no argument constructor (there are none default properties for a boat)
+                boat() = delete; 
 
-            //deleted no argument constructor (there are none default properties for a boat)
-            boat() = delete; 
+            //MEMBER FUNCTIONS
 
-        //MEMBER FUNCTIONS
+                //returns the dimension of the boat
+                virtual int get_dimension() const = 0;
 
-            //returns the dimension of the boat
-            virtual int get_dimension() const = 0;
+                //returns the value of corazza
+                int get_corazza() const {return corazza_;}
 
-            //returns the value of corazza
-            int get_corazza() const {return corazza_;}
+                //returns boat begin coordinates
+                coordinates get_begin() const {return coord_begin_;}
 
-            //returns boat begin coordinates
-            coordinates get_begin() const {return coord_begin_;}
+                //returns boat end coordinates
+                coordinates get_end() const {return coord_end_;}
 
-            //returns boat end coordinates
-            coordinates get_end() const {return coord_end_;}
+                //returns tracker vector
+                const std::vector<bool>& get_tracker() { return corazza_tracker_;}
 
-            //returns tracker vector
-            const std::vector<bool>& get_tracker() { return corazza_tracker_;}
+                //returns boat centre coordinates
+                coordinates get_centre() const;
 
-            //returns boat centre coordinates
-            coordinates get_centre() const;
+                //returns boat simbol in grid
+                virtual char get_symbol()=0;
 
-            //returns boat simbol in grid
-            virtual char get_symbol()=0;
+                //returns true if the boat is vertical, else it returns false 
+                bool is_vertical() const;
 
-            //returns true if the boat is vertical, else it returns false 
-            bool is_vertical() const;
+                //sets corazza value to max
+                void restore_corazza();
 
-            //sets corazza value to max
-            void restore_corazza();
+                //returns true if that piece of the boat has already been hit
+                bool is_broken(const coordinates& coord);
 
-            //returns true if that piece of the boat has already been hit
-            bool is_broken(const coordinates& coord);
+                //reduces boat corazza of one unit if possible, throws exception if it's not
+                void got_hit(const coordinates& coord);
 
-            //reduces boat corazza of one unit if possible, throws exception if it's not
-            void got_hit(const coordinates& coord);
+                //sets the new coordinates of the boat , returns true in standard version
+                bool set_coordinates(const coordinates& begin);
 
-            //sets the new coordinates of the boat , returns true in standard version
-            bool set_coordinates(const coordinates& begin);
+                //returns true if the given coordinates match the coordinates of the boat
+                bool valid_coordinates(const coordinates& coord) const;
 
-            //returns true if the coordinates entered match the coordinates of this boat
-            bool valid_coordinates(const coordinates& coord) const;
+                //operate
+                virtual bool action(defense_grid* dg,attack_grid* ag, const coordinates& coord) = 0; 
 
-            //operate
-            virtual bool action(defense_grid* dg,attack_grid* ag, const coordinates& coord) = 0; 
+            //OPERATORS
 
-        //OPERATORS
+                //deleted copy assignment
+                boat& operator=(const boat& b) = delete;
 
-            //deleted copy assignment
-            boat& operator=(const boat& b) = delete;
+        protected:
+            //PROTECTED CONSTRUCTORS
 
-    protected:
+                //constructor accepting coordinates for begin and end of boat
+                boat(const coordinates& begin, const coordinates& end);
+            
+            //DATA MEMBERS
+            
+                //allows the user to understand what kind of boat they're using 
+                int dimension_;
 
-        //CONSTRUTORS
+        private:
+            //DATA MEMBERS
 
-            //constructor accepting coordinates for begin and end of boat
-            boat(const coordinates& begin, const coordinates& end);
-
-            int dimension_; //this number allows the user of this class to understand what kind of boat they're using 
-
-    private:
-
-        //DATA MEMBERS
-
-            coordinates coord_begin_;
-            coordinates coord_end_;
-            std::vector<bool> corazza_tracker_;
-            int corazza_;
-            bool vertical_;
-
+                coordinates coord_begin_;
+                coordinates coord_end_;
+                std::vector<bool> corazza_tracker_;
+                int corazza_;
+                bool vertical_;
     };
     
     //HELPER FUNCTIONS

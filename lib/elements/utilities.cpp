@@ -1,3 +1,7 @@
+/*
+@author:
+*/
+
 #include "../../include/elements/utilities.h"
 
 //OPERATORS
@@ -64,7 +68,6 @@
         if(second_half.length()!= 2 and second_half.length()!=3) return res;
         if(!isalpha(first_half[0]) or !isalpha(second_half[0])) return res;
         if(char_to_coord(first_half[0]) > 11 or char_to_coord(second_half[0]) > 11) return res;
-
         
         first_digit = first_half[1] - '1';
         second_digit = second_half[1] - '1';

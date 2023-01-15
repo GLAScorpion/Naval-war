@@ -1,12 +1,12 @@
 /*
-@author:
+@author: PIERPAOLO COLELLA
 */
 
-#include "../../include/elements/player.h"
-#include "../../include/elements/grids.h"
-#include "../../include/elements/robot.h"
-#include "../../include/elements/boats.h"
-#include "../../include/elements/utilities.h"
+#include "../include/player.h"
+#include "../include/grids.h"
+#include "../include/robot.h"
+#include "../include/boats.h"
+#include "../include/utilities.h"
 #include <random>
 
 //MEMBER FUNCTIONS

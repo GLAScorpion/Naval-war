@@ -1,5 +1,5 @@
 /*
-@author:
+@author: PIERPAOLO COLELLA
 */
 
 #include <iostream>
@@ -7,11 +7,11 @@
 #include <vector>
 #include <unistd.h>
 #include <time.h>
-#include "../../include/elements/player.h"
-#include "../../include/elements/grids.h"
-#include "../../include/elements/robot.h"
-#include "../../include/elements/boats.h"
-#include "../../include/elements/person.h"
+#include "../include/player.h"
+#include "../include/grids.h"
+#include "../include/robot.h"
+#include "../include/boats.h"
+#include "../include/person.h"
 using std::cout;
 using std::string;
 using std::vector;

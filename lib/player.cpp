@@ -1,10 +1,10 @@
 /*
-@author:
+@author: PIERPAOLO COLELLA
 */
 
-#include "../../include/elements/player.h"
-#include "../../include/elements/grids.h"
-#include "../../include/elements/boats.h"
+#include "../include/player.h"
+#include "../include/grids.h"
+#include "../include/boats.h"
 
 //MEMBER FUNCTIONS
 

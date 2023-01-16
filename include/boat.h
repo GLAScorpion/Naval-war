@@ -36,19 +36,19 @@ namespace game_elements{
                 int get_corazza() const {return corazza_;}
 
                 //returns boat begin coordinates
-                coordinates get_begin() const {return coord_begin_;}
+                const coordinates& get_begin() const {return coord_begin_;}
 
                 //returns boat end coordinates
-                coordinates get_end() const {return coord_end_;}
+                const coordinates& get_end() const {return coord_end_;}
 
                 //returns tracker vector
                 const std::vector<bool>& get_tracker() { return corazza_tracker_;}
 
                 //returns boat centre coordinates
-                coordinates get_centre() const;
+                const coordinates get_centre() const;
 
                 //returns boat simbol in grid
-                virtual char get_symbol()=0;
+                virtual char get_symbol() const = 0;
 
                 //returns true if the boat is vertical, else it returns false 
                 bool is_vertical() const;
@@ -57,7 +57,7 @@ namespace game_elements{
                 void restore_corazza();
 
                 //returns true if that piece of the boat has already been hit
-                bool is_broken(const coordinates& coord);
+                bool is_broken(const coordinates& coord) const;
 
                 //reduces boat corazza of one unit if possible, throws exception if it's not
                 void got_hit(const coordinates& coord);

@@ -37,22 +37,22 @@ namespace game_elements{
                 void link(player* other);
 
                 //returns a known command
-                virtual std::string command_picker() = 0;
+                virtual std::string command_picker() const = 0;
 
                 //executes the command if possible, else returns false
                 bool command_exec(const std::string& cmd);
 
                 //checks if the boat choice is correct
-                virtual bool boat_choice(const coordinates& coord) = 0;
+                virtual bool boat_choice(const coordinates& coord) const = 0;
 
                 //prints to console the given string if needed
-                virtual void print(const std::string& str) = 0;
+                virtual void print(const std::string& str) const = 0;
 
                 //returns coords in valid format
-                virtual std::string coord_picker() = 0;
+                virtual std::string coord_picker() const = 0;
 
                 //returns char identifier
-                virtual char char_id() = 0;
+                virtual char char_id() const = 0;
 
                 //executes special commands if recognized
                 virtual bool exec_special(const std::string& cmd) = 0;
@@ -61,13 +61,13 @@ namespace game_elements{
                 void switch_grid() {  print_dg_ = !print_dg_;}
                 
                 //true if set to print defensegrid
-                bool which_grid() {  return print_dg_;}
+                bool which_grid() const {  return print_dg_;}
                 
                 //returns id_
-                int get_id(){  return id_;}
+                int get_id() const {  return id_;}
                 
                 //returns true if all ships in possession have sunk
-                bool has_lost() {  return dg->get_boats().size() == 0;}
+                bool has_lost() const {  return dg->get_boats().size() == 0;}
                 
                 //place a boat on the grid if possible
                 bool place_boat(boat* b);

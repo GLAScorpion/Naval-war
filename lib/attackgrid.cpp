@@ -57,7 +57,7 @@
         return res;  
     }
 
-    game_elements::boat* game_elements::attack_grid::get_boat(const coordinates& coord) const{  
+    game_elements::boat* game_elements::attack_grid::get_boat(const coordinates& coord){  
         return (others_grid_->get_boat(coord));
     }
 
@@ -68,7 +68,7 @@
         map_[coord.get_y()][coord.get_x()] = boat_symbol;
     }
 
-    char game_elements::attack_grid::get_cell(const coordinates& coord){
+    char game_elements::attack_grid::get_cell(const coordinates& coord) const{
         if(!check_coordinates(coord)){
             throw std::invalid_argument("The coordinates are not valid for this grid");
         }
@@ -83,37 +83,37 @@
     }
 
     const std::string game_elements::attack_grid::write() const {
-        std::string os;
-        os += "   +---+---+---+---+---+---+---+---+---+---+---+---+\n";
+        std::string str;
+        str += "   +---+---+---+---+---+---+---+---+---+---+---+---+\n";
         for(int i = 0; i < ROWS; i++){
-            os += ' ';
-            os += coord_to_char(i) ;
-            os+= " ";
+            str += ' ';
+            str += coord_to_char(i) ;
+            str += " ";
             for(int j = 0; j < COLUMNS; j++){
-                os += "| ";
-                os += map_[i][j];
-                os += " ";
+                str += "| ";
+                str += map_[i][j];
+                str += " ";
             }
-            os += "|\n";
-            os += "---+---+---+---+---+---+---+---+---+---+---+---+---+\n";
+            str += "|\n";
+            str += "---+---+---+---+---+---+---+---+---+---+---+---+---+\n";
         }
-        os += "   |";
+        str += "   |";
         for(int j = 0; j < COLUMNS; j++){
-            os += ' ';
+            str += ' ';
             if((j+1)/10 != 1) {
-                os += '0' + (j + 1)%10;
-                os += " ";
+                str += '0' + (j + 1)%10;
+                str += " ";
             }else{
-                os += '1';
-                os += '0' + (j + 1)%10;
+                str += '1';
+                str += '0' + (j + 1)%10;
                 }
-            os += "|";
+            str += "|";
         }
-        os+="\n";
-        return os;
+        str +="\n";
+        return str;
     }
     
-    std::vector<game_elements::boat*> game_elements::attack_grid::get_boats() const{
+    std::vector<game_elements::boat*> game_elements::attack_grid::get_boats(){
         return others_grid_->get_boats();
     }
 

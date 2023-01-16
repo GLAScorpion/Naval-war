@@ -40,7 +40,7 @@
 
 //MEMBER FUNCTIONS
 
-    game_elements::coordinates game_elements::boat::get_centre() const{
+    const game_elements::coordinates game_elements::boat::get_centre() const{
         game_elements::coordinates temp(0,0);
         if(is_vertical()){
             temp.set_x(get_begin().get_x());
@@ -63,7 +63,7 @@
         }
     }
 
-    bool game_elements::boat::is_broken(const coordinates& coord){
+    bool game_elements::boat::is_broken(const coordinates& coord) const{
         if(is_vertical()){
             int temp = coord.get_y() - coord_begin_.get_y();
             return !corazza_tracker_[temp];

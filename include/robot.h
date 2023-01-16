@@ -27,27 +27,27 @@ namespace game_elements{
                 robot():player(){
                     static int counter_;
                     id_ = counter_++;
-                    }
+                }
             
             //MEMBER FUNCTIONS
                 
                 //returns a command choosen randomly
-                std::string command_picker() override;
+                std::string command_picker() const override;
                 
                 //checks if the boat choice is correct
-                bool boat_choice(const coordinates& coord) override;
+                bool boat_choice(const coordinates& coord) const override;
                 
                 //doesn't print anything
-                void print(const std::string& str) override {  return;}
+                void print(const std::string& str) const override {  return;}
                 
                 //returns char identifier
-                char char_id() override {  return ROBOT_CHAR;}
+                char char_id() const override {  return ROBOT_CHAR;}
                 
                 //returns false, robot can't execute special
                 bool exec_special(const std::string& cmd) override {  return false;}
                 
                 //returns coords in valid format
-                std::string coord_picker() override;
+                std::string coord_picker() const override;
             
             //OPERATORS
             

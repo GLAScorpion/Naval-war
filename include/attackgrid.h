@@ -42,23 +42,23 @@ namespace game_elements{
                 //returns a vector with all the boats that have a distance from the given coordinates smaller than radius 
                 std::vector<boat*> boats_in_radius(const coordinates& coord, int radius) override;
 
-                //returns boat pointer to allow operations on the boat 
-                boat* get_boat(const coordinates& coord) const override;
+                //returns pointer to the boat in coord, returns nullptr if theres none
+                boat* get_boat(const coordinates& coord) override;
 
                 //sets map cell, throws exception if coord is invalid
                 void set_cell(const coordinates& coord, char symbol);
 
-                //returns the value of the cell in the given coordinates, throws exception if coord is invalid
-                char get_cell(const coordinates& coord);
+                //returns the symbol of the cell in the given coordinates, throws exception if coord is invalid
+                char get_cell(const coordinates& coord) const;
 
                 //checks if the given coordinates match the dimension of the grid
                 bool check_coordinates(const coordinates& c) const;
 
-                //prints the grid
+                //prints the grid to a string
                 const std::string write() const;
 
                 //returns all boats in a vector
-                std::vector<boat*> get_boats() const override;
+                std::vector<boat*> get_boats() override;
 
                 //removes all symbols ==symbol from grid
                 void clear_symbol(char symbol);

@@ -2,7 +2,7 @@
 @author: MATTIA SCANTAMBURLO
 
 SHORT DEFINITION:
-    header conataining the declaration of elements that represent simple concepts of the game 
+    header containing the declaration of elements that represent simple concepts of the game 
     (example: coordinates)
 */
 
@@ -19,7 +19,7 @@ namespace game_elements{
             //CONSTRUCTORS
 
                 //constructor accepting two integers
-                coordinates(int x = 0, int y = 0): x_{x}, y_{y}{}
+                coordinates(int x = -1, int y = -1): x_{x}, y_{y}{}
 
             //FUNCTION MEMBERS
 
@@ -61,7 +61,7 @@ namespace game_elements{
         //converts to valid a valid string
         std::string coord_to_str(int c);
 
-        //converts to valid a valid string
+        //converts to valid a valid char
         char coord_to_char(int c);
 
         //converts to valid coord

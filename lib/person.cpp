@@ -10,7 +10,7 @@
 
 //MEMBER FUNCTIONS
 
-    std::string game_elements::person::command_picker(){
+    std::string game_elements::person::command_picker() const{
         std::string cmd;
         std::string second_half;
         while(true){
@@ -26,14 +26,14 @@
         }
     }
 
-    bool game_elements::person::boat_choice(const coordinates& coord){
+    bool game_elements::person::boat_choice(const coordinates& coord) const{
         boat* tmp_boat = dg->get_boat(coord);
         if(!(coord == tmp_boat->get_centre())) return false;
         if(tmp_boat->get_corazza() == 0) return false;
         return true;
     }
 
-    std::string game_elements::person::coord_picker(){
+    std::string game_elements::person::coord_picker() const{
         std::string cmd;
         std::string second_half;
         while(true){

@@ -33,19 +33,19 @@ namespace game_elements{
             //MEMBER FUNCTIONS
 
                 //asks user for a command, returns it if known
-                std::string command_picker() override;
+                std::string command_picker() const override;
 
                 //checks if the boat choice is correct
-                bool boat_choice(const coordinates& coord) override;
+                bool boat_choice(const coordinates& coord) const override;
 
                 //prints to console the string
-                void print(const std::string& str) override {  std::cout<<str<<std::endl;}
+                void print(const std::string& str) const override {  std::cout<<str<<std::endl;}
                 
                 //returns char identifier
-                char char_id() override {return PERSON_CHAR;}
+                char char_id() const override {return PERSON_CHAR;}
                 
                 //returns coords in valid format
-                std::string coord_picker() override;
+                std::string coord_picker() const override;
                 
                 //executes special commands if recognized
                 bool exec_special(const std::string& cmd) override;

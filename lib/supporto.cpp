@@ -14,6 +14,7 @@
 
         std::vector<boat*> boats = dg->boats_in_radius(coord,SUPPORTO_RADIUS);
         coordinates temp;
+        std::cout << boats.size();
         //checks every cell in range and heals every boat in it, except itself
         for(int i = 0; i < boats.size(); i++){
             if(this!=boats[i]){

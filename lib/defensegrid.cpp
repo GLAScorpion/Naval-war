@@ -64,11 +64,11 @@
         std::vector<game_elements::boat*> in_range_boats;
         boat* temp=nullptr;
         int i=coord.get_y()-radius;
-        int j=coord.get_x()-radius;
         if(i<0) i=0;
-        if(j<0) j=0;
-
+        
         for(;  i<=coord.get_y()+radius && i<ROWS; i++){
+            int j=coord.get_x()-radius;
+            if(j<0) j=0;
             for(; j<=coord.get_x()+radius && j<COLUMNS; j++){
                 temp= get_boat(coordinates(i,j));
                 if(temp && find(in_range_boats.begin(), in_range_boats.end(), temp)==in_range_boats.end()){

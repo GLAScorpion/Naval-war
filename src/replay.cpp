@@ -5,7 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <unistd.h>
+#include <thread>
+#include <chrono>
 #include <time.h>
 #include "../include/player.h"
 #include "../include/grids.h"
@@ -22,7 +23,7 @@ constexpr int CMD_MAX_SIZE = 7;
 constexpr int CORAZZATA_NUM = 3;
 constexpr int SUPPORTO_NUM = 3;
 constexpr int ESPLORAZIONE_NUM = 2;
-constexpr unsigned long long SLEEP = 1000000L;
+constexpr int SLEEP = 1;
 const string flag_val {"GAME_PHASE"};
 const string starting_player_flag {"STARTING_PLAYER:"};
 const string file_ext {".txt"};
@@ -81,7 +82,7 @@ int main(int argc, char* argv[]){
         cout << players[0]->print_grid()<<endl;  
         cout << "PLAYER: " << players[1]->get_id()+1<<endl<<endl;
         cout << players[1]->print_grid()<<endl<<endl;
-        usleep(SLEEP);
+        std::this_thread::sleep_for(std::chrono::seconds(SLEEP));
     }
     string flag;
     log >> flag;
@@ -116,7 +117,7 @@ int main(int argc, char* argv[]){
             cout << "DEFENSEGRID\n\n"<<players[i%2]->print_grid()<<endl;
             players[i%2]->switch_grid();
             cout << "ATTACKGRID\n\n"<<players[i%2]->print_grid()<<endl;
-            usleep(SLEEP);
+            std::this_thread::sleep_for(std::chrono::seconds(SLEEP));
         }
         players[i%2]->switch_grid();
     } 

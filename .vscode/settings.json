@@ -1,4 +1,5 @@
 {
+    "C_Cpp.default.cppStandard": "c++11",
     "files.associations": {
         "array": "cpp",
         "atomic": "cpp",
@@ -45,6 +46,10 @@
         "typeinfo": "cpp",
         "cstdarg": "cpp",
         "fstream": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "chrono": "cpp",
+        "ctime": "cpp",
+        "ratio": "cpp",
+        "thread": "cpp"
     }
 }

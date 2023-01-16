@@ -70,7 +70,7 @@
             int j=coord.get_x()-radius;
             if(j<0) j=0;
             for(; j<=coord.get_x()+radius && j<COLUMNS; j++){
-                temp= get_boat(coordinates(i,j));
+                temp= get_boat(coordinates(j,i));
                 if(temp && find(in_range_boats.begin(), in_range_boats.end(), temp)==in_range_boats.end()){
                     in_range_boats.push_back(temp);
                 }

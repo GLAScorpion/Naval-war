@@ -1,5 +1,5 @@
 /*
-@author: PIERPAOLO COLELLA
+@author: ALBERTO PASINATO
 
 SHORT DEFINITION:
     Abstract class that defines all the operation possible for a general player (robot or person)  

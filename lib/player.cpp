@@ -1,5 +1,5 @@
 /*
-@author: PIERPAOLO COLELLA
+@author: ALBERTO PASINATO
 */
 
 #include "../include/player.h"

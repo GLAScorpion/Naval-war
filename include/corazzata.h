@@ -28,7 +28,7 @@ namespace game_elements{
                 corazzata() = delete;
 
                 //calls the base class constructor with coordinates vector
-                corazzata(const coordinates& begin, const coordinates& end) : boat(begin,end){  if(dimension_ != get_dimension()) throw std::logic_error("Size mismatch");}
+                corazzata(const coordinates& begin, const coordinates& end) : boat(begin,end){if(dimension_ != get_dimension()) throw std::logic_error("Size mismatch");}
             
             //MEMBER FUNCTIONS
                     
@@ -36,7 +36,7 @@ namespace game_elements{
                 bool action(defense_grid* dg, attack_grid* ag, const coordinates& coord) override;
 
                 //returns the symbol of corazzata boat
-                char get_symbol() override {  return CORAZZATA_SYM;}
+                char get_symbol() const override {  return CORAZZATA_SYM;}
 
                 //returns the size of corazzata boat
                 int get_dimension() const override {return CORAZZATA_SIZE;}

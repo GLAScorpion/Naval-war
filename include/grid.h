@@ -34,8 +34,8 @@ namespace game_elements{
                 virtual std::vector<boat*> boats_in_radius(const coordinates& c, int radius) = 0;
 
                 //returns boat pointer to allow operations on the boat 
-                virtual boat* get_boat(const coordinates& c) const = 0;
-                virtual std::vector<boat*> get_boats() const = 0;
+                virtual boat* get_boat(const coordinates& c) = 0;
+                virtual std::vector<boat*> get_boats() = 0;
 
                 //deletes boat
                 virtual void del_boat(boat* b) = 0;

@@ -80,7 +80,7 @@
         return in_range_boats;        
     } 
 
-    game_elements::boat* game_elements::defense_grid::get_boat(const coordinates& coord) const{
+    game_elements::boat* game_elements::defense_grid::get_boat(const coordinates& coord){
         for(int i = 0; i < boats_.size(); i++){
             if(boats_[i]->valid_coordinates(coord)){
                 return boats_[i];
@@ -97,34 +97,34 @@
     }
 
     const std::string game_elements::defense_grid::write() const {
-        std::string os;
-        os += "   +---+---+---+---+---+---+---+---+---+---+---+---+\n";
+        std::string str;
+        str += "   +---+---+---+---+---+---+---+---+---+---+---+---+\n";
         for(int i = 0; i < ROWS; i++){
-            os += ' ';
-            os += coord_to_char(i) ;
-            os+= " ";
+            str += ' ';
+            str += coord_to_char(i) ;
+            str += " ";
             for(int j = 0; j < COLUMNS; j++){
-                os += "| ";
-                os += map_[i][j];
-                os += " ";
+                str += "| ";
+                str += map_[i][j];
+                str += " ";
             }
-            os += "|\n";
-            os += "---+---+---+---+---+---+---+---+---+---+---+---+---+\n";
+            str += "|\n";
+            str += "---+---+---+---+---+---+---+---+---+---+---+---+---+\n";
         }
-        os += "   |";
+        str += "   |";
         for(int j = 0; j < COLUMNS; j++){
-            os += ' ';
+            str += ' ';
             if((j+1)/10 != 1) {
-                os += '0' + (j + 1)%10;
-                os += " ";
+                str += '0' + (j + 1)%10;
+                str += " ";
             }else{
-                os += '1';
-                os += '0' + (j + 1)%10;
+                str += '1';
+                str += '0' + (j + 1)%10;
                 }
-            os += "|";
+            str += "|";
         }
-        os+="\n";
-        return os;
+        str +="\n";
+        return str;
     }
 
     void game_elements::defense_grid::set_cell(const coordinates& coord, char boat_symbol){
@@ -141,7 +141,7 @@
         return map_[coord.get_y()][coord.get_x()];
     }
 
-    bool game_elements::defense_grid::check_move(boat* b, const coordinates& begin){
+    bool game_elements::defense_grid::check_move(boat* b, const coordinates& begin) const{
         int size = b->get_dimension();
         int tmp_x = begin.get_x();
         int tmp_y = begin.get_y();
@@ -160,7 +160,7 @@
         return true;
     }
 
-    std::vector<game_elements::boat*> game_elements::defense_grid::get_boats() const{
+    std::vector<game_elements::boat*> game_elements::defense_grid::get_boats(){
         return boats_;
     }
 

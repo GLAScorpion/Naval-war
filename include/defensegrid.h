@@ -34,7 +34,7 @@ namespace game_elements{
 
             //MEMBER FUNCTIONS
 
-                //allows boat operations in the grid, throws exception if it is not possible 
+                //moves boat to begin coordinate, returns false if it is not possible 
                 bool move(boat* b, const coordinates& begin);
 
                 //adds boat to boats_
@@ -44,7 +44,7 @@ namespace game_elements{
                 std::vector<boat*> boats_in_radius(const coordinates& c, int radius)  override;
 
                 //returns boat pointer to allow operations on the boat 
-                boat* get_boat(const coordinates& c) const override;
+                boat* get_boat(const coordinates& c) override;
 
                 //checks if coordinates match the dimension of the grid
                 bool check_coordinates(const coordinates& c) const;
@@ -59,10 +59,10 @@ namespace game_elements{
                 char get_cell(const coordinates& coord);
 
                 //returns true if the move is possible
-                bool check_move(boat* b, const coordinates& begin);
+                bool check_move(boat* b, const coordinates& begin) const;
 
                 //returns all boats
-                std::vector<boat*> get_boats() const override;
+                std::vector<boat*> get_boats() override;
 
                 //deletes boat
                 void del_boat(boat* b) override;

@@ -11,14 +11,13 @@
 
 //MEMBER FUNCTIONS
 
-    std::string game_elements::robot::command_picker(){
+    std::string game_elements::robot::command_picker() const{
         std::string res;
         std::random_device rand;
         std::uniform_int_distribution<int> coord_dist(0,COLUMNS-1);
         std::vector<boat*> tmp_boat = dg->get_boats();   
         std::uniform_int_distribution<int> boat_dist(0,tmp_boat.size()-1);
         coordinates tmp_coord = tmp_boat[boat_dist(rand)]->get_centre();
-        //std::cout<<tmp_coord.get_y()<<" "<<tmp_coord.get_x()<<std::endl;
         res+= coord_to_char(tmp_coord.get_y()); 
         res+= coord_to_str(tmp_coord.get_x()); 
         res+= ' ' ; 
@@ -27,12 +26,12 @@
         return res;
     }
 
-    bool game_elements::robot::boat_choice(const coordinates& coord){
+    bool game_elements::robot::boat_choice(const coordinates& coord) const{
         if(dg->get_boat(coord)->get_corazza() == 0) return false;
         return true;
     }
 
-    std::string game_elements::robot::coord_picker(){
+    std::string game_elements::robot::coord_picker() const{
         std::string res;
         std::random_device rand;
         std::uniform_int_distribution<int> coord_dist(0,COLUMNS-1);

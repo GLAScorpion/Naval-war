@@ -29,7 +29,7 @@ namespace game_elements{
                 esplorazione() = delete;
 
                 //callS the base class constructor with coordinates vector
-                esplorazione(const coordinates& begin, const coordinates& end) : boat(begin,end){   if(dimension_ != get_dimension()) throw std::logic_error("Size mismatch");}
+                esplorazione(const coordinates& begin, const coordinates& end) : boat(begin,end){if(dimension_ != get_dimension()) throw std::logic_error("Size mismatch");}
 
             //MEMBER FUNCTIONS
 
@@ -37,7 +37,7 @@ namespace game_elements{
                 bool action(defense_grid* dg, attack_grid* ag, const coordinates& coord) override;
 
                 //returns the symbol of esplorazione boat
-                char get_symbol() override {  return ESPLORAZIONE_SYM;}
+                char get_symbol() const override {  return ESPLORAZIONE_SYM;}
                 
                 //returns the size of esplorazione boat
                 int get_dimension() const override {return ESPLORAZIONE_SIZE;}

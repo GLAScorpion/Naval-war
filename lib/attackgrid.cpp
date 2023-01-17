@@ -3,24 +3,16 @@
 */
 
 #include "../include/attackgrid.h"
-#include "../include/defensegrid.h"
 #include "../include/boat.h"
-#include "../include/corazzata.h"
-#include "../include/supporto.h"
-#include "../include/esplorazione.h"
-#include "../include/utilities.h"
-#include <algorithm>
-#include <vector>
-#include <iostream>
 
 //CONSTRUCTORS
 
     game_elements::attack_grid::attack_grid(defense_grid* dg){
         if(dg) {
             others_grid_ = dg;
-            for(int i = 0; i < ROWS; i++){
-                for(int j = 0; j < COLUMNS; j++){
-                    map_[i][j] = VOID;
+            for(int i = 0; i < kRows; i++){
+                for(int j = 0; j < kColumns; j++){
+                    map_[i][j] = kVoid;
                 }
             }
         }else{
@@ -37,20 +29,20 @@
         int i=coord.get_y()-radius;
         if(i<0) i=0;
 
-        for(; i<=coord.get_y()+radius && i<ROWS; i++){
+        for(; i<=coord.get_y()+radius && i<kRows; i++){
             int j=coord.get_x()-radius;
             if(j<0) j=0;
-            for(; j<=coord.get_x()+radius && j<COLUMNS; j++){
+            for(; j<=coord.get_x()+radius && j<kColumns; j++){
                 coord_temp = coordinates(j,i);
                 temp= get_boat(coord_temp);
                 if(temp){
                     if(temp->is_broken(coord_temp)){
-                        map_[i][j]=HIT;
+                        map_[i][j]=kHit;
                     }else{
-                        map_[i][j]=SONAR;
+                        map_[i][j]=kSonar;
                     }
                 }else{
-                    map_[i][j]=ABSENT;
+                    map_[i][j]=kAbsent;
                 }
             }
         }
@@ -76,7 +68,7 @@
     }
     
     bool game_elements::attack_grid::check_coordinates(const coordinates& coord) const{
-        if(coord.get_x() >= COLUMNS || coord.get_x() < 0 || coord.get_y() >= ROWS || coord.get_y() < 0){
+        if(coord.get_x() >= kColumns || coord.get_x() < 0 || coord.get_y() >= kRows || coord.get_y() < 0){
             return false;
         }
         return true;
@@ -85,11 +77,11 @@
     const std::string game_elements::attack_grid::write() const {
         std::string str;
         str += "   +---+---+---+---+---+---+---+---+---+---+---+---+\n";
-        for(int i = 0; i < ROWS; i++){
+        for(int i = 0; i < kRows; i++){
             str += ' ';
             str += coord_to_char(i) ;
             str += " ";
-            for(int j = 0; j < COLUMNS; j++){
+            for(int j = 0; j < kColumns; j++){
                 str += "| ";
                 str += map_[i][j];
                 str += " ";
@@ -98,7 +90,7 @@
             str += "---+---+---+---+---+---+---+---+---+---+---+---+---+\n";
         }
         str += "   |";
-        for(int j = 0; j < COLUMNS; j++){
+        for(int j = 0; j < kColumns; j++){
             str += ' ';
             if((j+1)/10 != 1) {
                 str += '0' + (j + 1)%10;
@@ -118,9 +110,9 @@
     }
 
     void game_elements::attack_grid::clear_symbol(char symbol){
-        for(int i = 0; i < ROWS; i++){
-            for(int j = 0; j < COLUMNS; j++){
-                if(map_[i][j] == symbol) map_[i][j] = VOID;
+        for(int i = 0; i < kRows; i++){
+            for(int j = 0; j < kColumns; j++){
+                if(map_[i][j] == symbol) map_[i][j] = kVoid;
             }
         }
     }

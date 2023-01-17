@@ -8,14 +8,11 @@ SHORT DEFINITION:
 #ifndef BOAT_H
 #define BOAT_H
 
-#include <iostream>
-
 #include "../include/utilities.h"
+#include "../include/defensegrid.h"
+#include "../include/attackgrid.h"
 
 namespace game_elements{
-
-    class defense_grid;
-    class attack_grid;
 
     class boat{
         public:

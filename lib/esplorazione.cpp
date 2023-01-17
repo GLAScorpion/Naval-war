@@ -3,8 +3,6 @@
 */
 
 #include "../include/esplorazione.h"
-#include "../include/attackgrid.h"
-#include "../include/defensegrid.h"
 
 //MEMBER FUNCTIONS
 
@@ -12,7 +10,7 @@
         
         if(!dg->move(this, coord)) return false;
         
-        std::vector<boat*> boats = ag->boats_in_radius(coord, ESPLORAZIONE_RADIUS); 
+        std::vector<boat*> boats = ag->boats_in_radius(coord, kEsplorazioneRadius); 
         
         return true;
     }

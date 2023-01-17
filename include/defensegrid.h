@@ -9,19 +9,12 @@ SHORT DEFINITION:
 #ifndef DEFENSEGRID_H
 #define DEFENSEGRID_H
 
-#include <iostream>
-
 #include "../include/grid.h"
+#include "../include/utilities.h"
 
 namespace game_elements{
 
-    constexpr char CORAZZATA = 'C';
-    constexpr char SUPPORTO = 'S';
-    constexpr char ESPLORAZIONE = 'E';
-
     class boat;
-    class coordinates;
-
     class defense_grid : public grid{
         public:
             //CONSTRUCTORS
@@ -75,7 +68,7 @@ namespace game_elements{
         private:
             //DATA MEMBERS
 
-                char map_[ROWS][COLUMNS]; 
+                char map_[kRows][kColumns]; 
                 std::vector<boat*> boats_; 
     };
 

@@ -8,7 +8,6 @@ SHORT DEFINITION:
 #if !defined(boats_h)
 #define boats_h
 
-#include "../include/boat.h"
 #include "../include/corazzata.h"
 #include "../include/supporto.h"
 #include "../include/esplorazione.h"

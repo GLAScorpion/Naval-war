@@ -3,8 +3,6 @@
 */
 
 #include "../include/supporto.h"
-#include "../include/defensegrid.h"
-#include "../include/attackgrid.h"
 
 //MEMBER FUNCTIONS
 
@@ -17,7 +15,7 @@
         }
         if(!dg->move(this, new_move)) return false;
 
-        std::vector<boat*> boats = dg->boats_in_radius(coord,SUPPORTO_RADIUS);
+        std::vector<boat*> boats = dg->boats_in_radius(coord,kSupportoRadius);
         coordinates temp;
         //checks every cell in range and heals every boat in it, except itself
         for(int i = 0; i < boats.size(); i++){

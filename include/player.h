@@ -8,18 +8,15 @@ SHORT DEFINITION:
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <iostream>
 #include "../include/defensegrid.h"
+#include "../include/attackgrid.h"
 
 namespace game_elements{
 
-    const std::string CMD_CLEAR_SONAR {"AA AA"};
-    const std::string CMD_CLEAR_HIT {"BB BB"};
-    const std::string CMD_CLEAR_MISS {"CC CC"};
-    const std::string CMD_GRID {"XX XX"};
-
-    class attack_grid;
-
+    const std::string kCmdClearSonar {"AA AA"};
+    const std::string kCmdClearHit {"BB BB"};
+    const std::string kCmdClearMiss {"CC CC"};
+    const std::string kCmdGrid {"XX XX"};
     class player{
         public:
 
@@ -58,10 +55,10 @@ namespace game_elements{
                 virtual bool exec_special(const std::string& cmd) = 0;
 
                 //changes the grid to print
-                void switch_grid() {  print_dg_ = !print_dg_;}
+                void switch_grid() {  print_grid_ = !print_grid_;}
                 
                 //true if set to print defensegrid
-                bool which_grid() const {  return print_dg_;}
+                bool which_grid() const {  return print_grid_;}
                 
                 //returns id_
                 int get_id() const {  return id_;}
@@ -71,6 +68,9 @@ namespace game_elements{
                 
                 //place a boat on the grid if possible
                 bool place_boat(boat* b);
+
+                //activates or deactivates attackgrid print
+                void switch_print_attackgrid() {print_attackgrid_ = !print_attackgrid_;}
                 
                 //prints the active grid
                 const std::string print_grid() const;
@@ -86,7 +86,8 @@ namespace game_elements{
                 attack_grid* ag = nullptr;
                 defense_grid* dg;
                 int id_;
-                bool print_dg_ = true;
+                bool print_grid_ = true;
+                bool print_attackgrid_ = false;
     };
 
 }

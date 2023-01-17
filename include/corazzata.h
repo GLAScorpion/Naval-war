@@ -6,19 +6,15 @@ SHORT DEFINITION:
     receiving (attack, being attacked,...etc)
 */
 
-#ifndef CORAZZATA_H
-#define CORAZZATA_H
-
-#include <iostream>
+#ifndef kCorazzata_H
+#define kCorazzata_H
 
 #include "../include/boat.h"
 
 namespace game_elements{
 
-    constexpr int CORAZZATA_SIZE = 5;
-    constexpr char CORAZZATA_SYM = 'C';
-
-    class attack_grid;
+    constexpr int kCorazzataSize = 5;
+    constexpr char kCorazzataSymbol = 'C';
 
     class corazzata : public boat{
         public:
@@ -36,10 +32,10 @@ namespace game_elements{
                 bool action(defense_grid* dg, attack_grid* ag, const coordinates& coord) override;
 
                 //returns the symbol of corazzata boat
-                char get_symbol() const override {  return CORAZZATA_SYM;}
+                char get_symbol() const override {  return kCorazzataSymbol;}
 
                 //returns the size of corazzata boat
-                int get_dimension() const override {return CORAZZATA_SIZE;}
+                int get_dimension() const override {return kCorazzataSize;}
     };
 }
 

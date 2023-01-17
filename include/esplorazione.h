@@ -9,17 +9,14 @@ SHORT DEFINITION:
 #ifndef SOTTOMARINO_H
 #define SOTTOMARINO_H
 
-#include <iostream>
-
 #include "../include/boat.h"
+#include "../include/attackgrid.h"
 
 namespace game_elements{
 
-    constexpr int ESPLORAZIONE_SIZE = 1;
-    constexpr int ESPLORAZIONE_RADIUS =2;
-    constexpr char ESPLORAZIONE_SYM = 'E';
-
-    class attack_grid;
+    constexpr int kEsplorazioneSize = 1;
+    constexpr int kEsplorazioneRadius =2;
+    constexpr char kEsplorazioneSymbol = 'E';
 
     class esplorazione : public boat{
         public:
@@ -37,10 +34,10 @@ namespace game_elements{
                 bool action(defense_grid* dg, attack_grid* ag, const coordinates& coord) override;
 
                 //returns the symbol of esplorazione boat
-                char get_symbol() const override {  return ESPLORAZIONE_SYM;}
+                char get_symbol() const override {  return kEsplorazioneSymbol;}
                 
                 //returns the size of esplorazione boat
-                int get_dimension() const override {return ESPLORAZIONE_SIZE;}
+                int get_dimension() const override {return kEsplorazioneSize;}
     };
 }
 

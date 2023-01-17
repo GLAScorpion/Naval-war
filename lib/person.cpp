@@ -2,11 +2,8 @@
 @author: PIERPAOLO COLELLA
 */
 
-#include "../include/player.h"
-#include "../include/grids.h"
 #include "../include/person.h"
 #include "../include/boats.h"
-#include "../include/utilities.h"
 
 //MEMBER FUNCTIONS
 
@@ -18,7 +15,7 @@
             std::cin>>second_half;
             cmd += ' ';
             cmd += second_half;
-            if(cmd == CMD_CLEAR_HIT or cmd == CMD_CLEAR_MISS or cmd == CMD_CLEAR_SONAR or cmd == CMD_GRID){
+            if(cmd == kCmdClearHit or cmd == kCmdClearMiss or cmd == kCmdClearSonar or cmd == kCmdGrid){
                 return cmd;
             }
             if(str_to_coord(cmd)[1].get_x() != -1) return cmd;
@@ -47,19 +44,19 @@
     }
 
     bool game_elements::person::exec_special(const std::string& cmd){
-        if(cmd == CMD_CLEAR_HIT){
-            ag->clear_symbol(HIT);
+        if(cmd == kCmdClearHit){
+            ag->clear_symbol(kHit);
             return true;
         }
-        if(cmd == CMD_CLEAR_MISS){
-            ag->clear_symbol(ABSENT);
+        if(cmd == kCmdClearMiss){
+            ag->clear_symbol(kAbsent);
             return true;
         }
-        if(cmd == CMD_CLEAR_SONAR){
-            ag->clear_symbol(SONAR);
+        if(cmd == kCmdClearSonar){
+            ag->clear_symbol(kSonar);
             return true;
         }
-        if(cmd == CMD_GRID){
+        if(cmd == kCmdGrid){
             switch_grid();
             return true;
         }

@@ -4,21 +4,14 @@
 
 #include "../include/defensegrid.h"
 #include "../include/boat.h"
-#include "../include/corazzata.h"
-#include "../include/supporto.h"
-#include "../include/esplorazione.h"
-#include "../include/utilities.h"
 #include <algorithm>
-#include <vector>
-#include <iostream>
-
 
 //CONSTRUCTORS
 
     game_elements::defense_grid::defense_grid(){
-        for(int i = 0; i < ROWS; i++){
-            for(int j = 0; j < COLUMNS; j++){
-                map_[i][j] = VOID;
+        for(int i = 0; i < kRows; i++){
+            for(int j = 0; j < kColumns; j++){
+                map_[i][j] = kVoid;
             }
         }
 
@@ -42,7 +35,7 @@
         std::vector<bool> tracker=b->get_tracker();
 
         for(int i = 0; i < size; i++){
-            map_[tmp_y][tmp_x] = VOID;
+            map_[tmp_y][tmp_x] = kVoid;
             if(tracker[i]){
                 map_[tmp_y + y_offset][tmp_x + x_offset] = b->get_symbol();
             }else{
@@ -66,10 +59,10 @@
         int i=coord.get_y()-radius;
         if(i<0) i=0;
         
-        for(;  i<=coord.get_y()+radius && i<ROWS; i++){
+        for(;  i<=coord.get_y()+radius && i<kRows; i++){
             int j=coord.get_x()-radius;
             if(j<0) j=0;
-            for(; j<=coord.get_x()+radius && j<COLUMNS; j++){
+            for(; j<=coord.get_x()+radius && j<kColumns; j++){
                 temp= get_boat(coordinates(j,i));
                 if(temp && find(in_range_boats.begin(), in_range_boats.end(), temp)==in_range_boats.end()){
                     in_range_boats.push_back(temp);
@@ -90,7 +83,7 @@
     }
 
     bool game_elements::defense_grid::check_coordinates(const coordinates& coord) const{
-        if(coord.get_x() >= COLUMNS || coord.get_x() < 0 || coord.get_y() >= ROWS || coord.get_y() < 0){
+        if(coord.get_x() >= kColumns || coord.get_x() < 0 || coord.get_y() >= kRows || coord.get_y() < 0){
             return false;
         }
         return true;
@@ -99,11 +92,11 @@
     const std::string game_elements::defense_grid::write() const {
         std::string str;
         str += "   +---+---+---+---+---+---+---+---+---+---+---+---+\n";
-        for(int i = 0; i < ROWS; i++){
+        for(int i = 0; i < kRows; i++){
             str += ' ';
             str += coord_to_char(i) ;
             str += " ";
-            for(int j = 0; j < COLUMNS; j++){
+            for(int j = 0; j < kColumns; j++){
                 str += "| ";
                 str += map_[i][j];
                 str += " ";
@@ -112,7 +105,7 @@
             str += "---+---+---+---+---+---+---+---+---+---+---+---+---+\n";
         }
         str += "   |";
-        for(int j = 0; j < COLUMNS; j++){
+        for(int j = 0; j < kColumns; j++){
             str += ' ';
             if((j+1)/10 != 1) {
                 str += '0' + (j + 1)%10;
@@ -146,14 +139,14 @@
         int tmp_x = begin.get_x();
         int tmp_y = begin.get_y();
         for(int i = 0; i < size; i++){
-            if(map_[tmp_y][tmp_x] != VOID){
+            if(map_[tmp_y][tmp_x] != kVoid){
                 return false;
             }
             if(b->is_vertical()){
-                if(tmp_y>=ROWS) return false;
+                if(tmp_y>=kRows) return false;
                 tmp_y++;
             }else{
-                if(tmp_x>=COLUMNS) return false;
+                if(tmp_x>=kColumns) return false;
                 tmp_x++;
             }
         }
@@ -169,7 +162,7 @@
         int tmp_x = b->get_begin().get_x();
         int tmp_y = b->get_begin().get_y();
         for(int i = 0; i < size; i++){
-            map_[tmp_y][tmp_x] = VOID;
+            map_[tmp_y][tmp_x] = kVoid;
             if(b->is_vertical()){
                 tmp_y++;
             }else{

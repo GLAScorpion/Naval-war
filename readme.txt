@@ -4,6 +4,8 @@ Features:
     3: La compilazione può essere fatta attraverso lo script cmake_and_compile.sh e si trovano i binaries nella cartella build
     4: Per la compilazione manuale cmake è configurabile con cmake -S . -B <path-to-bin>
     5: I comandi aggiuntivi rispetto alla consegna sono "BB BB" e "CC CC" e funzionano come indicato nelle FAQ
+    6: Le griglie non sono inizialmente stampate nella game phase. 
+    7: La stampa delle griglie può essere attivata e disattivata col comando "XX XX"
 Bug:
     1: Lo stream di input viene "inquinato" alla digitazione di caratteri speciali italiani (e.g. è) e anche
        cancellandoli sporcano l'acquisizione dell'input che porta a comandi non validi anche se corretti.

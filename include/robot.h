@@ -8,13 +8,11 @@ SHORT DEFINITION:
 #ifndef ROBOT_H
 #define ROBOT_H
 
-#include <iostream>
-
 #include "../include/player.h" 
 
 namespace game_elements{
 
-    constexpr char ROBOT_CHAR = 'C';
+    constexpr char kRobotChar = 'C';
 
     class robot : public player{
         public:
@@ -41,7 +39,7 @@ namespace game_elements{
                 void print(const std::string& str) const override {  return;}
                 
                 //returns char identifier
-                char char_id() const override {  return ROBOT_CHAR;}
+                char char_id() const override {  return kRobotChar;}
                 
                 //returns false, robot can't execute special
                 bool exec_special(const std::string& cmd) override {  return false;}

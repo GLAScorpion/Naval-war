@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD)
 project(naval_war)
 
 set(src_files lib/attackgrid.cpp lib/boat.cpp lib/corazzata.cpp lib/defensegrid.cpp lib/esplorazione.cpp lib/person.cpp lib/player.cpp lib/robot.cpp lib/supporto.cpp lib/utilities.cpp)
-set(header_files include/attackgrid.h  include/boat.h include/boats.h include/corazzata.h include/defensegrid.h include/esplorazione.h include/grid.h include/grids.h include/person.h include/player.h include/robot.h include/supporto.h include/utilities.h)
+set(header_files include/attackgrid.h  include/boat.h include/boats.h include/corazzata.h include/defensegrid.h include/esplorazione.h include/grid.h include/person.h include/player.h include/robot.h include/supporto.h include/utilities.h)
 set(GCC_FLAGS "-g -O2")
 
 add_definitions(${GCC_FLAGS})

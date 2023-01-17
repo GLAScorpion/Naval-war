@@ -10,20 +10,16 @@ SHORT DEFINITION:
 #ifndef ATTACKGRID_H
 #define ATTACKGRID_H
 
-#include <iostream>
-
-#include "../include/grid.h" 
 #include "../include/defensegrid.h"
+#include "../include/utilities.h"
 
 namespace game_elements{
 
-    constexpr char HIT = 'X';
-    constexpr char ABSENT = 'O';
-    constexpr char SONAR = 'Y';
+    constexpr char kHit = 'X';
+    constexpr char kAbsent = 'O';
+    constexpr char kSonar = 'Y';
 
-    class coordinates;
     class boat;
-
     class attack_grid : public grid{
         public:
             //CONSTRUCTORS
@@ -78,7 +74,7 @@ namespace game_elements{
             //DATA MEMBERS
 
                 game_elements::defense_grid* others_grid_ = nullptr;
-                char map_[ROWS][COLUMNS]; 
+                char map_[kRows][kColumns]; 
     };
 
     //OPERATORS

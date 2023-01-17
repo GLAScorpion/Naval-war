@@ -9,8 +9,8 @@ SHORT DEFINITION:
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
-#include <iostream>
 #include <vector>
+#include <iostream>
 
 namespace game_elements{
 

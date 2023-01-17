@@ -10,15 +10,13 @@ SHORT DEFINITION:
 #ifndef SUPPORTO_H
 #define SUPPORTO_H
 
-#include <iostream>
-
 #include "../include/boat.h"
 
 namespace game_elements{    
     
-    constexpr int SUPPORTO_SIZE = 3;
-    constexpr int SUPPORTO_RADIUS = 1;
-    constexpr char SUPPORTO_SYM = 'S';
+    constexpr int kSupportoSize = 3;
+    constexpr int kSupportoRadius = 1;
+    constexpr char kSupportoSymbol = 'S';
 
     class defense_grid;
 
@@ -38,10 +36,10 @@ namespace game_elements{
                 bool action(defense_grid* dg, attack_grid* ag, const coordinates& coord) override;
 
                 //returns the symbol of supporto boat
-                char get_symbol() const override {  return SUPPORTO_SYM;}
+                char get_symbol() const override {  return kSupportoSymbol;}
 
                 //returns the size of supporto boat
-                int get_dimension() const override {return SUPPORTO_SIZE;}
+                int get_dimension() const override {return kSupportoSize;}
     };
 
 }

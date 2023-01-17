@@ -9,13 +9,11 @@ SHORT DEFINITION:
 #ifndef PERSON_H
 #define PERSON_H
 
-#include <iostream>
-
 #include "../include/player.h"
 
 namespace game_elements{
 
-    constexpr char PERSON_CHAR = 'P';
+    constexpr char kPersonChar = 'P';
 
     class person : public player{
         public:
@@ -42,7 +40,7 @@ namespace game_elements{
                 void print(const std::string& str) const override {  std::cout<<str<<std::endl;}
                 
                 //returns char identifier
-                char char_id() const override {return PERSON_CHAR;}
+                char char_id() const override {return kPersonChar;}
                 
                 //returns coords in valid format
                 std::string coord_picker() const override;

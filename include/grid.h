@@ -7,20 +7,16 @@ SHORT DEFINITION:
 #ifndef GRID_H
 #define GRID_H
 
-#include <iostream>
-#include <vector>
+#include "../include/utilities.h"
 
 namespace game_elements{
     
-    constexpr int COLUMNS = 12;
-    constexpr int ROWS = 12; 
-    constexpr int BOAT_NUMBER = 8;
-    constexpr int COORD_NUMBER = 16;
-    constexpr char VOID = ' ';
+    constexpr int kColumns = 12;
+    constexpr int kRows = 12; 
+    constexpr int kBoatNumber = 8;
+    constexpr char kVoid = ' ';
 
-    class coordinates;
     class boat;
-
     class grid{
         public:
             //PUBLIC CONSTRUCTORS

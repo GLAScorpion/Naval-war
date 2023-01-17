@@ -7,14 +7,9 @@
         to this program). 
 */
 
-#include <iostream>
 #include <fstream>
-#include <vector>
 #include <thread>
 #include <chrono>
-#include "../include/player.h"
-#include "../include/grids.h"
-#include "../include/robot.h"
 #include "../include/boats.h"
 #include "../include/person.h"
 
@@ -27,9 +22,9 @@ using game_elements::player;
 using game_elements::coordinates;
 
 constexpr int CMD_MAX_SIZE = 7;
-constexpr int CORAZZATA_NUM = 3;
-constexpr int SUPPORTO_NUM = 3;
-constexpr int ESPLORAZIONE_NUM = 2;
+constexpr int kCorazzataNum = 3;
+constexpr int kSupportoNum = 3;
+constexpr int kEsplorazioneNum = 2;
 constexpr int SLEEP = 1;
 
 const string flag_val {"GAME_PHASE"};
@@ -50,7 +45,7 @@ int main(int argc, char* argv[]){
     std::fstream log {string(argv[2]), std::fstream::in};
     std::fstream file_out;
 
-    //read the modality (possible: "v", "f") 
+    //reads the mode (possible: "v", "f") 
     if(mode == "v" and argc == 3){
         //do nothing
     }else if(mode == "f" and argc == 4){
@@ -67,7 +62,7 @@ int main(int argc, char* argv[]){
     players[0]->link(players[1]);
 
     //setting the boats
-    for(int i=0; i < game_elements::BOAT_NUMBER * 2; i++){
+    for(int i=0; i < game_elements::kBoatNumber * 2; i++){
         vector<coordinates> tmp;
         game_elements::boat* tmp_boat;
         string tmp_cmd;
@@ -84,15 +79,15 @@ int main(int argc, char* argv[]){
         if(tmp[1].get_x() == -1) throw std::invalid_argument("Invalid log format");
 
         //creating instances of boats
-        if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM){
+        if(i%game_elements::kBoatNumber < kCorazzataNum){
             tmp_boat = new game_elements::corazzata(tmp[0],tmp[1]); 
-        }else if(i%game_elements::BOAT_NUMBER < CORAZZATA_NUM + SUPPORTO_NUM){
+        }else if(i%game_elements::kBoatNumber < kCorazzataNum + kSupportoNum){
             tmp_boat = new game_elements::supporto(tmp[0],tmp[1]);
         }else{
             tmp_boat = new game_elements::esplorazione(tmp[0],tmp[1]);
         }
 
-        players[i/game_elements::BOAT_NUMBER]->place_boat(tmp_boat);
+        players[i/game_elements::kBoatNumber]->place_boat(tmp_boat);
     }
     
     //print setup phase in active stream
@@ -105,7 +100,9 @@ int main(int argc, char* argv[]){
     }else{
         cout << "SETUP PHASE\n";
         cout << "PLAYER: " << players[0]->get_id()+1<<endl<<endl;
-        cout << players[0]->print_grid()<<endl;  
+        cout << players[0]->print_grid()<<endl;
+        std::this_thread::sleep_for(std::chrono::seconds(SLEEP));  
+        cout << "\033[H\033[2J";
         cout << "PLAYER: " << players[1]->get_id()+1<<endl<<endl;
         cout << players[1]->print_grid()<<endl<<endl;
         std::this_thread::sleep_for(std::chrono::seconds(SLEEP));
@@ -125,7 +122,9 @@ int main(int argc, char* argv[]){
     }else{
         cout << "GAME PHASE\n\n";
     }
-
+    //turns on attack grid
+    players[0]->switch_print_attackgrid();
+    players[1]->switch_print_attackgrid();
     //replaying game phase
     for(; !log.eof();i++){
         string tmp_cmd;
@@ -141,19 +140,15 @@ int main(int argc, char* argv[]){
         if(file_mode){
             file_out << "PLAYER: " << players[i%2]->get_id()+1<<endl; 
             file_out << "COMMAND: " << cmd<<endl;
-            file_out << "DEFENSEGRID\n\n"<<players[i%2]->print_grid()<<endl;
-            players[i%2]->switch_grid();
-            file_out << "ATTACKGRID\n\n"<<players[i%2]->print_grid()<<endl;
+            file_out << players[i%2]->print_grid()<<endl;
         }else{
+            cout << "\033[H\033[2J";
             cout << "PLAYER: " << players[i%2]->get_id()+1<<endl;
             cout << "COMMAND: " << cmd<<endl;
-            cout << "DEFENSEGRID\n\n"<<players[i%2]->print_grid()<<endl;
-            players[i%2]->switch_grid();
-            cout << "ATTACKGRID\n\n"<<players[i%2]->print_grid()<<endl;
+            cout << players[i%2]->print_grid()<<endl;
             std::this_thread::sleep_for(std::chrono::seconds(SLEEP));
         }
 
-        players[i%2]->switch_grid();
     } 
     return 0;
 }
